@@ -16,5 +16,10 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <service
+                android:name="com.tiksem.media.playback.AudioPlayerService"
+                >
+        </service>
     </application>
 </manifest>
