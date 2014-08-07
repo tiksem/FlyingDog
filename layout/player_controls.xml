@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+        <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            <Button
+                    android:id="@+id/prev"
+                    android:layout_gravity="center"
+                    android:background="@drawable/prev"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            <com.utilsframework.android.view.PausedStateToggleButton
+                    android:id="@+id/play"
+                    android:layout_gravity="center"
+                    android:background="@drawable/play_pause_button"
+                    android:textOff=""
+                    android:textOn=""
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+        </FrameLayout>
+
+        <FrameLayout
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+            <Button
+                    android:id="@+id/next"
+                    android:layout_gravity="center"
+                    android:background="@drawable/next"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    />
+        </FrameLayout>
+
+    </LinearLayout>
+    <com.tiksem.media.ui.AudioPlaybackSeekBar
+            android:id="@+id/play_seek_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            />
+</LinearLayout>
