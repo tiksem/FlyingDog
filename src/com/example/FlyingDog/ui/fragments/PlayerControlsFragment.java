@@ -29,6 +29,20 @@ public class PlayerControlsFragment extends Fragment {
         audioPlaybackSeekBar.setPlayerBinder(playerBinder);
         playButton.setPauseable(playerBinder);
 
+        nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerBinder.playNext();
+            }
+        });
+
+        prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playerBinder.playPrev();
+            }
+        });
+
         playBackListener = new AudioPlayerService.PlayBackListener() {
             @Override
             public void onAudioPlayingStarted() {

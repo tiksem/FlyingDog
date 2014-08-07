@@ -25,6 +25,7 @@ public class PlayListActivity extends Activity {
     private ListView listView;
     private AndroidAudioDataBase audioDataBase;
     private AudioPlayerService.PlayerBinder playerBinder;
+    private AudioPlayerService.PlayBackListener playBackListener;
 
     /**
      * Called when the activity is first created.
@@ -49,6 +50,31 @@ public class PlayListActivity extends Activity {
                 adapter.notifyDataSetChanged();
             }
         });
+
+        playBackListener = new AudioPlayerService.PlayBackListener() {
+            @Override
+            public void onAudioPlayingStarted() {
+                int position = playerBinder.getPlayingAudioPosition();
+                listView.setItemChecked(position, true);
+            }
+
+            @Override
+            public void onAudioPlayingComplete() {
+            }
+
+            @Override
+            public void onAudioPlayingPaused() {
+            }
+
+            @Override
+            public void onAudioPlayingResumed() {
+            }
+
+            @Override
+            public void onProgressChanged(int progress) {
+            }
+        };
+        playerBinder.addPlayBackListener(playBackListener);
     }
 
     @Override
@@ -75,5 +101,6 @@ public class PlayListActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        playerBinder.removePlayBackListener(playBackListener);
     }
 }
