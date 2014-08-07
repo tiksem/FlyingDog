@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
@@ -36,6 +37,9 @@ public class MyActivity extends Activity {
         playerBinder.setAudios(audios);
 
         adapter.setElements(audios);
+
+        listView.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+        //listView.setSelector(R.drawable.song_item);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
