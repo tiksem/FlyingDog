@@ -1,20 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
         >
     <ListView
+            android:layout_weight="1"
             android:id="@+id/play_list_view"
             android:choiceMode="singleChoice"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    <com.tiksem.media.ui.AudioPlaybackSeekBar
-            android:id="@+id/play_seek_bar"
-            android:layout_gravity="bottom"
+    <FrameLayout
+            android:id="@+id/player_controls_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            />
-</FrameLayout>
+            >
+        <fragment android:name="com.example.FlyingDog.ui.fragments.PlayerControlsFragment"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content" />
+    </FrameLayout>
+</LinearLayout>
 

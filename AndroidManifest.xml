@@ -7,9 +7,11 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
-    <uses-sdk android:minSdkVersion="19"/>
-    <application android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="MyActivity"
+    <uses-sdk android:minSdkVersion="14"
+              android:targetSdkVersion="19"
+            />
+    <application android:name=".FlyingDog" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
+        <activity android:name=".PlayListActivity"
                   android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

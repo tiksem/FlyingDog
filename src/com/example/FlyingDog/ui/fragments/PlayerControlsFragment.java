@@ -5,6 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.R;
+import com.tiksem.media.playback.AudioPlayerService;
+import com.tiksem.media.ui.AudioPlaybackSeekBar;
+import com.utilsframework.android.view.PausedStateToggleButton;
 
 /**
  * User: Tikhonenko.S
@@ -12,8 +18,72 @@ import android.view.ViewGroup;
  * Time: 15:37
  */
 public class PlayerControlsFragment extends Fragment {
+    private AudioPlaybackSeekBar audioPlaybackSeekBar;
+    private View prevButton;
+    private View nextButton;
+    private PausedStateToggleButton playButton;
+    private AudioPlayerService.PlayerBinder playerBinder;
+    private AudioPlayerService.PlayBackListener playBackListener;
+
+    private void onServiceReady() {
+        audioPlaybackSeekBar.setPlayerBinder(playerBinder);
+        playButton.setPauseable(playerBinder);
+
+        playBackListener = new AudioPlayerService.PlayBackListener() {
+            @Override
+            public void onAudioPlayingStarted() {
+                getView().setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAudioPlayingComplete() {
+                getView().setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAudioPlayingPaused() {
+            }
+
+            @Override
+            public void onAudioPlayingResumed() {
+            }
+
+            @Override
+            public void onProgressChanged(int progress) {
+            }
+        };
+        playerBinder.addPlayBackListener(playBackListener);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        return inflater.inflate(R.layout.player_controls, null);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        audioPlaybackSeekBar = (AudioPlaybackSeekBar) view.findViewById(R.id.play_seek_bar);
+        nextButton = view.findViewById(R.id.next);
+        prevButton = view.findViewById(R.id.prev);
+        playButton = (PausedStateToggleButton) view.findViewById(R.id.play);
+
+        final FlyingDog flyingDog = FlyingDog.getInstance();
+        flyingDog.executeWhenPlayerServiceIsReady(new Runnable() {
+            @Override
+            public void run() {
+                playerBinder = flyingDog.getPlayerBinder();
+                onServiceReady();
+            }
+        });
+
+        view.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        playerBinder.removePlayBackListener(playBackListener);
     }
 }

@@ -21,11 +21,10 @@ import com.utilsframework.android.Services;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyActivity extends Activity {
+public class PlayListActivity extends Activity {
     private ListView listView;
     private AndroidAudioDataBase audioDataBase;
     private AudioPlayerService.PlayerBinder playerBinder;
-    private AudioPlaybackSeekBar audioPlaybackSeekBar;
 
     /**
      * Called when the activity is first created.
@@ -34,11 +33,8 @@ public class MyActivity extends Activity {
     private void onServiceReady() {
         final SongsAdapter adapter = new SongsAdapter(this);
         listView.setAdapter(adapter);
-        DifferentlySortedListWithSelectedItem<Audio> audios =
-                new DifferentlySortedListWithSelectedItem<Audio>(audioDataBase.getSongs());
-        playerBinder.setAudios(audios);
 
-        adapter.setElements(audios);
+        adapter.setElements(playerBinder.getPlayList());
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -53,8 +49,6 @@ public class MyActivity extends Activity {
                 adapter.notifyDataSetChanged();
             }
         });
-
-        audioPlaybackSeekBar.setPlayerBinder(playerBinder);
     }
 
     @Override
@@ -65,17 +59,21 @@ public class MyActivity extends Activity {
         AudioPlayerService.start(this);
 
         listView = (ListView) findViewById(R.id.play_list_view);
-        audioPlaybackSeekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
 
-        ImageLoader.getInstance().init(ImageLoaderConfigFactory.getCommonImageLoaderConfig(this));
-        audioDataBase = new AndroidAudioDataBase(getContentResolver());
+        final FlyingDog flyingDog = FlyingDog.getInstance();
+        audioDataBase = flyingDog.getAudioDataBase();
 
-        AudioPlayerService.bind(this, new Services.OnBind<AudioPlayerService.PlayerBinder>() {
+        flyingDog.executeWhenPlayerServiceIsReady(new Runnable() {
             @Override
-            public void onBind(Services.Connection<AudioPlayerService.PlayerBinder> connection) {
-                playerBinder = connection.getBinder();
+            public void run() {
+                playerBinder = flyingDog.getPlayerBinder();
                 onServiceReady();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
