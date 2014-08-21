@@ -21,21 +21,24 @@ import com.utilsframework.android.Services;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayListActivity extends Activity {
+public class PlayListActivity extends MediaListActivity {
     private ListView listView;
     private AndroidAudioDataBase audioDataBase;
     private AudioPlayerService.PlayerBinder playerBinder;
     private AudioPlayerService.PlayBackListener playBackListener;
+    private SongsAdapter adapter;
 
     /**
      * Called when the activity is first created.
      */
 
     private void onServiceReady() {
-        final SongsAdapter adapter = new SongsAdapter(this);
+        adapter = new SongsAdapter(this);
         listView.setAdapter(adapter);
 
-        adapter.setElements(playerBinder.getPlayList());
+        List<Audio> audios = playerBinder.getPlayList();
+        adapter.setElements(audios);
+        notifyMediaDataChanged(Audio.class, audios);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -102,5 +105,10 @@ public class PlayListActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         playerBinder.removePlayBackListener(playBackListener);
+    }
+
+    @Override
+    protected void onSortingModeChanged() {
+        adapter.notifyDataSetChanged();
     }
 }
