@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.tiksem.media.playback.AudioPlayerService;
@@ -65,7 +64,7 @@ public class PlayerControlsFragment extends Fragment {
             }
 
             @Override
-            public void onProgressChanged(int progress) {
+            public void onProgressChanged(long progress, long max) {
             }
         };
 
