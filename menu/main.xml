@@ -13,6 +13,9 @@
             <item
                     android:id="@+id/sort_adding_date"
                     android:title="Sort by adding date"/>
+            <item
+                    android:id="@+id/sort_artist_name"
+                    android:title="Sort by artist name"/>
         </menu>
     </item>
 </menu>
