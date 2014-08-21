@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
+import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.PausedStateToggleButton;
 
 /**
@@ -66,7 +68,11 @@ public class PlayerControlsFragment extends Fragment {
             public void onProgressChanged(int progress) {
             }
         };
+
         playerBinder.addPlayBackListener(playBackListener);
+        if(playerBinder.isPlaying()){
+            getView().setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -83,16 +89,27 @@ public class PlayerControlsFragment extends Fragment {
         prevButton = view.findViewById(R.id.prev);
         playButton = (PausedStateToggleButton) view.findViewById(R.id.play);
 
+        view.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+
         final FlyingDog flyingDog = FlyingDog.getInstance();
         flyingDog.executeWhenPlayerServiceIsReady(new Runnable() {
             @Override
             public void run() {
                 playerBinder = flyingDog.getPlayerBinder();
-                onServiceReady();
+                GuiUtilities.executeWhenViewCreated(PlayerControlsFragment.this, new GuiUtilities.OnViewCreated() {
+                    @Override
+                    public void onViewCreated(View view) {
+                        onServiceReady();
+                    }
+                });
             }
         });
 
-        view.setVisibility(View.GONE);
     }
 
     @Override
