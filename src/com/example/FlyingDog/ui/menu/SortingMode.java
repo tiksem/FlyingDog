@@ -24,6 +24,8 @@ public final class SortingMode<T> {
     private static MultiMap<Class, SortingMode> sortingModes = new UniqueValuesHashMultiMap<Class, SortingMode>();
     static {
         sortingModes.put(Audio.class, new SortingMode<Audio>(AudioComparators.audioByName(), R.id.sort_by_name));
+        sortingModes.put(Audio.class, new SortingMode<Audio>(AudioComparators.audioByArtistName(),
+                R.id.sort_artist_name));
         sortingModes.put(Audio.class, new SortingMode<Audio>(DifferentlySortedList.DEFAULT_COMPARATOR,
                 R.id.sort_adding_date));
     }
