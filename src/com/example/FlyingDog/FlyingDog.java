@@ -32,6 +32,7 @@ public class FlyingDog extends Application {
 
         ImageLoader.getInstance().init(ImageLoaderConfigFactory.getCommonImageLoaderConfig(this));
 
+        AudioPlayerService.start(this);
         AudioPlayerService.bind(this, new Services.OnBind<AudioPlayerService.PlayerBinder>() {
             @Override
             public void onBind(Services.Connection<AudioPlayerService.PlayerBinder> connection) {

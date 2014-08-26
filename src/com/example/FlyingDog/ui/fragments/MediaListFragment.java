@@ -1,8 +1,9 @@
-package com.example.FlyingDog;
+package com.example.FlyingDog.ui.fragments;
 
-import android.app.Activity;
+import android.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.menu.SortingMenuUtils;
 import com.utils.framework.collections.DifferentlySortable;
 
@@ -11,22 +12,22 @@ import java.util.List;
 
 /**
  * User: Tikhonenko.S
- * Date: 21.08.14
- * Time: 20:16
+ * Date: 26.08.14
+ * Time: 18:28
  */
-public abstract class MediaListActivity extends Activity {
+public abstract class MediaListFragment extends Fragment {
     private Class dataClass = Object.class;
     private List mediaData = Collections.singletonList(null);
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater = getMenuInflater();
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        MenuInflater menuInflater = getActivity().getMenuInflater();
         menuInflater.inflate(R.menu.main, menu);
-        return true;
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
+    public void onPrepareOptionsMenu(Menu menu) {
         DifferentlySortable sortable = null;
         if(mediaData instanceof DifferentlySortable){
             sortable = (DifferentlySortable)mediaData;
@@ -38,13 +39,14 @@ public abstract class MediaListActivity extends Activity {
                 onSortingModeChanged();
             }
         });
-        return super.onPrepareOptionsMenu(menu);
+
+        super.onPrepareOptionsMenu(menu);
     }
 
     protected void notifyMediaDataChanged(Class aClass, List mediaData) {
         dataClass = aClass;
         this.mediaData = mediaData;
-        invalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     protected abstract void onSortingModeChanged();
