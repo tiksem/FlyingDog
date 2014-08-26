@@ -28,10 +28,6 @@ public class PlayListFragment extends MediaListFragment {
     private AudioPlayerService.PlayBackListener playBackListener;
     private SongsAdapter adapter;
 
-    /**
-     * Called when the activity is first created.
-     */
-
     private void onServiceReady() {
         adapter = new SongsAdapter(getActivity());
         listView.setAdapter(adapter);
