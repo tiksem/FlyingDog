@@ -1,6 +1,9 @@
 [submodule "dependencies/android-utils"]
 	path = dependencies/android-utils
-	url = git@gitlab.kharkov.dbbest.com:android/android-utils.git
+	url = https://badmenltd@code.google.com/p/shlak-android/
 [submodule "dependencies/general-utils"]
 	path = dependencies/general-utils
-	url = git@gitlab.kharkov.dbbest.com:android/general-utils.git
+	url = https://badmenltd@code.google.com/p/shlak-android/
+[submodule "dependencies/media-utils"]
+	path = dependencies/media-utils
+	url = https://semyontikhonenko@code.google.com/p/android-media-utils/
