@@ -3,9 +3,11 @@ package com.example.FlyingDog;
 import android.app.Application;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
+import com.tiksem.media.search.InternetSearchEngine;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
 import com.utilsframework.android.Services;
 import com.utilsframework.android.threading.Tasks;
@@ -21,6 +23,8 @@ import java.util.Queue;
 public class FlyingDog extends Application {
     private AudioPlayerService.PlayerBinder playerBinder;
     private AndroidAudioDataBase audioDataBase;
+    private InternetSearchEngine internetSearchEngine;
+    private AudioDataManager audioDataManager;
     private Queue<Runnable> onPlayerServiceReady = new ArrayDeque<Runnable>();
 
     private static FlyingDog instance;
@@ -48,6 +52,8 @@ public class FlyingDog extends Application {
         });
 
         audioDataBase = new AndroidAudioDataBase(getContentResolver());
+        internetSearchEngine = new InternetSearchEngine();
+        audioDataManager = new AudioDataManager(audioDataBase, internetSearchEngine);
     }
 
     public void executeWhenPlayerServiceIsReady(Runnable runnable) {
@@ -62,8 +68,8 @@ public class FlyingDog extends Application {
         return playerBinder;
     }
 
-    public AndroidAudioDataBase getAudioDataBase() {
-        return audioDataBase;
+    public AudioDataManager getAudioDataManager() {
+        return audioDataManager;
     }
 
     public static FlyingDog getInstance() {

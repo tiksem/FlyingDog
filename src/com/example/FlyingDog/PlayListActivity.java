@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
 import com.example.FlyingDog.ui.fragments.PlayListFragment;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 
@@ -40,5 +42,12 @@ public class PlayListActivity extends Activity {
                 onPlayListModeChanged(item.getId());
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

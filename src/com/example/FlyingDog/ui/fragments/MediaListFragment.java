@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,10 +21,9 @@ public abstract class MediaListFragment extends Fragment {
     private List mediaData = Collections.singletonList(null);
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        MenuInflater menuInflater = getActivity().getMenuInflater();
-        menuInflater.inflate(R.menu.main, menu);
-        super.onCreateOptionsMenu(menu, inflater);
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        setHasOptionsMenu(true);
     }
 
     @Override

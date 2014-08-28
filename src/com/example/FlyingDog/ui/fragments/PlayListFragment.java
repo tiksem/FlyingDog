@@ -9,6 +9,7 @@ import android.widget.ListView;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
+import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.local.LocalAudioDataBase;
@@ -23,16 +24,23 @@ import java.util.List;
  */
 public class PlayListFragment extends MediaListFragment {
     private ListView listView;
-    private AndroidAudioDataBase audioDataBase;
+    private AudioDataManager audioDataManager;
     private AudioPlayerService.PlayerBinder playerBinder;
     private AudioPlayerService.PlayBackListener playBackListener;
     private SongsAdapter adapter;
+    private Object tag;
 
     private void onServiceReady() {
         adapter = new SongsAdapter(getActivity());
         listView.setAdapter(adapter);
 
-        List<Audio> audios = playerBinder.getPlayList();
+        List<Audio> audios;
+        if(tag == null){
+            audios = playerBinder.getPlayList();
+        } else {
+            audios = audioDataManager.getSongsByTag(tag);
+        }
+
         adapter.setElements(audios);
         notifyMediaDataChanged(Audio.class, audios);
 
@@ -43,7 +51,7 @@ public class PlayListFragment extends MediaListFragment {
             }
         });
 
-        audioDataBase.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
+        audioDataManager.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
             @Override
             public void onFinished() {
                 adapter.notifyDataSetChanged();
@@ -76,6 +84,14 @@ public class PlayListFragment extends MediaListFragment {
         playerBinder.addPlayBackListener(playBackListener);
     }
 
+    public PlayListFragment(Object tag) {
+        this.tag = tag;
+    }
+
+    public PlayListFragment() {
+        this(null);
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.play_list_fragment, null);
@@ -87,7 +103,7 @@ public class PlayListFragment extends MediaListFragment {
         listView = (ListView) view.findViewById(R.id.play_list_view);
 
         final FlyingDog flyingDog = FlyingDog.getInstance();
-        audioDataBase = flyingDog.getAudioDataBase();
+        audioDataManager = flyingDog.getAudioDataManager();
 
         flyingDog.executeWhenPlayerServiceIsReady(new Runnable() {
             @Override
