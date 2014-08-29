@@ -7,7 +7,10 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
+import com.example.FlyingDog.ui.fragments.AlbumListFragment;
 import com.example.FlyingDog.ui.fragments.PlayListFragment;
+import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.data.Album;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 
 import java.util.List;
@@ -17,13 +20,22 @@ public class PlayListActivity extends Activity {
         switch (id) {
             case R.id.allSongsPlayListButton:
                 return new PlayListFragment();
+            case R.id.albumsPlayListButton:
+                AudioDataManager audioDataManager = FlyingDog.getInstance().getAudioDataManager();
+                List<Album> albums = audioDataManager.getAlbums();
+                return new AlbumListFragment(albums, audioDataManager);
         }
 
-        return null;
+        return new PlayListFragment();
     }
 
     private void onPlayListModeChanged(int newPlayListModeId) {
-
+        Fragment newFragment = getFragmentByModeId(newPlayListModeId);
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.popBackStackImmediate();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.play_list_fragment_container, newFragment);
+        transaction.commit();
     }
 
     @Override
@@ -42,6 +54,11 @@ public class PlayListActivity extends Activity {
                 onPlayListModeChanged(item.getId());
             }
         });
+
+        getFragmentManager().
+                beginTransaction().
+                add(R.id.play_list_fragment_container, new PlayListFragment()).
+                commit();
     }
 
     @Override

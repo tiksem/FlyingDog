@@ -117,7 +117,9 @@ public class PlayListFragment extends MediaListFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        playerBinder.removePlayBackListener(playBackListener);
+        if (playerBinder != null) {
+            playerBinder.removePlayBackListener(playBackListener);
+        }
     }
 
     @Override
