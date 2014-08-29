@@ -14,6 +14,8 @@ import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
+import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
+import com.utils.framework.collections.ListWithSelectedItem;
 
 import java.util.List;
 
@@ -34,9 +36,10 @@ public class PlayListFragment extends MediaListFragment {
         adapter = new SongsAdapter(getActivity());
         listView.setAdapter(adapter);
 
-        List<Audio> audios;
+        final List<Audio> audios;
         if(tag == null){
             audios = playerBinder.getPlayList();
+            tag = playerBinder.getPlayListTag();
         } else {
             audios = audioDataManager.getSongsByTag(tag);
         }
@@ -47,6 +50,12 @@ public class PlayListFragment extends MediaListFragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(tag != null && !tag.equals(playerBinder.getPlayListTag())){
+                    DifferentlySortedListWithSelectedItem<Audio> audiosForPlayBinder =
+                            new DifferentlySortedListWithSelectedItem<Audio>(audios);
+                    playerBinder.setAudios(audiosForPlayBinder);
+                }
+
                 playerBinder.playAudio(position);
             }
         });

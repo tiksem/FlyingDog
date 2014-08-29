@@ -20,7 +20,6 @@ public class AlbumListFragment extends ArtCollectionListFragment<Album> {
 
     @Override
     protected Fragment createFragment(AudioDataManager audioDataManager, Album album) {
-        List<Audio> audios = audioDataManager.getTracksOfAlbum(album);
-        return new PlayListFragment(audios);
+        return new PlayListFragment(album);
     }
 }

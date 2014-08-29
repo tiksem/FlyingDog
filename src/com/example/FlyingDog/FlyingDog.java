@@ -4,6 +4,7 @@ import android.app.Application;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.data.AllSongsTag;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
@@ -45,6 +46,7 @@ public class FlyingDog extends Application {
                 DifferentlySortedListWithSelectedItem<Audio> audios =
                         new DifferentlySortedListWithSelectedItem<Audio>(audioDataBase.getSongs());
                 playerBinder.setAudios(audios);
+                playerBinder.setPlayListTag(new AllSongsTag());
 
                 Tasks.executeAndClearQueue(onPlayerServiceReady);
                 onPlayerServiceReady = null;
