@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.utilsframework.android.view.LayoutRadioButtonGroup
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res/com.neborosoft.FlyingDog"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="100"
+        android:id="@+id/artistTabs"
+        android:visibility="gone">
+    <view
+            class="com.utilsframework.android.view.LayoutRadioButtonGroup$LayoutRadioButton"
+            android:orientation="vertical"
+            android:layout_height="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_margin="10dp"
+            android:id="@+id/songsOfArtistTab"
+            android:background="@drawable/playing_mode_selector">
+        <TextView
+                android:text="Songs"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </view>
+    <view
+            class="com.utilsframework.android.view.LayoutRadioButtonGroup$LayoutRadioButton"
+            android:orientation="vertical"
+            android:layout_height="25dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:layout_width="0dp"
+            android:layout_weight="50"
+            android:layout_margin="10dp"
+            android:id="@+id/albumsOfArtistTab"
+            android:background="@drawable/playing_mode_selector">
+        <TextView
+                android:text="Albums"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </view>
+</com.utilsframework.android.view.LayoutRadioButtonGroup>

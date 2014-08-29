@@ -222,6 +222,8 @@
         </com.utilsframework.android.view.LayoutRadioButtonGroup>
     </HorizontalScrollView>
 
+    <include layout="@layout/artist_tabs" />
+
     <FrameLayout
             android:id="@+id/play_list_fragment_container"
             android:layout_width="match_parent"
