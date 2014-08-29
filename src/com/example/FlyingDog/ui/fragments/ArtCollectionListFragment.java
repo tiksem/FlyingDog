@@ -1,20 +1,9 @@
 package com.example.FlyingDog.ui.fragments;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.ArtCollectionAdapter;
-import com.example.FlyingDog.ui.adapters.holders.ArtCollectionHolder;
 import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.ArtCollection;
-import com.tiksem.media.data.Audio;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 
 import java.util.List;
@@ -39,7 +28,7 @@ public abstract class ArtCollectionListFragment<T extends ArtCollection> extends
     }
 
     @Override
-    protected ViewArrayAdapter createAdapter() {
+    protected ViewArrayAdapter createAdapter(AudioDataManager audioDataManager) {
         return new ArtCollectionAdapter(getActivity());
     }
 }

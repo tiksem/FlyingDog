@@ -11,11 +11,9 @@ import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Audio;
-import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
-import com.utils.framework.collections.ListWithSelectedItem;
 import com.utilsframework.android.view.GuiUtilities;
 
 import java.util.List;
@@ -25,7 +23,7 @@ import java.util.List;
  * Date: 26.08.14
  * Time: 18:32
  */
-public class PlayListFragment extends MediaListFragment {
+public class AudioListFragment extends MediaListFragment {
     private ListView listView;
     private AudioDataManager audioDataManager;
     private AudioPlayerService.PlayerBinder playerBinder;
@@ -105,11 +103,11 @@ public class PlayListFragment extends MediaListFragment {
         playerBinder.addPlayBackListener(playBackListener);
     }
 
-    public PlayListFragment(Object tag) {
+    public AudioListFragment(Object tag) {
         this.tag = tag;
     }
 
-    public PlayListFragment() {
+    public AudioListFragment() {
         this(null);
     }
 

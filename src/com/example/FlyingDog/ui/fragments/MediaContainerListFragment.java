@@ -34,7 +34,7 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
 
     protected abstract int getLayoutId();
     protected abstract int getListViewId();
-    protected abstract ViewArrayAdapter<T, ? extends Object> createAdapter();
+    protected abstract ViewArrayAdapter<T, ? extends Object> createAdapter(AudioDataManager audioDataManager);
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         listView = (AbsListView) view.findViewById(getListViewId());
-        adapter = createAdapter();
+        adapter = createAdapter(audioDataManager);
         adapter.setElements(mediaList);
         listView.setAdapter(adapter);
         notifyMediaDataChanged(dataType, mediaList);
@@ -63,13 +63,13 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
         adapter.notifyDataSetChanged();
     }
 
-    protected abstract Fragment createFragment(AudioDataManager audioDataManager, T media);
+    protected abstract Fragment createChildFragment(AudioDataManager audioDataManager, T media);
 
     protected void onItemSelected(T media, int position) {
         FragmentManager fragmentManager = getActivity().getFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        Fragment fragment = createFragment(audioDataManager, media);
+        Fragment fragment = createChildFragment(audioDataManager, media);
         transaction.replace(R.id.play_list_fragment_container, fragment);
         transaction.addToBackStack(getClass().getCanonicalName());
         transaction.commit();

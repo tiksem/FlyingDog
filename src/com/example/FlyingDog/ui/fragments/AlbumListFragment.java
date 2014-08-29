@@ -1,12 +1,8 @@
 package com.example.FlyingDog.ui.fragments;
 
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import com.example.FlyingDog.R;
 import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Album;
-import com.tiksem.media.data.Audio;
 
 import java.util.List;
 
@@ -19,7 +15,7 @@ public class AlbumListFragment extends ArtCollectionListFragment<Album> {
     }
 
     @Override
-    protected Fragment createFragment(AudioDataManager audioDataManager, Album album) {
-        return new PlayListFragment(album);
+    protected Fragment createChildFragment(AudioDataManager audioDataManager, Album album) {
+        return new AudioListFragment(album);
     }
 }
