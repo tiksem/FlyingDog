@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -52,7 +53,7 @@ public class AudioListFragment extends MediaListFragment {
             }
 
         } else {
-            audios = audioDataManager.getSongsByTag(tag);
+            audios = new DifferentlySortedListWithSelectedItem<Audio>(audioDataManager.getSongsByTag(tag));
         }
 
         adapter.setElements(audios);
@@ -117,14 +118,8 @@ public class AudioListFragment extends MediaListFragment {
         return inflater.inflate(R.layout.play_list_fragment, null);
     }
 
-    @Override
-    public void onViewCreated(View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        listView = (ListView) view.findViewById(R.id.play_list_view);
-
+    private void updatePlayBinder() {
         final FlyingDog flyingDog = FlyingDog.getInstance();
-        audioDataManager = flyingDog.getAudioDataManager();
-
         flyingDog.executeWhenPlayerServiceIsReady(new Runnable() {
             @Override
             public void run() {
@@ -132,6 +127,16 @@ public class AudioListFragment extends MediaListFragment {
                 onServiceReady();
             }
         });
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        listView = (ListView) view.findViewById(R.id.play_list_view);
+
+        final FlyingDog flyingDog = FlyingDog.getInstance();
+        audioDataManager = flyingDog.getAudioDataManager();
+        updatePlayBinder();
     }
 
     @Override
