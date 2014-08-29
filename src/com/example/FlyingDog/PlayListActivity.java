@@ -20,7 +20,7 @@ public class PlayListActivity extends Activity {
     private Fragment getFragmentByModeId(int id) {
         switch (id) {
             case R.id.allSongsPlayListButton:
-                return new PlayListFragment();
+                return new PlayListFragment(new AllSongsTag());
             case R.id.albumsPlayListButton:
                 AudioDataManager audioDataManager = FlyingDog.getInstance().getAudioDataManager();
                 List<Album> albums = audioDataManager.getAlbums();

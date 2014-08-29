@@ -66,6 +66,7 @@ public class PlayListFragment extends MediaListFragment {
                     DifferentlySortedListWithSelectedItem<Audio> audiosForPlayBinder =
                             new DifferentlySortedListWithSelectedItem<Audio>(audios);
                     playerBinder.setAudios(audiosForPlayBinder);
+                    playerBinder.setPlayListTag(tag);
                 }
 
                 playerBinder.playAudio(position);
