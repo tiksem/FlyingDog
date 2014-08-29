@@ -3,6 +3,7 @@ package com.example.FlyingDog.ui.menu;
 import com.example.FlyingDog.R;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.AudioComparators;
+import com.tiksem.media.data.AudioInArtist;
 import com.utils.framework.collections.DifferentlySortedList;
 import com.utils.framework.collections.map.MultiMap;
 import com.utils.framework.collections.map.SetValuesHashMultiMap;
@@ -22,6 +23,10 @@ public final class SortingMode<T> {
         sortingModes.put(Audio.class, new SortingMode<Audio>(AudioComparators.audioByArtistName(),
                 R.id.sort_artist_name));
         sortingModes.put(Audio.class, new SortingMode<Audio>(DifferentlySortedList.DEFAULT_COMPARATOR,
+                R.id.sort_adding_date));
+
+        sortingModes.put(AudioInArtist.class, new SortingMode<Audio>(AudioComparators.audioByName(), R.id.sort_by_name));
+        sortingModes.put(AudioInArtist.class, new SortingMode<Audio>(DifferentlySortedList.DEFAULT_COMPARATOR,
                 R.id.sort_adding_date));
     }
 

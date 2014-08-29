@@ -13,9 +13,11 @@ import java.util.List;
  * Created by CM on 8/29/2014.
  */
 public class PlayListsFragment extends MediaContainerListFragment<PlayList>{
-    public PlayListsFragment(List<PlayList> playLists,
-                             AudioDataManager audioDataManager) {
-        super(playLists, PlayList.class, audioDataManager);
+    private AudioDataManager audioDataManager;
+
+    public PlayListsFragment(AudioDataManager audioDataManager) {
+        super(audioDataManager.getPlayLists(), PlayList.class, audioDataManager);
+        this.audioDataManager = audioDataManager;
     }
 
     @Override
@@ -36,5 +38,11 @@ public class PlayListsFragment extends MediaContainerListFragment<PlayList>{
     @Override
     protected Fragment createChildFragment(AudioDataManager audioDataManager, PlayList media) {
         return new AudioListFragment(media);
+    }
+
+    @Override
+    protected void onMediaListDataSetChanged() {
+        getAdapter().setElements(audioDataManager.getPlayLists());
+        super.onMediaListDataSetChanged();
     }
 }

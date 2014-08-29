@@ -59,7 +59,7 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
     }
 
     @Override
-    protected void onSortingModeChanged() {
+    protected void onMediaListDataSetChanged() {
         adapter.notifyDataSetChanged();
     }
 
@@ -73,5 +73,9 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
         transaction.remove(this).add(R.id.play_list_fragment_container, fragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    public ViewArrayAdapter<T, ? extends Object> getAdapter() {
+        return adapter;
     }
 }

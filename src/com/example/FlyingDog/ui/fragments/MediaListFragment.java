@@ -3,9 +3,7 @@ package com.example.FlyingDog.ui.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.view.Menu;
-import android.view.MenuInflater;
-import com.example.FlyingDog.R;
-import com.example.FlyingDog.ui.menu.SortingMenuUtils;
+import com.example.FlyingDog.ui.menu.FlyingDogMenuUtils;
 import com.utils.framework.collections.DifferentlySortable;
 
 import java.util.Collections;
@@ -33,10 +31,10 @@ public abstract class MediaListFragment extends Fragment {
             sortable = (DifferentlySortable)mediaData;
         }
 
-        SortingMenuUtils.setupMenuForDataList(sortable, menu, dataClass, new SortingMenuUtils.SortingChanged() {
+        FlyingDogMenuUtils.setupMenuForDataList(sortable, getActivity(), menu, dataClass, new FlyingDogMenuUtils.MediaDataSetChanged() {
             @Override
-            public void onSortingChanged() {
-                onSortingModeChanged();
+            public void onDataSetChanged() {
+                onMediaListDataSetChanged();
             }
         });
 
@@ -49,5 +47,5 @@ public abstract class MediaListFragment extends Fragment {
         getActivity().invalidateOptionsMenu();
     }
 
-    protected abstract void onSortingModeChanged();
+    protected abstract void onMediaListDataSetChanged();
 }

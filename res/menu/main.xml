@@ -18,4 +18,10 @@
                     android:title="Sort by artist name"/>
         </menu>
     </item>
+
+    <item android:id="@+id/action_add_playlist"
+          android:icon="@drawable/plus"
+          android:showAsAction="ifRoom|withText"
+          android:title="Add playlist">
+    </item>
 </menu>

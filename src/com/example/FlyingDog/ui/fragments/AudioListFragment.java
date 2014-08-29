@@ -11,8 +11,10 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.data.AudioInArtist;
 import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
@@ -39,6 +41,14 @@ public class AudioListFragment extends MediaListFragment {
         return position;
     }
 
+    private Class getDataType() {
+        if(tag instanceof Artist || tag instanceof Album){
+            return AudioInArtist.class;
+        }
+
+        return Audio.class;
+    }
+
     private void onServiceReady() {
         adapter = new SongsAdapter(getActivity());
         listView.setAdapter(adapter);
@@ -57,7 +67,7 @@ public class AudioListFragment extends MediaListFragment {
         }
 
         adapter.setElements(audios);
-        notifyMediaDataChanged(Audio.class, audios);
+        notifyMediaDataChanged(getDataType(), audios);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -160,7 +170,7 @@ public class AudioListFragment extends MediaListFragment {
     }
 
     @Override
-    protected void onSortingModeChanged() {
+    protected void onMediaListDataSetChanged() {
         adapter.notifyDataSetChanged();
     }
 }

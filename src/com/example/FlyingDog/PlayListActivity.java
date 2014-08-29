@@ -44,8 +44,7 @@ public class PlayListActivity extends Activity {
                 });
             case R.id.playlistsPlayListButton:
                 audioDataManager = FlyingDog.getInstance().getAudioDataManager();
-                List<PlayList> playLists = audioDataManager.getPlayLists();
-                return new PlayListsFragment(playLists, audioDataManager);
+                return new PlayListsFragment(audioDataManager);
         }
 
         return new AudioListFragment();
