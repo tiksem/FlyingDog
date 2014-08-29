@@ -70,8 +70,8 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
         Fragment fragment = createChildFragment(audioDataManager, media);
-        transaction.replace(R.id.play_list_fragment_container, fragment);
-        transaction.addToBackStack(getClass().getCanonicalName());
+        transaction.remove(this).add(R.id.play_list_fragment_container, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 }

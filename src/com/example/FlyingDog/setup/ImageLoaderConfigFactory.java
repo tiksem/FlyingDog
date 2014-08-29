@@ -30,9 +30,9 @@ public class ImageLoaderConfigFactory {
         displayImageOptions.bitmapConfig(Bitmap.Config.RGB_565);
         displayImageOptions.cacheInMemory(true);
         displayImageOptions.cacheOnDisk(true);
-        displayImageOptions.showImageForEmptyUri(R.drawable.ic_launcher);
+        displayImageOptions.showImageForEmptyUri(R.drawable.dsotm);
         displayImageOptions.resetViewBeforeLoading(true);
-        displayImageOptions.showImageOnLoading(R.drawable.ic_launcher);
+        displayImageOptions.showImageOnLoading(R.drawable.dsotm);
         config.defaultDisplayImageOptions(displayImageOptions.build());
 
         return config.build();

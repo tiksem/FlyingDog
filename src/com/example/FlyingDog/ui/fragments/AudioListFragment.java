@@ -10,6 +10,7 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
@@ -139,6 +140,18 @@ public class AudioListFragment extends MediaListFragment {
         if (playerBinder != null) {
             playerBinder.removePlayBackListener(playBackListener);
         }
+    }
+
+    public Object getPlayListTag() {
+        return tag;
+    }
+
+    public Artist getArtist() {
+        if(tag instanceof Artist){
+            return (Artist) tag;
+        }
+
+        return null;
     }
 
     @Override
