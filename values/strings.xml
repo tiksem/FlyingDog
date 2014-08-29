@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">FlyingDog</string>
+    <string name="create_button">Create</string>
+    <string name="play_list_name_empty">Enter playlist name</string>
+    <string name="play_list_exists">Playlist %s already exists</string>
+    <string name="cancel_button">Cancel</string>
+    <string name="create_play_list_title">Create new playlist</string>
+    <string name="create_play_list_message">Enter playlist name:</string>
 </resources>
