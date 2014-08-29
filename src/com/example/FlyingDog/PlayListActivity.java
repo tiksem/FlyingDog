@@ -11,6 +11,7 @@ import com.example.FlyingDog.ui.fragments.AlbumListFragment;
 import com.example.FlyingDog.ui.fragments.PlayListFragment;
 import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Album;
+import com.tiksem.media.data.AllSongsTag;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 
 import java.util.List;
@@ -57,7 +58,7 @@ public class PlayListActivity extends Activity {
 
         getFragmentManager().
                 beginTransaction().
-                add(R.id.play_list_fragment_container, new PlayListFragment()).
+                add(R.id.play_list_fragment_container, new PlayListFragment(new AllSongsTag())).
                 commit();
     }
 
