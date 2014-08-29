@@ -16,6 +16,7 @@ import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
 import com.utils.framework.collections.ListWithSelectedItem;
+import com.utilsframework.android.view.GuiUtilities;
 
 import java.util.List;
 
@@ -32,14 +33,25 @@ public class PlayListFragment extends MediaListFragment {
     private SongsAdapter adapter;
     private Object tag;
 
+    private int updateSelectedItem() {
+        int position = playerBinder.getPlayingAudioPosition();
+        listView.setItemChecked(position, true);
+        return position;
+    }
+
     private void onServiceReady() {
         adapter = new SongsAdapter(getActivity());
         listView.setAdapter(adapter);
 
         final List<Audio> audios;
-        if(tag == null){
+        if(tag == null || tag.equals(playerBinder.getPlayListTag())){
             audios = playerBinder.getPlayList();
             tag = playerBinder.getPlayListTag();
+            if(playerBinder.isPlaying()){
+                int selectedPosition = updateSelectedItem();
+                GuiUtilities.scrollListViewToPosition(listView, selectedPosition);
+            }
+
         } else {
             audios = audioDataManager.getSongsByTag(tag);
         }
@@ -70,8 +82,7 @@ public class PlayListFragment extends MediaListFragment {
         playBackListener = new AudioPlayerService.PlayBackListener() {
             @Override
             public void onAudioPlayingStarted() {
-                int position = playerBinder.getPlayingAudioPosition();
-                listView.setItemChecked(position, true);
+                updateSelectedItem();
             }
 
             @Override
