@@ -223,14 +223,11 @@
     </HorizontalScrollView>
 
     <FrameLayout
-            android:id="@+id/player_controls_container"
+            android:id="@+id/play_list_fragment_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"
             >
-        <fragment android:name="com.example.FlyingDog.ui.fragments.PlayListFragment"
-                  android:layout_width="match_parent"
-                  android:layout_height="wrap_content" />
     </FrameLayout>
 
     <FrameLayout
