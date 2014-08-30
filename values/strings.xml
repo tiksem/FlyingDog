@@ -5,6 +5,10 @@
     <string name="play_list_name_empty">Enter playlist name</string>
     <string name="play_list_exists">Playlist %s already exists</string>
     <string name="cancel_button">Cancel</string>
-    <string name="create_play_list_title">Create new playlist</string>
-    <string name="create_play_list_message">Enter playlist name:</string>
+    <string name="create_media_title">Create new %s</string>
+    <string name="create_media_message">Enter %s name:</string>
+    <string name="edit_audio">Edit audio</string>
+    <string name="ok">OK</string>
+    <string name="play_list">playlist</string>
+    <string name="artist">artist</string>
 </resources>
