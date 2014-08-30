@@ -8,7 +8,7 @@
             android:text="Name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-    <Spinner
+    <EditText
             android:id="@+id/name"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
@@ -18,17 +18,59 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <Spinner
-            android:id="@+id/artist_name"
+            android:id="@+id/artist_name_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="text"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/new_artist"
+                android:layout_centerInParent="true"
+                android:text="New"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/edit_artist"
+                android:layout_toRightOf="@id/new_artist"
+                android:text="Edit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/delete_artist"
+                android:layout_toLeftOf="@id/new_artist"
+                android:text="Delete"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
     <TextView
             android:text="Album name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     <Spinner
-            android:id="@+id/album_name"
+            android:id="@+id/album_name_spinner"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:inputType="text"/>
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+        <Button
+                android:id="@+id/new_album"
+                android:layout_centerInParent="true"
+                android:text="New"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/edit_album"
+                android:layout_toRightOf="@id/new_album"
+                android:text="Edit"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+        <Button
+                android:id="@+id/delete_album"
+                android:layout_toLeftOf="@id/new_album"
+                android:text="Delete"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"/>
+    </RelativeLayout>
 </LinearLayout>
