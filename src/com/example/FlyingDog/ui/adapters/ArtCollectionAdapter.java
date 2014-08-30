@@ -35,7 +35,7 @@ public class ArtCollectionAdapter extends ViewArrayAdapter<ArtCollection, ArtCol
     }
 
     @Override
-    protected void reuseView(ArtCollection artCollection, ArtCollectionHolder holder, int position) {
+    protected void reuseView(ArtCollection artCollection, ArtCollectionHolder holder, int position, View view) {
         holder.name.setText(artCollection.getName());
         IMAGE_LOADER.displayImage(artCollection.getArtUrl(ArtSize.MEDIUM), holder.art);
     }

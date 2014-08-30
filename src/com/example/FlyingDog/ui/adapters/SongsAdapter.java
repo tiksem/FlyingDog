@@ -1,15 +1,13 @@
 package com.example.FlyingDog.ui.adapters;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.holders.SongViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.tiksem.media.data.ArtSize;
 import com.tiksem.media.data.Audio;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
@@ -37,13 +35,26 @@ public class SongsAdapter extends ViewArrayAdapter<Audio, SongViewHolder> {
         songViewHolder.art = (ImageView) view.findViewById(R.id.art);
         songViewHolder.artistName = (TextView) view.findViewById(R.id.artist_name);
         songViewHolder.songName = (TextView) view.findViewById(R.id.song_name);
+        songViewHolder.options = (ImageButton) view.findViewById(R.id.options);
         return songViewHolder;
     }
 
     @Override
-    protected void reuseView(final Audio audio, SongViewHolder songViewHolder, int position) {
+    protected void reuseView(final Audio audio, SongViewHolder songViewHolder, int position, final View view) {
         songViewHolder.songName.setText(audio.getName());
         songViewHolder.artistName.setText(audio.getArtistName());
         IMAGE_LOADER.displayImage(audio.getArtUrl(ArtSize.SMALL), songViewHolder.art);
+
+        songViewHolder.options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view.showContextMenu();
+            }
+        });
+    }
+
+    @Override
+    protected void onViewCreated(int position, View convertView, Audio audio, SongViewHolder holder) {
+        holder.options.setFocusable(false);
     }
 }

@@ -2,7 +2,6 @@ package com.example.FlyingDog.ui.adapters;
 
 import android.content.Context;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
@@ -76,7 +75,7 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
 
     @Override
     protected void reuseView(PlayList playList, PlayListViewHolder holder,
-                             int position) {
+                             int position, View view) {
         List<ImageView> arts = holder.arts;
         List<String> artUrls = getArts(playList, arts.size());
 

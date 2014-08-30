@@ -2,9 +2,7 @@ package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.example.FlyingDog.FlyingDog;
@@ -144,9 +142,23 @@ public class AudioListFragment extends MediaListFragment {
         super.onViewCreated(view, savedInstanceState);
         listView = (ListView) view.findViewById(R.id.play_list_view);
 
+        registerForContextMenu(listView);
+
         final FlyingDog flyingDog = FlyingDog.getInstance();
         audioDataManager = flyingDog.getAudioDataManager();
         updatePlayBinder();
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        MenuInflater inflater = getActivity().getMenuInflater();
+        inflater.inflate(R.menu.song_contextual_menu, menu);
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        Audio audio = adapter.getElementOfView(info.targetView);
+        GuiUtilities.setClickListenerToMenuItems(menu, new AudioContextMenuListener(audio, getActivity()));
+
+        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
     @Override
