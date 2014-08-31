@@ -4,8 +4,7 @@ import android.app.Fragment;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.ui.adapters.ArtistsAdapter;
 import com.tiksem.media.AudioDataManager;
-import com.tiksem.media.MediaArtUpdatingService;
-import com.tiksem.media.data.Album;
+import com.tiksem.media.MediaUpdatingService;
 import com.tiksem.media.data.Artist;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 
@@ -36,7 +35,7 @@ public class ArtistListFragment extends ArtCollectionListFragment<Artist> {
     @Override
     public void onStart() {
         super.onStart();
-        FlyingDog.getInstance().setOnArtistArtUpdated(new MediaArtUpdatingService.OnArtistArtUpdated() {
+        FlyingDog.getInstance().setOnArtistArtUpdated(new MediaUpdatingService.OnArtistArtUpdated() {
             @Override
             public void onArtistArtUpdated(Artist artist) {
                 onMediaListDataSetChanged();

@@ -1,13 +1,13 @@
 package com.example.FlyingDog.ui.fragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.ui.adapters.AlbumsAdapter;
 import com.tiksem.media.AudioDataManager;
-import com.tiksem.media.MediaArtUpdatingService;
+import com.tiksem.media.MediaUpdatingService;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
+import com.tiksem.media.data.Audio;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 
 import java.util.List;
@@ -30,9 +30,16 @@ public class AlbumListFragment extends ArtCollectionListFragment<Album> {
     @Override
     public void onStart() {
         super.onStart();
-        FlyingDog.getInstance().setOnAlbumArtUpdated(new MediaArtUpdatingService.OnAlbumArtUpdated() {
+        FlyingDog flyingDog = FlyingDog.getInstance();
+        flyingDog.setOnAlbumArtUpdated(new MediaUpdatingService.OnAlbumArtUpdated() {
             @Override
             public void onAlbumArtUpdated(Album album) {
+                onMediaListDataSetChanged();
+            }
+        });
+        flyingDog.setOnAlbumOfAudioUpdated(new MediaUpdatingService.OnAlbumOfAudioUpdated() {
+            @Override
+            public void onUpdateFinished(Album album, Audio audio) {
                 onMediaListDataSetChanged();
             }
         });
@@ -41,7 +48,9 @@ public class AlbumListFragment extends ArtCollectionListFragment<Album> {
     @Override
     public void onStop() {
         super.onStop();
-        FlyingDog.getInstance().setOnAlbumArtUpdated(null);
+        FlyingDog flyingDog = FlyingDog.getInstance();
+        flyingDog.setOnAlbumArtUpdated(null);
+        flyingDog.setOnAlbumOfAudioUpdated(null);
     }
 
     @Override

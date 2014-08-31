@@ -1,6 +1,5 @@
 package com.example.FlyingDog.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.*;
 import android.widget.AdapterView;
@@ -9,12 +8,11 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.AudioDataManager;
-import com.tiksem.media.MediaArtUpdatingService;
+import com.tiksem.media.MediaUpdatingService;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.AudioInArtist;
-import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
 import com.utilsframework.android.view.GuiUtilities;
@@ -158,12 +156,21 @@ public class AudioListFragment extends MediaListFragment {
     @Override
     public void onStart() {
         super.onStart();
-        FlyingDog.getInstance().setOnAlbumArtUpdated(new MediaArtUpdatingService.OnAlbumArtUpdated() {
+
+        FlyingDog flyingDog = FlyingDog.getInstance();
+        flyingDog.setOnAlbumArtUpdated(new MediaUpdatingService.OnAlbumArtUpdated() {
             @Override
             public void onAlbumArtUpdated(Album album) {
                 onMediaListDataSetChanged();
             }
         });
+        flyingDog.setOnAlbumOfAudioUpdated(new MediaUpdatingService.OnAlbumOfAudioUpdated() {
+            @Override
+            public void onUpdateFinished(Album album, Audio audio) {
+                onMediaListDataSetChanged();
+            }
+        });
+
         if (playerBinder != null) {
             playerBinder.addPlayBackListener(playBackListener);
         }
@@ -175,7 +182,9 @@ public class AudioListFragment extends MediaListFragment {
         if (playerBinder != null) {
             playerBinder.removePlayBackListener(playBackListener);
         }
-        FlyingDog.getInstance().setOnAlbumArtUpdated(null);
+        FlyingDog flyingDog = FlyingDog.getInstance();
+        flyingDog.setOnAlbumArtUpdated(null);
+        flyingDog.setOnAlbumOfAudioUpdated(null);
     }
 
     public Object getPlayListTag() {

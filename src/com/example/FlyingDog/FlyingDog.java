@@ -4,8 +4,7 @@ import android.app.Application;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.AudioDataManager;
-import com.tiksem.media.MediaArtUpdatingService;
-import com.tiksem.media.data.Album;
+import com.tiksem.media.MediaUpdatingService;
 import com.tiksem.media.data.AllSongsTag;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
@@ -30,9 +29,10 @@ public class FlyingDog extends Application {
     private InternetSearchEngine internetSearchEngine;
     private AudioDataManager audioDataManager;
     private Queue<Runnable> onPlayerServiceReady = new ArrayDeque<Runnable>();
-    private MediaArtUpdatingService artUpdatingService;
-    private MediaArtUpdatingService.OnArtistArtUpdated onArtistArtUpdated;
-    private MediaArtUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated;
+    private MediaUpdatingService mediaUpdatingService;
+    private MediaUpdatingService.OnArtistArtUpdated onArtistArtUpdated;
+    private MediaUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated;
+    private MediaUpdatingService.OnAlbumOfAudioUpdated onAlbumOfAudioUpdated;
 
     private static FlyingDog instance;
 
@@ -62,9 +62,9 @@ public class FlyingDog extends Application {
         audioDataBase = new AndroidAudioDataBase(getContentResolver());
         internetSearchEngine = new InternetSearchEngine();
         audioDataManager = new AudioDataManager(audioDataBase, internetSearchEngine);
-        artUpdatingService = new MediaArtUpdatingService(audioDataBase, internetSearchEngine);
+        mediaUpdatingService = new MediaUpdatingService(audioDataBase, internetSearchEngine);
 
-        artUpdatingService.updateAllArtistsArt(onArtistArtUpdated);
+        mediaUpdatingService.updateAllArtistsArt(onArtistArtUpdated);
         audioDataManager.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
             @Override
             public void onFinished() {
@@ -72,7 +72,8 @@ public class FlyingDog extends Application {
                     onAlbumArtUpdated.onAlbumArtUpdated(null);
                 }
 
-                artUpdatingService.updateAllAlbumsArt(onAlbumArtUpdated);
+                mediaUpdatingService.updateAlbumsOfAudios(onAlbumOfAudioUpdated);
+                mediaUpdatingService.updateAllAlbumsArt(onAlbumArtUpdated);
             }
         });
     }
@@ -93,24 +94,32 @@ public class FlyingDog extends Application {
         return audioDataManager;
     }
 
-    public MediaArtUpdatingService getArtUpdatingService() {
-        return artUpdatingService;
+    public MediaUpdatingService getMediaUpdatingService() {
+        return mediaUpdatingService;
     }
 
-    public MediaArtUpdatingService.OnArtistArtUpdated getOnArtistArtUpdated() {
+    public MediaUpdatingService.OnArtistArtUpdated getOnArtistArtUpdated() {
         return onArtistArtUpdated;
     }
 
-    public void setOnArtistArtUpdated(MediaArtUpdatingService.OnArtistArtUpdated onArtistArtUpdated) {
+    public void setOnArtistArtUpdated(MediaUpdatingService.OnArtistArtUpdated onArtistArtUpdated) {
         this.onArtistArtUpdated = onArtistArtUpdated;
     }
 
-    public MediaArtUpdatingService.OnAlbumArtUpdated getOnAlbumArtUpdated() {
+    public MediaUpdatingService.OnAlbumArtUpdated getOnAlbumArtUpdated() {
         return onAlbumArtUpdated;
     }
 
-    public void setOnAlbumArtUpdated(MediaArtUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated) {
+    public void setOnAlbumArtUpdated(MediaUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated) {
         this.onAlbumArtUpdated = onAlbumArtUpdated;
+    }
+
+    public MediaUpdatingService.OnAlbumOfAudioUpdated getOnAlbumOfAudioUpdated() {
+        return onAlbumOfAudioUpdated;
+    }
+
+    public void setOnAlbumOfAudioUpdated(MediaUpdatingService.OnAlbumOfAudioUpdated onAlbumOfAudioUpdated) {
+        this.onAlbumOfAudioUpdated = onAlbumOfAudioUpdated;
     }
 
     public static FlyingDog getInstance() {
