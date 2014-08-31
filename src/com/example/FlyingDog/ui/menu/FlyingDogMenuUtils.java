@@ -5,6 +5,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.OnMediaDataSetChanged;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.CreatePlayListAlert;
 import com.tiksem.media.data.PlayList;
@@ -19,12 +20,9 @@ import java.util.Comparator;
  * Time: 16:42
  */
 public class FlyingDogMenuUtils {
-    public static interface MediaDataSetChanged {
-        void onDataSetChanged();
-    }
 
     private static void initSortingItem(final DifferentlySortable sortable, Menu menu, Class aClass,
-                                        final MediaDataSetChanged mediaDataSetChanged) {
+                                        final OnMediaDataSetChanged onMediaDataSetChanged) {
         MenuItem sortItem = menu.findItem(R.id.action_sort);
         SubMenu subMenu = sortItem.getSubMenu();
         GuiUtilities.setChildrenVisibility(subMenu, false);
@@ -47,7 +45,7 @@ public class FlyingDogMenuUtils {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         sortable.setCurrentSortComparator(comparator);
-                        mediaDataSetChanged.onDataSetChanged();
+                        onMediaDataSetChanged.onDataSetChanged();
                         return true;
                     }
                 });
@@ -60,7 +58,7 @@ public class FlyingDogMenuUtils {
     }
 
     private static void initAddPlaylistItem(Menu menu, Class aClass, final Context context,
-                                           final MediaDataSetChanged mediaDataSetChanged) {
+                                           final OnMediaDataSetChanged onMediaDataSetChanged) {
         MenuItem addPlayListItem = menu.findItem(R.id.action_add_playlist);
         addPlayListItem.setVisible(aClass == PlayList.class);
 
@@ -74,7 +72,7 @@ public class FlyingDogMenuUtils {
                     @Override
                     public void onDialogClosed(boolean playListCreated) {
                         if(playListCreated){
-                            mediaDataSetChanged.onDataSetChanged();
+                            onMediaDataSetChanged.onDataSetChanged();
                         }
                     }
                 });
@@ -86,8 +84,8 @@ public class FlyingDogMenuUtils {
 
     public static void setupMenuForDataList(final DifferentlySortable sortable, Context context,
                                             Menu menu, Class aClass,
-                                            final MediaDataSetChanged mediaDataSetChanged) {
-        initSortingItem(sortable, menu, aClass, mediaDataSetChanged);
-        initAddPlaylistItem(menu, aClass, context, mediaDataSetChanged);
+                                            final OnMediaDataSetChanged onMediaDataSetChanged) {
+        initSortingItem(sortable, menu, aClass, onMediaDataSetChanged);
+        initAddPlaylistItem(menu, aClass, context, onMediaDataSetChanged);
     }
 }

@@ -60,7 +60,9 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
 
     @Override
     protected void onMediaListDataSetChanged() {
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 
     protected abstract Fragment createChildFragment(AudioDataManager audioDataManager, T media);

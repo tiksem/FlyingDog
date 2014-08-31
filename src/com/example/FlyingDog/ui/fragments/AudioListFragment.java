@@ -81,13 +81,6 @@ public class AudioListFragment extends MediaListFragment {
             }
         });
 
-        audioDataManager.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
-            @Override
-            public void onFinished() {
-                adapter.notifyDataSetChanged();
-            }
-        });
-
         playBackListener = new AudioPlayerService.PlayBackListener() {
             @Override
             public void onAudioPlayingStarted() {
@@ -183,6 +176,8 @@ public class AudioListFragment extends MediaListFragment {
 
     @Override
     protected void onMediaListDataSetChanged() {
-        adapter.notifyDataSetChanged();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

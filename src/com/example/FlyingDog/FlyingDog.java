@@ -4,9 +4,12 @@ import android.app.Application;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.MediaArtUpdatingService;
+import com.tiksem.media.data.Album;
 import com.tiksem.media.data.AllSongsTag;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.AndroidAudioDataBase;
+import com.tiksem.media.local.LocalAudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.utils.framework.collections.DifferentlySortedListWithSelectedItem;
@@ -27,6 +30,8 @@ public class FlyingDog extends Application {
     private InternetSearchEngine internetSearchEngine;
     private AudioDataManager audioDataManager;
     private Queue<Runnable> onPlayerServiceReady = new ArrayDeque<Runnable>();
+    private MediaArtUpdatingService artUpdatingService;
+    private OnMediaDataSetChanged onMediaDataSetChanged;
 
     private static FlyingDog instance;
 
@@ -56,6 +61,26 @@ public class FlyingDog extends Application {
         audioDataBase = new AndroidAudioDataBase(getContentResolver());
         internetSearchEngine = new InternetSearchEngine();
         audioDataManager = new AudioDataManager(audioDataBase, internetSearchEngine);
+        artUpdatingService = new MediaArtUpdatingService(audioDataBase, internetSearchEngine,
+                new MediaArtUpdatingService.OnAlbumArtUpdated() {
+                    @Override
+                    public void onAlbumArtUpdated(Album album) {
+                        if(onMediaDataSetChanged != null){
+                            onMediaDataSetChanged.onDataSetChanged();
+                        }
+                    }
+                });
+
+        audioDataManager.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
+            @Override
+            public void onFinished() {
+                if(onMediaDataSetChanged != null){
+                    onMediaDataSetChanged.onDataSetChanged();
+                }
+
+                artUpdatingService.updateAllAlbumsArt();
+            }
+        });
     }
 
     public void executeWhenPlayerServiceIsReady(Runnable runnable) {
@@ -72,6 +97,18 @@ public class FlyingDog extends Application {
 
     public AudioDataManager getAudioDataManager() {
         return audioDataManager;
+    }
+
+    public MediaArtUpdatingService getArtUpdatingService() {
+        return artUpdatingService;
+    }
+
+    public OnMediaDataSetChanged getOnMediaDataSetChanged() {
+        return onMediaDataSetChanged;
+    }
+
+    public void setOnMediaDataSetChanged(OnMediaDataSetChanged onMediaDataSetChanged) {
+        this.onMediaDataSetChanged = onMediaDataSetChanged;
     }
 
     public static FlyingDog getInstance() {
