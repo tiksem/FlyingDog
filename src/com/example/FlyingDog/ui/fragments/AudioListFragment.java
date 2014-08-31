@@ -9,6 +9,7 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.MediaArtUpdatingService;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
@@ -155,11 +156,26 @@ public class AudioListFragment extends MediaListFragment {
     }
 
     @Override
-    public void onDetach() {
-        super.onDetach();
+    public void onStart() {
+        super.onStart();
+        FlyingDog.getInstance().setOnAlbumArtUpdated(new MediaArtUpdatingService.OnAlbumArtUpdated() {
+            @Override
+            public void onAlbumArtUpdated(Album album) {
+                onMediaListDataSetChanged();
+            }
+        });
+        if (playerBinder != null) {
+            playerBinder.addPlayBackListener(playBackListener);
+        }
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
         if (playerBinder != null) {
             playerBinder.removePlayBackListener(playBackListener);
         }
+        FlyingDog.getInstance().setOnAlbumArtUpdated(null);
     }
 
     public Object getPlayListTag() {

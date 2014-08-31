@@ -26,9 +26,4 @@ public abstract class ArtCollectionListFragment<T extends ArtCollection> extends
     protected int getListViewId() {
         return R.id.grid;
     }
-
-    @Override
-    protected ViewArrayAdapter createAdapter(AudioDataManager audioDataManager) {
-        return new ArtCollectionAdapter(getActivity());
-    }
 }

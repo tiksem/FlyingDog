@@ -24,13 +24,6 @@ public abstract class MediaListFragment extends Fragment {
     public void onAttach(Activity activity) {
         super.onAttach(activity);
         setHasOptionsMenu(true);
-
-        FlyingDog.getInstance().setOnMediaDataSetChanged(new OnMediaDataSetChanged() {
-            @Override
-            public void onDataSetChanged() {
-                onMediaListDataSetChanged();
-            }
-        });
     }
 
     @Override

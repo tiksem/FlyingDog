@@ -1,8 +1,13 @@
 package com.example.FlyingDog.ui.fragments;
 
 import android.app.Fragment;
+import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.ui.adapters.ArtistsAdapter;
 import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.MediaArtUpdatingService;
+import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
+import com.utilsframework.android.adapters.ViewArrayAdapter;
 
 import java.util.List;
 
@@ -26,5 +31,27 @@ public class ArtistListFragment extends ArtCollectionListFragment<Artist> {
         } else {
             return new AlbumListFragment(artist, audioDataManager);
         }
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        FlyingDog.getInstance().setOnArtistArtUpdated(new MediaArtUpdatingService.OnArtistArtUpdated() {
+            @Override
+            public void onArtistArtUpdated(Artist artist) {
+                onMediaListDataSetChanged();
+            }
+        });
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        FlyingDog.getInstance().setOnArtistArtUpdated(null);
+    }
+
+    @Override
+    protected ViewArrayAdapter createAdapter(AudioDataManager audioDataManager) {
+        return new ArtistsAdapter(getActivity());
     }
 }

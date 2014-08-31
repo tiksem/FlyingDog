@@ -31,7 +31,8 @@ public class FlyingDog extends Application {
     private AudioDataManager audioDataManager;
     private Queue<Runnable> onPlayerServiceReady = new ArrayDeque<Runnable>();
     private MediaArtUpdatingService artUpdatingService;
-    private OnMediaDataSetChanged onMediaDataSetChanged;
+    private MediaArtUpdatingService.OnArtistArtUpdated onArtistArtUpdated;
+    private MediaArtUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated;
 
     private static FlyingDog instance;
 
@@ -61,24 +62,17 @@ public class FlyingDog extends Application {
         audioDataBase = new AndroidAudioDataBase(getContentResolver());
         internetSearchEngine = new InternetSearchEngine();
         audioDataManager = new AudioDataManager(audioDataBase, internetSearchEngine);
-        artUpdatingService = new MediaArtUpdatingService(audioDataBase, internetSearchEngine,
-                new MediaArtUpdatingService.OnAlbumArtUpdated() {
-                    @Override
-                    public void onAlbumArtUpdated(Album album) {
-                        if(onMediaDataSetChanged != null){
-                            onMediaDataSetChanged.onDataSetChanged();
-                        }
-                    }
-                });
+        artUpdatingService = new MediaArtUpdatingService(audioDataBase, internetSearchEngine);
 
+        artUpdatingService.updateAllArtistsArt(onArtistArtUpdated);
         audioDataManager.startAlbumArtsUpdating(new LocalAudioDataBase.OnArtsUpdatingFinished() {
             @Override
             public void onFinished() {
-                if(onMediaDataSetChanged != null){
-                    onMediaDataSetChanged.onDataSetChanged();
+                if(onAlbumArtUpdated != null){
+                    onAlbumArtUpdated.onAlbumArtUpdated(null);
                 }
 
-                artUpdatingService.updateAllAlbumsArt();
+                artUpdatingService.updateAllAlbumsArt(onAlbumArtUpdated);
             }
         });
     }
@@ -103,12 +97,20 @@ public class FlyingDog extends Application {
         return artUpdatingService;
     }
 
-    public OnMediaDataSetChanged getOnMediaDataSetChanged() {
-        return onMediaDataSetChanged;
+    public MediaArtUpdatingService.OnArtistArtUpdated getOnArtistArtUpdated() {
+        return onArtistArtUpdated;
     }
 
-    public void setOnMediaDataSetChanged(OnMediaDataSetChanged onMediaDataSetChanged) {
-        this.onMediaDataSetChanged = onMediaDataSetChanged;
+    public void setOnArtistArtUpdated(MediaArtUpdatingService.OnArtistArtUpdated onArtistArtUpdated) {
+        this.onArtistArtUpdated = onArtistArtUpdated;
+    }
+
+    public MediaArtUpdatingService.OnAlbumArtUpdated getOnAlbumArtUpdated() {
+        return onAlbumArtUpdated;
+    }
+
+    public void setOnAlbumArtUpdated(MediaArtUpdatingService.OnAlbumArtUpdated onAlbumArtUpdated) {
+        this.onAlbumArtUpdated = onAlbumArtUpdated;
     }
 
     public static FlyingDog getInstance() {
