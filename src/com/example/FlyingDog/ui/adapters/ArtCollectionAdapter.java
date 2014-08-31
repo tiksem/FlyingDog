@@ -14,7 +14,8 @@ import com.utilsframework.android.adapters.ViewArrayAdapter;
 /**
  * Created by CM on 8/29/2014.
  */
-public abstract class ArtCollectionAdapter extends ViewArrayAdapter<ArtCollection, ArtCollectionHolder>{
+public abstract class ArtCollectionAdapter<T extends ArtCollection> extends
+        ViewArrayAdapter<T, ArtCollectionHolder>{
     private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
 
     public ArtCollectionAdapter(Context context) {

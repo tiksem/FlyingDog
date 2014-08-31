@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.Spinner;
+import com.example.FlyingDog.ui.adapters.ArtCollectionSpinnerAdapter;
 import com.example.FlyingDog.ui.adapters.NamedDataSpinnerAdapter;
 import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.Album;
@@ -27,8 +28,8 @@ public class EditAudioActivity extends Activity {
     private static final String AUDIO_ID_KEY = "AUDIO_ID_KEY";
     private AudioDataManager audioDataManager;
     private Audio audio;
-    private NamedDataSpinnerAdapter<Artist> artistListAdapter;
-    private NamedDataSpinnerAdapter<Album> albumListAdapter;
+    private ArtCollectionSpinnerAdapter<Artist> artistListAdapter;
+    private ArtCollectionSpinnerAdapter<Album> albumListAdapter;
 
     public static void start(Context context, long audioId) {
         Intent intent = new Intent(context, EditAudioActivity.class);
@@ -61,9 +62,9 @@ public class EditAudioActivity extends Activity {
         audioDataManager = FlyingDog.getInstance().getAudioDataManager();
         audio = audioDataManager.getSongById(audioId);
 
-        albumListAdapter = new NamedDataSpinnerAdapter<Album>(this, "Unknown album");
+        albumListAdapter = new ArtCollectionSpinnerAdapter<Album>(this, "Unknown album");
         albumListAdapter.setElements(Collections.<Album>singletonList(null));
-        artistListAdapter = new NamedDataSpinnerAdapter<Artist>(this, "Unknown artist");
+        artistListAdapter = new ArtCollectionSpinnerAdapter<Artist>(this, "Unknown artist");
 
         List<Artist> artists = audioDataManager.getArtists();
         Collections.sort(artists, AudioComparators.namedData());

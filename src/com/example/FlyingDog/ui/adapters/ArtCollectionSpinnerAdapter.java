@@ -5,29 +5,22 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
-import com.tiksem.media.data.NamedData;
-import com.utilsframework.android.adapters.SingleViewArrayAdapter;
+import com.tiksem.media.data.ArtCollection;
 
 /**
- * Created by CM on 8/30/2014.
+ * Created by CM on 8/31/2014.
  */
-public class NamedDataSpinnerAdapter<T extends NamedData> extends SingleViewArrayAdapter<T> {
+public class ArtCollectionSpinnerAdapter<T extends ArtCollection> extends ArtCollectionAdapter<T> {
     private String nullItemText;
 
-    public NamedDataSpinnerAdapter(Context context, String nullItemText) {
+    public ArtCollectionSpinnerAdapter(Context context, String nullItemText) {
         super(context);
         this.nullItemText = nullItemText;
     }
 
     @Override
     protected int getRootLayoutId() {
-        return R.layout.spinner_text_view;
-    }
-
-    @Override
-    protected void reuseView(T namedData, Void aVoid, int position, View view) {
-        TextView textView = (TextView) view;
-        textView.setText(namedData.getName());
+        return R.layout.art_collection_spinner;
     }
 
     @Override
