@@ -1,37 +1,19 @@
 package com.example.FlyingDog;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.Spinner;
 import com.example.FlyingDog.ui.adapters.AlbumsSuggestionsAdapter;
-import com.example.FlyingDog.ui.adapters.ArtCollectionSpinnerAdapter;
 import com.example.FlyingDog.ui.adapters.ArtistsSuggestionsAdapter;
 import com.example.FlyingDog.ui.adapters.AudiosSuggestionsAdapter;
 import com.tiksem.media.AudioDataManager;
-import com.tiksem.media.MediaUpdatingService;
-import com.tiksem.media.data.Album;
-import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
-import com.tiksem.media.data.AudioComparators;
-import com.utils.framework.collections.ListWithNullFirstItem;
-import com.utilsframework.android.threading.Tasks;
+import com.utilsframework.android.threading.AsyncOperationCallback;
 import com.utilsframework.android.view.Alerts;
 import com.utilsframework.android.view.GuiUtilities;
-import com.utilsframework.android.view.TextChangedAfterTimeListener;
-import com.utilsframework.android.view.UiMessages;
-
-import java.util.ArrayDeque;
-import java.util.Collections;
-import java.util.List;
-import java.util.Queue;
 
 /**
  * Created by CM on 8/30/2014.
@@ -52,8 +34,27 @@ public class EditAudioActivity extends Activity {
         context.startActivity(intent);
     }
 
-    private void updateArtist() {
+    private void updateAlbum() {
+        Alerts.runAsyncOperationWithCircleLoading(this, R.string.please_wait,
+                new AsyncOperationCallback<Boolean>() {
+                    @Override
+                    public Boolean runOnBackground() {
+                        return audioDataManager.tryFillAlbum(editingAudio);
+                    }
+                    @Override
+                    public void onFinish(Boolean success) {
+                        if(success){
+                            albumNameEditText.setText(editingAudio.getAlbumName());
+                        }
+                    }
+                });
+    }
 
+    private void onAudioNameChanged() {
+        String audioName = audioNameEditText.getText().toString();
+        editingAudio.setName(audioName);
+        artistsSuggestionsAdapter.setTrackName(audioName);
+        updateAlbum();
     }
 
     private void initViews() {
@@ -71,12 +72,19 @@ public class EditAudioActivity extends Activity {
         final String editingAudioName = editingAudio.getName();
         audioNameEditText.setText(editingAudioName);
         artistsSuggestionsAdapter.setTrackName(editingAudioName);
-        audioNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+        GuiUtilities.setEditTextFocusChangedListener(audioNameEditText,
+                new GuiUtilities.EditTextFocusListener() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                String audioName = audioNameEditText.getText().toString();
-                editingAudio.setName(audioName);
-                artistsSuggestionsAdapter.setTrackName(audioName);
+            public void onFocusEnter() {
+
+            }
+
+            @Override
+            public void onFocusLeave(boolean textChanged, String textBefore) {
+                if(textChanged){
+                    onAudioNameChanged();
+                }
             }
         });
     }

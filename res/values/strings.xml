@@ -11,4 +11,5 @@
     <string name="ok">OK</string>
     <string name="play_list">playlist</string>
     <string name="artist">artist</string>
+    <string name="please_wait">Please wait...</string>
 </resources>
