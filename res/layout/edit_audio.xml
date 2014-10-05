@@ -12,7 +12,7 @@
                 android:text="Name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        <AutoCompleteTextView
+        <com.utilsframework.android.view.EditTextWithSuggestions
                 android:id="@+id/name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -22,7 +22,7 @@
                 android:text="Artist name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        <AutoCompleteTextView
+        <com.utilsframework.android.view.EditTextWithSuggestions
                 android:id="@+id/artist_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
@@ -31,7 +31,7 @@
                 android:text="Album name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
-        <AutoCompleteTextView
+        <com.utilsframework.android.view.EditTextWithSuggestions
                 android:id="@+id/album_name"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"

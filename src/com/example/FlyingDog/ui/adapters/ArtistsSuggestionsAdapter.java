@@ -20,6 +20,7 @@ public class ArtistsSuggestionsAdapter
 
     public void setTrackName(String trackName) {
         suggestionsProvider.setTrackName(trackName);
+        notifyDataSetChanged();
     }
 
     public ArtistsSuggestionsAdapter(Context context, AudioDataManager audioDataManager) {
