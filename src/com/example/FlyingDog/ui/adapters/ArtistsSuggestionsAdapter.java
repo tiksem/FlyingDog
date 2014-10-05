@@ -16,9 +16,15 @@ public class ArtistsSuggestionsAdapter
         extends SuggestionsAdapter<Artist, ArtCollectionHolder> {
     private static final String NULL_ITEM_TEXT = "Unknown artist";
     private static final int MAX_ARTISTS_COUNT = 10;
+    private ArtistSuggestionsProvider suggestionsProvider;
+
+    public void setTrackName(String trackName) {
+        suggestionsProvider.setTrackName(trackName);
+    }
 
     public ArtistsSuggestionsAdapter(Context context, AudioDataManager audioDataManager) {
-        super(new ArtCollectionSpinnerAdapter<Artist>(context, NULL_ITEM_TEXT),
-                new ArtistSuggestionsProvider(audioDataManager, MAX_ARTISTS_COUNT));
+        setViewArrayAdapter(new ArtCollectionSpinnerAdapter<Artist>(context, NULL_ITEM_TEXT));
+        suggestionsProvider = new ArtistSuggestionsProvider(audioDataManager, MAX_ARTISTS_COUNT);
+        setSuggestionsProvider(suggestionsProvider);
     }
 }

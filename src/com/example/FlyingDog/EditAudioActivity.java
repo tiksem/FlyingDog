@@ -24,7 +24,9 @@ import com.tiksem.media.data.AudioComparators;
 import com.utils.framework.collections.ListWithNullFirstItem;
 import com.utilsframework.android.threading.Tasks;
 import com.utilsframework.android.view.Alerts;
+import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.TextChangedAfterTimeListener;
+import com.utilsframework.android.view.UiMessages;
 
 import java.util.ArrayDeque;
 import java.util.Collections;
@@ -42,6 +44,7 @@ public class EditAudioActivity extends Activity {
     private Audio editingAudio;
     private AutoCompleteTextView albumNameEditText;
     private AutoCompleteTextView audioNameEditText;
+    private ArtistsSuggestionsAdapter artistsSuggestionsAdapter;
 
     public static void start(Context context, long id) {
         Intent intent = new Intent(context, EditAudioActivity.class);
@@ -49,9 +52,14 @@ public class EditAudioActivity extends Activity {
         context.startActivity(intent);
     }
 
+    private void updateArtist() {
+
+    }
+
     private void initViews() {
         artistNameEditText = (AutoCompleteTextView) findViewById(R.id.artist_name);
-        artistNameEditText.setAdapter(new ArtistsSuggestionsAdapter(this, audioDataManager));
+        artistsSuggestionsAdapter = new ArtistsSuggestionsAdapter(this, audioDataManager);
+        artistNameEditText.setAdapter(artistsSuggestionsAdapter);
         artistNameEditText.setText(editingAudio.getArtistName());
 
         albumNameEditText = (AutoCompleteTextView) findViewById(R.id.album_name);
@@ -60,7 +68,17 @@ public class EditAudioActivity extends Activity {
 
         audioNameEditText = (AutoCompleteTextView) findViewById(R.id.name);
         audioNameEditText.setAdapter(new AudiosSuggestionsAdapter(this, audioDataManager));
-        audioNameEditText.setText(editingAudio.getName());
+        final String editingAudioName = editingAudio.getName();
+        audioNameEditText.setText(editingAudioName);
+        artistsSuggestionsAdapter.setTrackName(editingAudioName);
+        audioNameEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                String audioName = audioNameEditText.getText().toString();
+                editingAudio.setName(audioName);
+                artistsSuggestionsAdapter.setTrackName(audioName);
+            }
+        });
     }
 
     @Override
