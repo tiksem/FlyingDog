@@ -18,8 +18,21 @@ public class AudiosSuggestionsAdapter
     private static final String NULL_ITEM_TEXT = "Unknown artist";
     private static final int MAX_ARTISTS_COUNT = 10;
 
+    private final AudioSuggestionsProvider suggestionsProvider;
+    private String artistName;
+
+    public String getArtistName() {
+        return artistName;
+    }
+
+    public void setArtistName(String artistName) {
+        this.artistName = artistName;
+        suggestionsProvider.setArtistName(artistName);
+    }
+
     public AudiosSuggestionsAdapter(Context context, AudioDataManager audioDataManager) {
-        super(new ArtCollectionSpinnerAdapter<Audio>(context, NULL_ITEM_TEXT),
-                new AudioSuggestionsProvider(audioDataManager, MAX_ARTISTS_COUNT));
+        setViewArrayAdapter(new ArtCollectionSpinnerAdapter<Audio>(context, NULL_ITEM_TEXT));
+        suggestionsProvider = new AudioSuggestionsProvider(audioDataManager, MAX_ARTISTS_COUNT);
+        setSuggestionsProvider(suggestionsProvider);
     }
 }

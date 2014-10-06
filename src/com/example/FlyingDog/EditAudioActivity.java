@@ -34,6 +34,7 @@ public class EditAudioActivity extends Activity {
     private AutoCompleteTextView albumNameEditText;
     private AutoCompleteTextView audioNameEditText;
     private ArtistsSuggestionsAdapter artistsSuggestionsAdapter;
+    private AudiosSuggestionsAdapter audiosSuggestionsAdapter;
 
     private Runnable onDestroyAction = new Runnable() {
         @Override
@@ -94,6 +95,7 @@ public class EditAudioActivity extends Activity {
     private void onArtistNameChanged() {
         String artistName = artistNameEditText.getText().toString();
         editingAudio.setArtistName(artistName);
+        audiosSuggestionsAdapter.setArtistName(artistName);
     }
 
     private void onOk() {
@@ -129,7 +131,8 @@ public class EditAudioActivity extends Activity {
         artistNameEditText = (AutoCompleteTextView) findViewById(R.id.artist_name);
         artistsSuggestionsAdapter = new ArtistsSuggestionsAdapter(this, audioDataManager);
         artistNameEditText.setAdapter(artistsSuggestionsAdapter);
-        artistNameEditText.setText(editingAudio.getArtistName());
+        String artistName = editingAudio.getArtistName();
+        artistNameEditText.setText(artistName);
         artistNameEditText.setThreshold(0);
 
         albumNameEditText = (AutoCompleteTextView) findViewById(R.id.album_name);
@@ -137,7 +140,9 @@ public class EditAudioActivity extends Activity {
         albumNameEditText.setText(editingAudio.getAlbumName());
 
         audioNameEditText = (AutoCompleteTextView) findViewById(R.id.name);
-        audioNameEditText.setAdapter(new AudiosSuggestionsAdapter(this, audioDataManager));
+        audiosSuggestionsAdapter = new AudiosSuggestionsAdapter(this, audioDataManager);
+        audiosSuggestionsAdapter.setArtistName(artistName);
+        audioNameEditText.setAdapter(audiosSuggestionsAdapter);
         final String editingAudioName = editingAudio.getName();
         audioNameEditText.setText(editingAudioName);
         artistsSuggestionsAdapter.setTrackName(editingAudioName);
