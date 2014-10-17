@@ -19,6 +19,12 @@
         </menu>
     </item>
 
+    <item android:id="@+id/action_search"
+          android:title=""
+          android:icon="@android:drawable/ic_menu_search"
+          android:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
+
     <item android:id="@+id/action_add_playlist"
           android:icon="@drawable/plus"
           android:showAsAction="ifRoom|withText"
