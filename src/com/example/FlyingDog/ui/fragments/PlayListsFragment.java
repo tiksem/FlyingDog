@@ -39,10 +39,4 @@ public class PlayListsFragment extends MediaContainerListFragment<PlayList>{
     protected Fragment createChildFragment(AudioDataManager audioDataManager, PlayList media) {
         return new AudioListFragment(media);
     }
-
-    @Override
-    protected void onMediaListDataSetChanged() {
-        getAdapter().setElements(audioDataManager.getPlayLists());
-        super.onMediaListDataSetChanged();
-    }
 }

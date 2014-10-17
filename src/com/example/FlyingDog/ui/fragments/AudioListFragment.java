@@ -161,13 +161,17 @@ public class AudioListFragment extends MediaListFragment {
         flyingDog.setOnAlbumArtUpdated(new MediaUpdatingService.OnAlbumArtUpdated() {
             @Override
             public void onAlbumArtUpdated(Album album) {
-                onMediaListDataSetChanged();
+                if(adapter != null){
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
         flyingDog.setOnAlbumOfAudioUpdated(new MediaUpdatingService.OnAlbumOfAudioUpdated() {
             @Override
             public void onUpdateFinished(Album album, Audio audio) {
-                onMediaListDataSetChanged();
+                if(adapter != null){
+                    adapter.notifyDataSetChanged();
+                }
             }
         });
 
@@ -200,9 +204,9 @@ public class AudioListFragment extends MediaListFragment {
     }
 
     @Override
-    protected void onMediaListDataSetChanged() {
+    protected void onMediaListDataSetChanged(List newData) {
         if (adapter != null) {
-            adapter.notifyDataSetChanged();
+            adapter.setElements(newData);
         }
     }
 }

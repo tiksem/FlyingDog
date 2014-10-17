@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import com.example.FlyingDog.R;
 import com.tiksem.media.AudioDataManager;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
@@ -59,8 +60,14 @@ public abstract class MediaContainerListFragment<T> extends MediaListFragment {
     }
 
     @Override
-    protected void onMediaListDataSetChanged() {
+    protected void onMediaListDataSetChanged(List newData) {
         if (adapter != null) {
+            adapter.setElements(newData);
+        }
+    }
+
+    protected final void notifyAdapterDataSetChanged() {
+        if(adapter != null){
             adapter.notifyDataSetChanged();
         }
     }

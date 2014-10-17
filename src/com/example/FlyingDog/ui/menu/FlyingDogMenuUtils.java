@@ -4,15 +4,25 @@ import android.content.Context;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.SubMenu;
+import android.widget.CursorAdapter;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.OnMediaDataSetChanged;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.CreatePlayListAlert;
+import com.example.FlyingDog.ui.adapters.InternetSearch;
+import com.tiksem.media.AudioDataManager;
+import com.tiksem.media.data.Identified;
 import com.tiksem.media.data.PlayList;
+import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.DifferentlySortable;
+import com.utilsframework.android.adapters.CursorSuggestionsAdapterWrapper;
+import com.utilsframework.android.threading.AsyncOperationCallback;
+import com.utilsframework.android.view.Alerts;
 import com.utilsframework.android.view.GuiUtilities;
+import android.widget.SearchView;
 
 import java.util.Comparator;
+import java.util.List;
 
 /**
  * User: Tikhonenko.S
@@ -45,7 +55,7 @@ public class FlyingDogMenuUtils {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
                         sortable.setCurrentSortComparator(comparator);
-                        onMediaDataSetChanged.onDataSetChanged();
+                        onMediaDataSetChanged.onDataSetChanged((List) sortable);
                         return true;
                     }
                 });
@@ -57,7 +67,7 @@ public class FlyingDogMenuUtils {
         }
     }
 
-    private static void initAddPlaylistItem(Menu menu, Class aClass, final Context context,
+    private static void initAddPlaylistItem(Menu menu, final List mediaData, Class aClass, final Context context,
                                            final OnMediaDataSetChanged onMediaDataSetChanged) {
         MenuItem addPlayListItem = menu.findItem(R.id.action_add_playlist);
         addPlayListItem.setVisible(aClass == PlayList.class);
@@ -72,7 +82,7 @@ public class FlyingDogMenuUtils {
                     @Override
                     public void onDialogClosed(boolean playListCreated) {
                         if(playListCreated){
-                            onMediaDataSetChanged.onDataSetChanged();
+                            onMediaDataSetChanged.onDataSetChanged(mediaData);
                         }
                     }
                 });
@@ -82,10 +92,64 @@ public class FlyingDogMenuUtils {
         });
     }
 
-    public static void setupMenuForDataList(final DifferentlySortable sortable, Context context,
+    public static void initSearchItem(Menu menu, List mediaData, final OnMediaDataSetChanged  onMediaDataSetChanged,
+                                      final Context context, final Class aClass) {
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+
+        if(Identified.class.isAssignableFrom(aClass)){
+            if(mediaData == null){
+                throw new RuntimeException();
+            }
+
+            searchItem.setVisible(true);
+            SearchView searchView = (SearchView) searchItem.getActionView();
+
+            FlyingDog flyingDog = FlyingDog.getInstance();
+            final AudioDataManager audioDataManager = flyingDog.getAudioDataManager();
+
+            CursorAdapter suggestionsAdapter =
+                    new CursorSuggestionsAdapterWrapper(context,
+                            InternetSearch.createSuggestionsAdapterForClass(audioDataManager, context, aClass));
+            searchView.setSuggestionsAdapter(suggestionsAdapter);
+
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(final String query) {
+                    Alerts.runAsyncOperationWithCircleLoading(context, R.string.please_wait,
+                            new AsyncOperationCallback<List>() {
+                        @Override
+                        public List runOnBackground() {
+                            return InternetSearch.search(query, audioDataManager, aClass);
+                        }
+
+                        @Override
+                        public void onFinish(List result) {
+                            onMediaDataSetChanged.onDataSetChanged(result);
+                        }
+                    });
+                    return true;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+        } else {
+            searchItem.setVisible(false);
+        }
+    }
+
+    public static void setupMenuForDataList(final List mediaData, Context context,
                                             Menu menu, Class aClass,
                                             final OnMediaDataSetChanged onMediaDataSetChanged) {
+        DifferentlySortable sortable = null;
+        if(mediaData != null && mediaData instanceof DifferentlySortable){
+            sortable = (DifferentlySortable) mediaData;
+        }
+
         initSortingItem(sortable, menu, aClass, onMediaDataSetChanged);
-        initAddPlaylistItem(menu, aClass, context, onMediaDataSetChanged);
+        initAddPlaylistItem(menu, mediaData, aClass, context, onMediaDataSetChanged);
+        initSearchItem(menu, mediaData, onMediaDataSetChanged, context, aClass);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.FlyingDog.ui.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -56,5 +57,16 @@ public class SongsAdapter extends ViewArrayAdapter<Audio, SongViewHolder> {
     @Override
     protected void onViewCreated(int position, View convertView, Audio audio, SongViewHolder holder) {
         holder.options.setFocusable(false);
+    }
+
+    @Override
+    protected int getNullLayoutId() {
+        return R.layout.spinner_text_view;
+    }
+
+    protected void reuseNullView(int position, View convertView) {
+        TextView textView = (TextView) convertView;
+        textView.setTextColor(Color.rgb(255, 0, 0));
+        textView.setText(textView.getContext().getString(R.string.please_wait));
     }
 }
