@@ -3,7 +3,7 @@
 	url = https://badmenltd@code.google.com/p/shlak-android/
 [submodule "dependencies/general-utils"]
 	path = dependencies/general-utils
-	url = https://badmenltd@code.google.com/p/shlak-android/
+	url = https://badmenltd@code.google.com/p/shlak-genral/
 [submodule "dependencies/media-utils"]
 	path = dependencies/media-utils
 	url = https://semyontikhonenko@code.google.com/p/android-media-utils/
