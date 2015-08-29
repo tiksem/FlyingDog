@@ -20,7 +20,7 @@ public class NamedDataSpinnerAdapter<T extends NamedData> extends SingleViewArra
     }
 
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayoutId(int viewType) {
         return R.layout.spinner_text_view;
     }
 

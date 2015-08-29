@@ -12,7 +12,7 @@ public class ArtistsAdapter extends ArtCollectionAdapter {
     }
 
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayoutId(int viewType) {
         return R.layout.artist_item;
     }
 }

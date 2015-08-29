@@ -61,7 +61,7 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
     }
 
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayoutId(int viewType) {
         return R.layout.playlist_folder;
     }
 

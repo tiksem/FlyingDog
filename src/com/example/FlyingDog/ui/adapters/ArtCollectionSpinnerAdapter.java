@@ -19,7 +19,7 @@ public class ArtCollectionSpinnerAdapter<T extends ArtCollection> extends ArtCol
     }
 
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayoutId(int viewType) {
         return R.layout.art_collection_spinner;
     }
 

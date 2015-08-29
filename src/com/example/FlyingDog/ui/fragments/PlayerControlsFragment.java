@@ -10,6 +10,7 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
+import com.utilsframework.android.fragments.Fragments;
 import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.PausedStateToggleButton;
 
@@ -100,7 +101,7 @@ public class PlayerControlsFragment extends Fragment {
             @Override
             public void run() {
                 playerBinder = flyingDog.getPlayerBinder();
-                GuiUtilities.executeWhenViewCreated(PlayerControlsFragment.this, new GuiUtilities.OnViewCreated() {
+                Fragments.executeWhenViewCreated(PlayerControlsFragment.this, new GuiUtilities.OnViewCreated() {
                     @Override
                     public void onViewCreated(View view) {
                         onServiceReady();

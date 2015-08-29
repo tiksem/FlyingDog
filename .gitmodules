@@ -1,9 +1,9 @@
 [submodule "dependencies/android-utils"]
 	path = dependencies/android-utils
-	url = https://badmenltd@code.google.com/p/shlak-android/
+	url = https://github.com/tiksem/androidebi.git
 [submodule "dependencies/general-utils"]
 	path = dependencies/general-utils
-	url = https://badmenltd@code.google.com/p/shalk-general/
+	url = https://github.com/tiksem/generalebi.git
 [submodule "dependencies/media-utils"]
 	path = dependencies/media-utils
-	url = https://semyontikhonenko@code.google.com/p/android-media-utils/
+	url = https://github.com/tiksem/mediaebi.git

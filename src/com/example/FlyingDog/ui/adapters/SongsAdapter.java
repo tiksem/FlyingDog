@@ -26,7 +26,7 @@ public class SongsAdapter extends ViewArrayAdapter<Audio, SongViewHolder> {
     }
 
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayoutId(int viewType) {
         return R.layout.song_item;
     }
 
