@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<ListView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_weight="1"
-        android:id="@+id/play_list_view"
-        android:choiceMode="singleChoice"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+              android:layout_width="match_parent">
+        <include android:layout_weight="1"
+                 android:layout_width="match_parent"
+                 android:layout_height="0dp"
+                 layout="@layout/songs_list" />
+        <FrameLayout android:layout_weight="0"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <com.tiksem.media.ui.AudioPlaybackSeekBar
+                    android:id="@+id/play_seek_bar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+        </FrameLayout>
+</LinearLayout>

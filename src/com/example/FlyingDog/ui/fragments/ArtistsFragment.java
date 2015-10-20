@@ -24,4 +24,9 @@ public class ArtistsFragment extends AbstractPlayListFragment<Artist> {
     protected List<Artist> createList() {
         return audioDataBase.getArtists();
     }
+
+    @Override
+    protected void onListItemClicked(Artist item, int position) {
+
+    }
 }

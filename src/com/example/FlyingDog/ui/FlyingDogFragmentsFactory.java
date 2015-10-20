@@ -2,6 +2,7 @@ package com.example.FlyingDog.ui;
 
 import android.support.v4.app.Fragment;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.ui.fragments.AbstractPlayListFragment;
 import com.example.FlyingDog.ui.fragments.ArtistsFragment;
 import com.example.FlyingDog.ui.fragments.SongsFragment;
 import com.utilsframework.android.navdrawer.FragmentFactory;
@@ -12,7 +13,8 @@ import com.utilsframework.android.navdrawer.TabsAdapter;
  */
 public class FlyingDogFragmentsFactory implements FragmentFactory {
     @Override
-    public Fragment createFragmentBySelectedItem(int selectedItemId, int tabIndex, int navigationLevel) {
+    public AbstractPlayListFragment createFragmentBySelectedItem(int selectedItemId,
+                                                                 int tabIndex, int navigationLevel) {
         PlayListMode mode = PlayListMode.values()[tabIndex];
         switch (mode) {
             case ALL_SONGS:
