@@ -16,4 +16,8 @@
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
     <string name="albums">Albums</string>
+    <string name="sort">Sort</string>
+    <string name="sort_by_name">Sort by name</string>
+    <string name="sort_by_adding_date">Sort by adding date</string>
+    <string name="sort_by_artist_name">Sort by artist name</string>
 </resources>
