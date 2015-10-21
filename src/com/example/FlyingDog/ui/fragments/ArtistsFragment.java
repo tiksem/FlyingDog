@@ -9,12 +9,7 @@ import java.util.List;
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public class ArtistsFragment extends AbstractPlayListFragment<Artist> {
-    @Override
-    protected int getRootLayoutId() {
-        return com.utilsframework.android.R.layout.grid;
-    }
-
+public class ArtistsFragment extends ArtCollectionFragment<Artist> {
     @Override
     protected ViewArrayAdapter<Artist, ?> createAdapter() {
         return new ArtistsAdapter(getActivity());

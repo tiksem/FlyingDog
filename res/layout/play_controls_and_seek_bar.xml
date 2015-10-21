@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
+       tools:showIn="@layout/play_list_fragment">
+    <LinearLayout android:id="@+id/play_controls"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:visibility="gone"
+                  android:layout_weight="0"
+                  android:orientation="horizontal">
+        <Button android:id="@+id/prev"
+                android:background="@drawable/ic_prev"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+        <ToggleButton android:id="@+id/play"
+                      android:textOn=""
+                      android:textOff=""
+                      android:background="@drawable/play_button"
+                      android:layout_width="50dp"
+                      android:layout_height="50dp"/>
+        <Button android:id="@+id/next"
+                android:background="@drawable/ic_next"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+    </LinearLayout>
+    <FrameLayout android:layout_weight="0"
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content">
+        <com.tiksem.media.ui.AudioPlaybackSeekBar
+                android:id="@+id/play_seek_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+    </FrameLayout>
+</merge>
