@@ -6,6 +6,6 @@
     <include android:layout_weight="1"
              android:layout_width="match_parent"
              android:layout_height="0dp"
-             layout="@layout/songs_list"/>
+             layout="@layout/art_collection_grid"/>
     <include layout="@layout/play_controls_and_seek_bar"/>
 </LinearLayout>
