@@ -1,19 +1,17 @@
 package com.example.FlyingDog.ui.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.R;
+import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.data.Audio;
-import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.PositionChangedListener;
 import com.utils.framework.CollectionUtils;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
-import com.utilsframework.android.fragments.ListViewFragment;
 
 import java.util.List;
 
@@ -60,7 +58,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
     }
 
     private void updateListViewCheckedItemIfNeed(AudioPlayerService.Binder playBackService) {
-        if (playBackService.getPlayList() != urls) {
+        if (!CollectionUtils.contentEquals(playBackService.getPlayList(), urls)) {
             return;
         }
 
@@ -76,12 +74,19 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
     @Override
     protected final List<Audio> createList() {
         songs = getSongs();
+
+        int sortOrder = getSortOrder();
+        if (sortOrder != 0) {
+            SortMenuUtils.sortAudios(songs, sortOrder);
+        }
+
         urls = CollectionUtils.transformNonCopy(songs, new CollectionUtils.Transformer<Audio, String>() {
             @Override
             public String get(Audio audio) {
                 return audio.getUrl();
             }
         });
+
         return songs;
     }
 
@@ -98,5 +103,25 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
                 activity.getPlayBackService().play(urls, position);
             }
         });
+    }
+
+    @Override
+    public void onSortOrderChanged(int newSortOrder) {
+        super.onSortOrderChanged(newSortOrder);
+
+        AudioPlayerService.Binder playBackService = getPlayBackService();
+        if (playBackService != null && playBackService.getPlayList() != null) {
+            playBackService.changePlayList(urls);
+        }
+    }
+
+    @Override
+    protected int getSortMenuId() {
+        return R.menu.sort_songs;
+    }
+
+    @Override
+    protected int getSortMenuGroupId() {
+        return R.id.action_sort;
     }
 }

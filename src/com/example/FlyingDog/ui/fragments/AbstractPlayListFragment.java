@@ -3,6 +3,8 @@ package com.example.FlyingDog.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ToggleButton;
@@ -14,14 +16,19 @@ import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.StateChangedListener;
 import com.tiksem.media.playback.Status;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
+import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.fragments.Fragments;
 import com.utilsframework.android.fragments.ListViewFragment;
+import com.utilsframework.android.menu.SortListener;
+import com.utilsframework.android.menu.SortMenuAction;
 import com.utilsframework.android.view.GuiUtilities;
+
+import java.util.List;
 
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public abstract class AbstractPlayListFragment<T> extends ListViewFragment<T> {
+public abstract class AbstractPlayListFragment<T> extends ListViewFragment<T> implements SortListener {
     protected AudioDataBase audioDataBase;
     private StateChangedListener stateChangedListener;
     private AudioPlayerService.Binder playBackService;
@@ -38,6 +45,7 @@ public abstract class AbstractPlayListFragment<T> extends ListViewFragment<T> {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+        setHasOptionsMenu(true);
         audioDataBase = FlyingDog.getInstance().getAudioDataBase();
     }
 
@@ -108,5 +116,9 @@ public abstract class AbstractPlayListFragment<T> extends ListViewFragment<T> {
         if (playBackService != null) {
             playBackService.removeStateChangedListener(stateChangedListener);
         }
+    }
+
+    public AudioPlayerService.Binder getPlayBackService() {
+        return playBackService;
     }
 }
