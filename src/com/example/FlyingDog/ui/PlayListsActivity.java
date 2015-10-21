@@ -76,7 +76,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
 
     @Override
     protected FragmentFactory createFragmentFactory() {
-        return new FlyingDogFragmentsFactory();
+        return new FlyingDogFragmentsFactory(this);
     }
 
     public AudioPlayerService.Binder getPlayBackService() {

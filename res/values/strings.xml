@@ -14,4 +14,6 @@
     <string name="please_wait">Please wait...</string>
     <string name="all_songs">All Songs</string>
     <string name="artists">Artists</string>
+    <string name="songs">Songs</string>
+    <string name="albums">Albums</string>
 </resources>
