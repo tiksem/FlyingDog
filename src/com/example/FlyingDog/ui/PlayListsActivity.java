@@ -124,7 +124,9 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     protected void onDestroy() {
         super.onDestroy();
         artsUpdating.cancel(false);
-        audioPlayBackUnBinder.unbind();
+        if (audioPlayBackUnBinder != null) {
+            audioPlayBackUnBinder.unbind();
+        }
     }
 
     @Override
