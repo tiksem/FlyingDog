@@ -4,28 +4,23 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
-import com.tiksem.media.playback.StateChangedListener;
-import com.tiksem.media.playback.Status;
-import com.tiksem.media.ui.AudioPlaybackSeekBar;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.menu.SortListener;
 import com.utilsframework.android.navigation.NavigationListFragment;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
-import com.utilsframework.android.view.GuiUtilities;
 
 import java.util.List;
 
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public abstract class AbstractPlayListFragment<T> extends NavigationListFragment<T, AsyncRequestExecutorManager>
+public abstract class AbstractPlayListFragment<T> extends NavigationListFragment<T, RequestManager>
         implements SortListener {
     protected AudioDataBase audioDataBase;
     private AudioPlayerService.Binder playBackService;
@@ -68,8 +63,8 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     }
 
     @Override
-    protected AsyncRequestExecutorManager obtainRequestManager() {
-        return new AsyncRequestExecutorManager();
+    protected RequestManager obtainRequestManager() {
+        return new RequestManager();
     }
 
     @Override
@@ -89,7 +84,7 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     }
 
     @Override
-    protected final NavigationList<T> getNavigationList(AsyncRequestExecutorManager requestManager, String filter) {
+    protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
         if (filter == null) {
             return NavigationList.decorate(createList());
         } else {

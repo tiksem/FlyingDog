@@ -1,9 +1,11 @@
 package com.example.FlyingDog.ui.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
@@ -13,8 +15,6 @@ import com.tiksem.media.playback.PositionChangedListener;
 import com.utils.framework.CollectionUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
-import com.utilsframework.android.adapters.navigation.NavigationListAdapter;
-import com.utilsframework.android.network.AsyncRequestExecutorManager;
 
 import java.util.List;
 
@@ -24,6 +24,11 @@ import java.util.List;
 public class SongsFragment extends AbstractPlayListFragment<Audio> {
     private List<Audio> songs;
     private List<String> urls;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+    }
 
     @Override
     public void onStart() {
@@ -70,7 +75,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
     }
 
     @Override
-    protected ViewArrayAdapter<Audio, ?> createAdapter(AsyncRequestExecutorManager requestManager) {
+    protected ViewArrayAdapter<Audio, ?> createAdapter(RequestManager requestManager) {
         return new SongsAdapter(getActivity());
     }
 
@@ -116,6 +121,16 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         if (playBackService != null && playBackService.getPlayList() != null) {
             playBackService.changePlayList(urls);
         }
+    }
+
+    @Override
+    protected boolean hasSearchMenu() {
+        return true;
+    }
+
+    @Override
+    protected NavigationList<Audio> createNavigationList(String filter) {
+        return getRequestManager().searchSongs(filter);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.AlbumsAdapter;
 import com.tiksem.media.data.Album;
@@ -13,7 +14,7 @@ import java.util.List;
  */
 public class AlbumsFragment extends ArtCollectionFragment<Album> {
     @Override
-    protected ViewArrayAdapter<Album, ?> createAdapter(AsyncRequestExecutorManager executorManager) {
+    protected ViewArrayAdapter<Album, ?> createAdapter(RequestManager executorManager) {
         return new AlbumsAdapter(getActivity());
     }
 
