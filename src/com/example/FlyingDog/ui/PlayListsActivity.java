@@ -2,15 +2,23 @@ package com.example.FlyingDog.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.fragments.AbstractPlayListFragment;
 import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
+import com.tiksem.media.playback.StateChangedListener;
+import com.tiksem.media.playback.Status;
+import com.tiksem.media.ui.AudioPlaybackSeekBar;
 import com.utilsframework.android.Services;
 import com.utilsframework.android.fragments.ListViewFragment;
 import com.utilsframework.android.navdrawer.FragmentFactory;
 import com.utilsframework.android.navdrawer.NavigationActivityWithoutDrawerLayout;
 import com.utilsframework.android.threading.Tasks;
+import com.utilsframework.android.view.GuiUtilities;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -54,6 +62,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private void onPlayBackServiceConnected(Services.Connection<AudioPlayerService.Binder> connection) {
         audioPlayBackUnBinder = connection;
         playBackService = connection.getBinder();
+        setupPlayingControls();
 
         Tasks.executeAndClearQueue(whenPlayBackServiceReadyQueue);
         whenPlayBackServiceReadyQueue = null;
@@ -67,6 +76,50 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         }
     }
 
+    private void setupPlayingControls() {
+        AudioPlaybackSeekBar seekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
+        seekBar.setPlayerBinder(playBackService);
+
+        final ViewGroup playControls = (ViewGroup) findViewById(R.id.play_controls);
+        final ToggleButton playButton = (ToggleButton) findViewById(R.id.play);
+        View next = findViewById(R.id.next);
+        View prev = findViewById(R.id.prev);
+
+        playButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playBackService.togglePauseState();
+            }
+        });
+
+        next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playBackService.playNext();
+            }
+        });
+
+        prev.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                playBackService.playPrev();
+            }
+        });
+
+        playBackService.addStateChangedListener(new StateChangedListener() {
+            @Override
+            public void onStateChanged(Status status) {
+                if (status == Status.PLAYING || status == Status.PAUSED) {
+                    playControls.setVisibility(View.VISIBLE);
+                    playButton.setChecked(status == Status.PLAYING);
+                    GuiUtilities.setEnabledForChildren(playControls, true);
+                } else {
+                    GuiUtilities.setEnabledForChildren(playControls, false);
+                }
+            }
+        });
+    }
+    
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -81,5 +134,10 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
 
     public AudioPlayerService.Binder getPlayBackService() {
         return playBackService;
+    }
+
+    @Override
+    protected int getRootLayoutId() {
+        return R.layout.main;
     }
 }

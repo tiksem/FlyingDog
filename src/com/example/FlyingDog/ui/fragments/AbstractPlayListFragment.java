@@ -28,7 +28,6 @@ import java.util.List;
 public abstract class AbstractPlayListFragment<T> extends NavigationListFragment<T, AsyncRequestExecutorManager>
         implements SortListener {
     protected AudioDataBase audioDataBase;
-    private StateChangedListener stateChangedListener;
     private AudioPlayerService.Binder playBackService;
 
     protected final PlayListsActivity getPlayListsActivity() {
@@ -55,66 +54,13 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                onViewCratedAndPlayBackServiceReady(view, activity.getPlayBackService());
+                onViewCreatedAndPlayBackServiceReady(view, activity.getPlayBackService());
             }
         });
     }
 
-    private void onViewCratedAndPlayBackServiceReady(View view, final AudioPlayerService.Binder playBackService) {
+    private void onViewCreatedAndPlayBackServiceReady(View view, final AudioPlayerService.Binder playBackService) {
         this.playBackService = playBackService;
-
-        AudioPlaybackSeekBar seekBar = (AudioPlaybackSeekBar) view.findViewById(R.id.play_seek_bar);
-        seekBar.setPlayerBinder(playBackService);
-
-        final ViewGroup playControls = (ViewGroup) view.findViewById(R.id.play_controls);
-        final ToggleButton playButton = (ToggleButton) view.findViewById(R.id.play);
-        View next = view.findViewById(R.id.next);
-        View prev = view.findViewById(R.id.prev);
-
-        playButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playBackService.togglePauseState();
-            }
-        });
-
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playBackService.playNext();
-            }
-        });
-
-        prev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                playBackService.playPrev();
-            }
-        });
-
-        stateChangedListener = new StateChangedListener() {
-            @Override
-            public void onStateChanged(Status status) {
-                if (status == Status.PLAYING || status == Status.PAUSED) {
-                    playControls.setVisibility(View.VISIBLE);
-                    playButton.setChecked(status == Status.PLAYING);
-                    GuiUtilities.setEnabledForChildren(playControls, true);
-                } else {
-                    GuiUtilities.setEnabledForChildren(playControls, false);
-                }
-            }
-        };
-        playBackService.addStateChangedListener(stateChangedListener);
-        stateChangedListener.onStateChanged(playBackService.getStatus());
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        if (playBackService != null) {
-            playBackService.removeStateChangedListener(stateChangedListener);
-        }
     }
 
     public AudioPlayerService.Binder getPlayBackService() {
