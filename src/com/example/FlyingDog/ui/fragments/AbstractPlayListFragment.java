@@ -105,6 +105,7 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
             }
         };
         playBackService.addStateChangedListener(stateChangedListener);
+        stateChangedListener.onStateChanged(playBackService.getStatus());
     }
 
     @Override
