@@ -2,7 +2,6 @@ package com.example.FlyingDog.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.Menu;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.ui.fragments.AbstractPlayListFragment;
 import com.tiksem.media.local.AudioDataBase;
@@ -25,8 +24,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private AudioPlayerService.Binder playBackService;
     private Queue<Runnable> whenPlayBackServiceReadyQueue = new ArrayDeque<>();
 
-    private ListViewFragment getListViewFragment() {
-        return (ListViewFragment) getCurrentFragment();
+    private AbstractPlayListFragment getPlayListFragment() {
+        return (AbstractPlayListFragment) getCurrentFragment();
     }
 
     @Override
@@ -37,7 +36,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 new AudioDataBase.OnArtsUpdatingFinished() {
             @Override
             public void onFinished() {
-                ListViewFragment fragment = getListViewFragment();
+                AbstractPlayListFragment fragment = getPlayListFragment();
                 if (fragment != null) {
                     fragment.notifyDataSetChanged();
                 }

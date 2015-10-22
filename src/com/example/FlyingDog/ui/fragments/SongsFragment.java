@@ -11,7 +11,10 @@ import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.PositionChangedListener;
 import com.utils.framework.CollectionUtils;
+import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
+import com.utilsframework.android.adapters.navigation.NavigationListAdapter;
+import com.utilsframework.android.network.AsyncRequestExecutorManager;
 
 import java.util.List;
 
@@ -67,7 +70,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
     }
 
     @Override
-    protected ViewArrayAdapter<Audio, ?> createAdapter() {
+    protected ViewArrayAdapter<Audio, ?> createAdapter(AsyncRequestExecutorManager requestManager) {
         return new SongsAdapter(getActivity());
     }
 

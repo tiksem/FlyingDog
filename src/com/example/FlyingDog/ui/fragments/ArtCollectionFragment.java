@@ -13,7 +13,7 @@ import java.util.List;
  */
 public abstract class ArtCollectionFragment<T extends ArtCollection> extends AbstractPlayListFragment<T> {
     @Override
-    protected int getRootLayoutId() {
+    protected int getRootLayout() {
         return R.layout.play_grid_fragment;
     }
 }

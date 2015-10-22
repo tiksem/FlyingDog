@@ -4,6 +4,7 @@ import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.ArtistsAdapter;
 import com.tiksem.media.data.Artist;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
+import com.utilsframework.android.network.AsyncRequestExecutorManager;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  */
 public class ArtistsFragment extends ArtCollectionFragment<Artist> {
     @Override
-    protected ViewArrayAdapter<Artist, ?> createAdapter() {
+    protected ViewArrayAdapter<Artist, ?> createAdapter(AsyncRequestExecutorManager executorManager) {
         return new ArtistsAdapter(getActivity());
     }
 
