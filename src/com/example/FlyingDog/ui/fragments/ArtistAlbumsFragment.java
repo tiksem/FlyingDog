@@ -2,7 +2,7 @@ package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
 import com.tiksem.media.data.Album;
-import com.tiksem.media.data.Audio;
+import com.tiksem.media.data.Artist;
 import com.utilsframework.android.fragments.Fragments;
 
 import java.util.List;
@@ -10,27 +10,27 @@ import java.util.List;
 /**
  * Created by stykhonenko on 21.10.15.
  */
-public class ArtistAlbumsFragment extends AlbumsFragment implements ArtistIdProvider {
-    private static final String ARTIST_ID = "ARTIST_ID";
-    private long artistId;
+public class ArtistAlbumsFragment extends AlbumsFragment implements ArtistProvider {
+    private static final String ARTIST = "ARTIST";
+    private Artist artist;
 
-    public static ArtistAlbumsFragment create(long artistId) {
-        return Fragments.createFragmentWith1Arg(new ArtistAlbumsFragment(), ARTIST_ID, artistId);
+    public static ArtistAlbumsFragment create(Artist artist) {
+        return Fragments.createFragmentWith1Arg(new ArtistAlbumsFragment(), ARTIST, artist);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        artistId = getArguments().getLong(ARTIST_ID);
+        artist = getArguments().getParcelable(ARTIST);
     }
 
     @Override
-    public long getArtistsId() {
-        return artistId;
+    public Artist getArtist() {
+        return artist;
     }
 
     @Override
     protected List<Album> createList() {
-        return audioDataBase.getAlbumsOfArtist(audioDataBase.getArtistById(artistId));
+        return audioDataBase.getAlbumsOfArtist(artist);
     }
 }

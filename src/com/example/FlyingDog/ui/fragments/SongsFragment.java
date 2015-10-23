@@ -83,7 +83,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
 
     @Override
     protected final List<Audio> createList() {
-        songs = getSongs();
+        songs = getLocalSongs();
         urlsProviders = null;
 
         int sortOrder = getSortOrder();
@@ -101,7 +101,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         return songs;
     }
 
-    protected List<Audio> getSongs() {
+    protected List<Audio> getLocalSongs() {
         return audioDataBase.getSongs();
     }
 

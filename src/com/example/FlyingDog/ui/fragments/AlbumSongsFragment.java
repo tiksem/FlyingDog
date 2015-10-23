@@ -24,7 +24,7 @@ public class AlbumSongsFragment extends SongsFragment {
     }
 
     @Override
-    protected List<Audio> getSongs() {
+    protected List<Audio> getLocalSongs() {
         return audioDataBase.getSongsOfAlbum(audioDataBase.getAlbumById(albumId));
     }
 }

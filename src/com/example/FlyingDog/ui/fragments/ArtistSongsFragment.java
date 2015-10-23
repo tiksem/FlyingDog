@@ -1,7 +1,10 @@
 package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
+import com.example.FlyingDog.network.RequestManager;
+import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
+import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.fragments.Fragments;
 
 import java.util.List;
@@ -9,27 +12,37 @@ import java.util.List;
 /**
  * Created by stykhonenko on 21.10.15.
  */
-public class ArtistSongsFragment extends SongsFragment implements ArtistIdProvider {
-    private static final String ARTIST_ID = "ARTIST_ID";
-    private long artistId;
+public class ArtistSongsFragment extends SongsOfFragment implements ArtistProvider {
+    private static final String ARTIST = "ARTIST";
+    private Artist artist;
 
-    public static ArtistSongsFragment create(long artistId) {
-        return Fragments.createFragmentWith1Arg(new ArtistSongsFragment(), ARTIST_ID, artistId);
+    public static ArtistSongsFragment create(Artist artist) {
+        return Fragments.createFragmentWith1Arg(new ArtistSongsFragment(), ARTIST, artist);
     }
 
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        artistId = getArguments().getLong(ARTIST_ID);
+        artist = getArguments().getParcelable(ARTIST);
     }
 
     @Override
-    protected List<Audio> getSongs() {
-        return audioDataBase.getSongsOfArtist(audioDataBase.getArtistById(artistId));
+    protected List<Audio> getLocalSongs() {
+        return audioDataBase.getSongsOfArtist(artist);
     }
 
     @Override
-    public long getArtistsId() {
-        return artistId;
+    protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
+        return super.getAudiosFromInternet(filter, requestManager);
+    }
+
+    @Override
+    public Artist getArtist() {
+        return artist;
+    }
+
+    @Override
+    protected boolean alwaysUseNavigationList() {
+        return !artist.isLocal();
     }
 }

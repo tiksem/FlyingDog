@@ -85,7 +85,7 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
 
     @Override
     protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
-        if (filter == null) {
+        if (!alwaysUseNavigationList() && filter == null) {
             return NavigationList.decorate(createList());
         } else {
             return createNavigationList(filter);
@@ -100,5 +100,9 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     @Override
     protected int getListResourceId() {
         return R.id.list;
+    }
+
+    protected boolean alwaysUseNavigationList() {
+        return false;
     }
 }

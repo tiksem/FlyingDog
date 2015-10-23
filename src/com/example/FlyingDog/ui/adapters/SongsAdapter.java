@@ -18,7 +18,7 @@ import com.utilsframework.android.adapters.ViewArrayAdapter;
  * Date: 06.08.14
  * Time: 20:14
  */
-public class SongsAdapter extends ViewArrayAdapter<Audio, SongViewHolder> {
+public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
     private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
 
     public SongsAdapter(Context context) {
@@ -57,11 +57,6 @@ public class SongsAdapter extends ViewArrayAdapter<Audio, SongViewHolder> {
     @Override
     protected void onViewCreated(int position, View convertView, Audio audio, SongViewHolder holder) {
         holder.options.setFocusable(false);
-    }
-
-    @Override
-    protected int getNullLayoutId() {
-        return R.layout.spinner_text_view;
     }
 
     protected void reuseNullView(int position, View convertView) {

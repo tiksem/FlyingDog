@@ -1,8 +1,8 @@
 package com.example.FlyingDog.ui;
 
-import android.support.v4.app.Fragment;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.fragments.*;
+import com.tiksem.media.data.Artist;
 import com.utilsframework.android.navdrawer.FragmentFactory;
 import com.utilsframework.android.navdrawer.NavigationActivityInterface;
 import com.utilsframework.android.navdrawer.TabsAdapter;
@@ -35,13 +35,13 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     return new AlbumsFragment();
             }
         } else if (navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
-            ArtistIdProvider artistIdProvider = (ArtistIdProvider) activityInterface.getCurrentFragment();
-            long artistId = artistIdProvider.getArtistsId();
+            ArtistProvider artistProvider = (ArtistProvider) activityInterface.getCurrentFragment();
+            Artist artist = artistProvider.getArtist();
 
             if (tabIndex == ARTIST_SONGS_TAB) {
-                return ArtistSongsFragment.create(artistId);
+                return ArtistSongsFragment.create(artist);
             } else if(tabIndex == ARTIST_ALBUMS_TAB) {
-                return ArtistAlbumsFragment.create(artistId);
+                return ArtistAlbumsFragment.create(artist);
             }
         }
 
