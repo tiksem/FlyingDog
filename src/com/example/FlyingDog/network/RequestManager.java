@@ -5,6 +5,7 @@ import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
+import com.tiksem.media.search.navigation.ArtistSongsNavigationList;
 import com.tiksem.media.search.navigation.ArtistsNavigationList;
 import com.tiksem.media.search.navigation.PageNavigationList;
 import com.tiksem.media.search.navigation.SongsNavigationList;
@@ -57,6 +58,10 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public NavigationList<Artist> searchArtists(String query) {
         return new ArtistsNavigationList(getPageNavigationListInitialParams(query));
+    }
+
+    public NavigationList<Audio> getAudiosOfArtist(Artist artist) {
+        return new ArtistSongsNavigationList(getPageNavigationListInitialParams(artist.getName()));
     }
 
     public List<UrlsProvider> getUrlsProviders(List<Audio> audios) {

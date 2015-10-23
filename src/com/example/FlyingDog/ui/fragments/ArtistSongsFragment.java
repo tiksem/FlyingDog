@@ -33,7 +33,7 @@ public class ArtistSongsFragment extends SongsOfFragment implements ArtistProvid
 
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return super.getAudiosFromInternet(filter, requestManager);
+        return requestManager.getAudiosOfArtist(artist);
     }
 
     @Override
