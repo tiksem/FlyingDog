@@ -2,6 +2,7 @@ package com.example.FlyingDog.network;
 
 import android.util.Log;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.PageNavigationList;
 import com.tiksem.media.search.navigation.SongsNavigationList;
@@ -50,5 +51,9 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public NavigationList<Audio> searchSongs(String query) {
         return new SongsNavigationList(getPageNavigationListInitialParams(query));
+    }
+
+    public List<UrlsProvider> getUrlsProviders(List<Audio> audios) {
+        return internetSearchEngine.getUrlsProviders(audios);
     }
 }

@@ -12,6 +12,7 @@ import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.PositionChangedListener;
+import com.tiksem.media.playback.UrlsProvider;
 import com.utils.framework.CollectionUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
@@ -24,6 +25,7 @@ import java.util.List;
 public class SongsFragment extends AbstractPlayListFragment<Audio> {
     private List<Audio> songs;
     private List<String> urls;
+    private List<UrlsProvider> urlsProviders;
 
     @Override
     public void onAttach(Activity activity) {
@@ -82,6 +84,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
     @Override
     protected final List<Audio> createList() {
         songs = getSongs();
+        urlsProviders = null;
 
         int sortOrder = getSortOrder();
         if (sortOrder != 0) {
@@ -108,7 +111,12 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                activity.getPlayBackService().play(urls, position);
+                AudioPlayerService.Binder playBackService = activity.getPlayBackService();
+                if (urls != null) {
+                    playBackService.play(urls, position);
+                } else {
+                    playBackService.playUrlsProviders(urlsProviders, position);
+                }
             }
         });
     }
@@ -130,7 +138,16 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
 
     @Override
     protected NavigationList<Audio> createNavigationList(String filter) {
-        return getRequestManager().searchSongs(filter);
+        urls = null;
+        songs = null;
+        RequestManager requestManager = getRequestManager();
+        NavigationList<Audio> audios = getAudiosFromInternet(filter, requestManager);
+        urlsProviders = requestManager.getUrlsProviders(audios);
+        return audios;
+    }
+
+    protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
+        return requestManager.searchSongs(filter);
     }
 
     @Override
