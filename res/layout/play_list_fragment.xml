@@ -9,7 +9,7 @@
         <include android:layout_weight="1"
                  android:layout_width="match_parent"
                  android:layout_height="0dp"
-                 layout="@layout/list"/>
+                 layout="@layout/songs_list"/>
     </LinearLayout>
 
     <include android:id="@+id/no_connection" layout="@layout/no_internet_connection" />
