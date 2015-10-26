@@ -79,4 +79,8 @@ public class RequestManager extends AsyncRequestExecutorManager {
     public NavigationList<Album> searchAlbums(String query) {
         return new AlbumsNavigationList(getPageNavigationListInitialParams(query));
     }
+
+    public NavigationList<Album> getAlbumsOfArtist(Artist artist) {
+        return new ArtistAlbumsNavigationList(getPageNavigationListInitialParams(artist.getName()));
+    }
 }

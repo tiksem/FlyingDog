@@ -3,6 +3,7 @@ package com.example.FlyingDog.ui.fragments;
 import android.app.Activity;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
+import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.fragments.Fragments;
 
 import java.util.List;
@@ -32,5 +33,15 @@ public class ArtistAlbumsFragment extends AlbumsFragment implements ArtistProvid
     @Override
     protected List<Album> createList() {
         return audioDataBase.getAlbumsOfArtist(artist);
+    }
+
+    @Override
+    protected NavigationList<Album> createNavigationList(String filter) {
+        return getRequestManager().getAlbumsOfArtist(artist);
+    }
+
+    @Override
+    protected boolean alwaysUseNavigationList() {
+        return !artist.isLocal();
     }
 }
