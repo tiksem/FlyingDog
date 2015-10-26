@@ -1,20 +1,19 @@
 package com.example.FlyingDog.network;
 
 import android.util.Log;
+import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
-import com.tiksem.media.search.navigation.ArtistSongsNavigationList;
-import com.tiksem.media.search.navigation.ArtistsNavigationList;
-import com.tiksem.media.search.navigation.PageNavigationList;
-import com.tiksem.media.search.navigation.SongsNavigationList;
+import com.tiksem.media.search.navigation.*;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.io.Network;
 import com.utils.framework.network.GetRequestExecutor;
 import com.utils.framework.network.RequestExecutor;
 import com.utilsframework.android.ExecuteTimeLogger;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
+import com.utilsframework.android.network.OnePageNavigationList;
 
 import java.io.IOException;
 import java.util.List;
@@ -64,7 +63,20 @@ public class RequestManager extends AsyncRequestExecutorManager {
         return new ArtistSongsNavigationList(getPageNavigationListInitialParams(artist.getName()));
     }
 
+    public NavigationList<Audio> getAudiosOfAlbum(final Album album) {
+        return new OnePageNavigationList<Audio>(this) {
+            @Override
+            protected List<Audio> load() throws IOException {
+                return internetSearchEngine.getSongsOfAlbum(album);
+            }
+        };
+    }
+
     public List<UrlsProvider> getUrlsProviders(List<Audio> audios) {
         return internetSearchEngine.getUrlsProviders(audios);
+    }
+
+    public NavigationList<Album> searchAlbums(String query) {
+        return new AlbumsNavigationList(getPageNavigationListInitialParams(query));
     }
 }
