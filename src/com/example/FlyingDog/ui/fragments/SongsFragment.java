@@ -52,7 +52,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                updateListViewCheckedItemOrClearChoices(activity.getPlayBackService());
+                onListViewStateUpdate(activity.getPlayBackService());
             }
         });
     }
@@ -78,12 +78,12 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         playBackService.addPositionChangedListener(new PositionChangedListener() {
             @Override
             public void onPositionChanged() {
-                updateListViewCheckedItemOrClearChoices(playBackService);
+                onListViewStateUpdate(playBackService);
             }
         });
     }
 
-    protected void updateListViewCheckedItemOrClearChoices(AudioPlayerService.Binder playBackService) {
+    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
         if (urls == null || !CollectionUtils.contentEquals(playBackService.getPlayList(), urls)) {
             if (urlsProviders == null || playBackService.getUrlsProviders() != urlsProviders) {
                 getListView().clearChoices();
@@ -263,7 +263,7 @@ public class SongsFragment extends AbstractPlayListFragment<Audio> {
         getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                updateListViewCheckedItemOrClearChoices(getPlayListsActivity().getPlayBackService());
+                onListViewStateUpdate(getPlayListsActivity().getPlayBackService());
             }
         });
     }

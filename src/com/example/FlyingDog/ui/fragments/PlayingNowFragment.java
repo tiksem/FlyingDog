@@ -36,7 +36,7 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
     }
 
     @Override
-    protected void updateListViewCheckedItemOrClearChoices(AudioPlayerService.Binder playBackService) {
+    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
         updateListViewCheckedItem(playBackService);
     }
 }
