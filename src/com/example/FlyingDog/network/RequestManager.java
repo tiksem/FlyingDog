@@ -14,6 +14,7 @@ import com.utils.framework.network.RequestExecutor;
 import com.utilsframework.android.ExecuteTimeLogger;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
+import com.utilsframework.android.threading.Threading;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.Map;
  */
 public class RequestManager extends AsyncRequestExecutorManager {
     public static final String TAG = "RequestManager";
+    private static final String REPORT_URL = "http://azazai.com/api/reportWrongUrl";
 
     private static final RequestExecutor networkRequestExecutor = new GetRequestExecutor() {
         @Override
@@ -72,7 +74,7 @@ public class RequestManager extends AsyncRequestExecutorManager {
         };
     }
 
-    public List<UrlsProvider> getUrlsProviders(List<Audio> audios) {
+    public List<UrlsProvider> getUrlsData(List<Audio> audios) {
         return internetSearchEngine.getUrlsProviders(audios);
     }
 
@@ -82,5 +84,18 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public NavigationList<Album> getAlbumsOfArtist(Artist artist) {
         return new ArtistAlbumsNavigationList(getPageNavigationListInitialParams(artist.getName()));
+    }
+
+    public void reportWrongUrl(final UrlReport report) {
+        execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    networkRequestExecutor.executeRequest(REPORT_URL, report.toQueryArgs());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

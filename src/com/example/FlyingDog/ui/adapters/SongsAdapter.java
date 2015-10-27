@@ -49,7 +49,7 @@ public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
         songViewHolder.options.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                view.showContextMenu();
+                v.showContextMenu();
             }
         });
     }

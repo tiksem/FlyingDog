@@ -92,11 +92,13 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         sortMenuItem = menu.findItem(R.id.sort);
-        sortMenuItem.setVisible(!navigationListIsUsed);
+        if (sortMenuItem != null) {
+            sortMenuItem.setVisible(!navigationListIsUsed);
+        }
     }
 
     @Override
-    protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
+    protected NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
         if (!alwaysUseNavigationList() && filter == null) {
             navigationListIsUsed = false;
             if (sortMenuItem != null) {
@@ -129,6 +131,8 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     @Override
     protected void onSearchViewExpandCollapse(Menu menu, boolean expanded) {
         super.onSearchViewExpandCollapse(menu, expanded);
-        sortMenuItem.setVisible(!expanded && !navigationListIsUsed);
+        if (sortMenuItem != null) {
+            sortMenuItem.setVisible(!expanded && !navigationListIsUsed);
+        }
     }
 }
