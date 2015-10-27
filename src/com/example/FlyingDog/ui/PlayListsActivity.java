@@ -9,6 +9,7 @@ import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.fragments.AbstractPlayListFragment;
+import com.example.FlyingDog.ui.fragments.PlayingNowFragment;
 import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.StateChangedListener;
@@ -107,7 +108,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
-        playBackService.addStateChangedListener(new StateChangedListener() {
+        StateChangedListener stateChangedListener = new StateChangedListener() {
             @Override
             public void onStateChanged(Status status) {
                 if (status == Status.PLAYING || status == Status.PAUSED) {
@@ -117,6 +118,15 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 } else {
                     GuiUtilities.setEnabledForChildren(playControls, false);
                 }
+            }
+        };
+        playBackService.addStateChangedListener(stateChangedListener);
+        stateChangedListener.onStateChanged(playBackService.getStatus());
+
+        findViewById(R.id.to_playing_now).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                replaceFragment(new PlayingNowFragment(), Level.PLAYING_NOW);
             }
         });
     }

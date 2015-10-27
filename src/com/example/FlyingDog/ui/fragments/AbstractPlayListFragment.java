@@ -16,7 +16,6 @@ import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.menu.SortListener;
 import com.utilsframework.android.navigation.NavigationListFragment;
-import com.utilsframework.android.network.AsyncRequestExecutorManager;
 
 import java.util.List;
 
@@ -28,7 +27,6 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     protected AudioDataBase audioDataBase;
     private AudioPlayerService.Binder playBackService;
     private MenuItem sortMenuItem;
-    private boolean navigationListIsUsed = false;
 
     protected final PlayListsActivity getPlayListsActivity() {
         return (PlayListsActivity) getActivity();
@@ -92,25 +90,31 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         sortMenuItem = menu.findItem(R.id.sort);
-        if (sortMenuItem != null) {
-            sortMenuItem.setVisible(!navigationListIsUsed);
+        setSortMenuItemVisibility(getElements().isDecorated());
+    }
+
+    protected NavigationList<T> getNavigationList(String filter) {
+        if (!alwaysUseNavigationList() && filter == null) {
+            return NavigationList.decorate(createList());
+        } else {
+            return createNavigationList(filter);
         }
     }
 
     @Override
-    protected NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
-        if (!alwaysUseNavigationList() && filter == null) {
-            navigationListIsUsed = false;
-            if (sortMenuItem != null) {
-                sortMenuItem.setVisible(true);
-            }
-            return NavigationList.decorate(createList());
-        } else {
-            navigationListIsUsed = true;
-            if (sortMenuItem != null) {
-                sortMenuItem.setVisible(false);
-            }
-            return createNavigationList(filter);
+    protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
+        NavigationList<T> navigationList = getNavigationList(filter);
+        onNavigationListChanged(navigationList);
+        return navigationList;
+    }
+
+    protected void onNavigationListChanged(NavigationList<T> navigationList) {
+        setSortMenuItemVisibility(navigationList.isDecorated());
+    }
+
+    protected final void setSortMenuItemVisibility(boolean value) {
+        if (sortMenuItem != null) {
+            sortMenuItem.setVisible(value);
         }
     }
 
@@ -132,7 +136,7 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     protected void onSearchViewExpandCollapse(Menu menu, boolean expanded) {
         super.onSearchViewExpandCollapse(menu, expanded);
         if (sortMenuItem != null) {
-            sortMenuItem.setVisible(!expanded && !navigationListIsUsed);
+            sortMenuItem.setVisible(!expanded && getElements().isDecorated());
         }
     }
 }
