@@ -3,6 +3,9 @@ package com.example.FlyingDog.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
@@ -24,6 +27,8 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
         implements SortListener {
     protected AudioDataBase audioDataBase;
     private AudioPlayerService.Binder playBackService;
+    private MenuItem sortMenuItem;
+    private boolean navigationListIsUsed = false;
 
     protected final PlayListsActivity getPlayListsActivity() {
         return (PlayListsActivity) getActivity();
@@ -84,10 +89,25 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
     }
 
     @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        sortMenuItem = menu.findItem(R.id.sort);
+        sortMenuItem.setVisible(!navigationListIsUsed);
+    }
+
+    @Override
     protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
         if (!alwaysUseNavigationList() && filter == null) {
+            navigationListIsUsed = false;
+            if (sortMenuItem != null) {
+                sortMenuItem.setVisible(true);
+            }
             return NavigationList.decorate(createList());
         } else {
+            navigationListIsUsed = true;
+            if (sortMenuItem != null) {
+                sortMenuItem.setVisible(false);
+            }
             return createNavigationList(filter);
         }
     }
@@ -104,5 +124,11 @@ public abstract class AbstractPlayListFragment<T> extends NavigationListFragment
 
     protected boolean alwaysUseNavigationList() {
         return false;
+    }
+
+    @Override
+    protected void onSearchViewExpandCollapse(Menu menu, boolean expanded) {
+        super.onSearchViewExpandCollapse(menu, expanded);
+        sortMenuItem.setVisible(!expanded && !navigationListIsUsed);
     }
 }
