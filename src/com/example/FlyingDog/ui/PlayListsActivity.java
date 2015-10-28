@@ -2,13 +2,12 @@ package com.example.FlyingDog.ui;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
-import com.example.FlyingDog.ui.fragments.AbstractPlayListFragment;
+import com.example.FlyingDog.ui.fragments.AbstractAudioDataFragment;
 import com.example.FlyingDog.ui.fragments.PlayingNowFragment;
 import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.playback.AudioPlayerService;
@@ -16,7 +15,6 @@ import com.tiksem.media.playback.StateChangedListener;
 import com.tiksem.media.playback.Status;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
 import com.utilsframework.android.Services;
-import com.utilsframework.android.fragments.ListViewFragment;
 import com.utilsframework.android.navdrawer.FragmentFactory;
 import com.utilsframework.android.navdrawer.NavigationActivityWithoutDrawerLayout;
 import com.utilsframework.android.threading.Tasks;
@@ -34,8 +32,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private AudioPlayerService.Binder playBackService;
     private Queue<Runnable> whenPlayBackServiceReadyQueue = new ArrayDeque<>();
 
-    private AbstractPlayListFragment getPlayListFragment() {
-        return (AbstractPlayListFragment) getCurrentFragment();
+    private AbstractAudioDataFragment getPlayListFragment() {
+        return (AbstractAudioDataFragment) getCurrentFragment();
     }
 
     @Override
@@ -46,7 +44,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 new AudioDataBase.OnArtsUpdatingFinished() {
             @Override
             public void onFinished() {
-                AbstractPlayListFragment fragment = getPlayListFragment();
+                AbstractAudioDataFragment fragment = getPlayListFragment();
                 if (fragment != null) {
                     fragment.notifyDataSetChanged();
                 }

@@ -22,7 +22,7 @@ import java.util.List;
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public abstract class AbstractPlayListFragment<T> extends NavigationListFragment<T, RequestManager>
+public abstract class AbstractAudioDataFragment<T> extends NavigationListFragment<T, RequestManager>
         implements SortListener {
     protected AudioDataBase audioDataBase;
     private AudioPlayerService.Binder playBackService;

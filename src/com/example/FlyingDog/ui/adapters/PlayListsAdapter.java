@@ -14,10 +14,7 @@ import com.tiksem.media.data.PlayList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.view.GuiUtilities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by CM on 8/29/2014.
@@ -25,13 +22,17 @@ import java.util.Map;
 public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHolder>{
     private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
 
-    private AudioDataManager audioDataManager;
     private Map<Integer, List<String>> cachedUrls = new HashMap<Integer, List<String>>();
+    private AudiosProvider audiosProvider;
+
+    public interface AudiosProvider {
+        List<Audio> getAudiosOfPlayList(PlayList playList);
+    }
 
     private List<String> createArts(PlayList playList, int count){
         List<String> arts = new ArrayList<String>(count);
         if (playList.isLocal()) {
-            List<Audio> audios = audioDataManager.getTracksOfPlayList(playList);
+            List<Audio> audios = audiosProvider.getAudiosOfPlayList(playList);
             for(Audio audio : audios){
                 if(arts.size() >= count){
                     return arts;
@@ -87,8 +88,8 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
         holder.name.setText(playList.getName());
     }
 
-    public PlayListsAdapter(Context context, AudioDataManager audioDataManager) {
+    public PlayListsAdapter(Context context, AudiosProvider audiosProvider) {
         super(context);
-        this.audioDataManager = audioDataManager;
+        this.audiosProvider = audiosProvider;
     }
 }

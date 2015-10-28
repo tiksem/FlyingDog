@@ -22,7 +22,7 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
     }
 
     @Override
-    public AbstractPlayListFragment createFragmentBySelectedItem(int selectedItemId,
+    public AbstractAudioDataFragment createFragmentBySelectedItem(int selectedItemId,
                                                                  int tabIndex, int navigationLevel) {
         if (navigationLevel == 0) {
             PlayListMode mode = PlayListMode.values()[tabIndex];
@@ -33,6 +33,8 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     return new ArtistsFragment();
                 case ALBUMS:
                     return new AlbumsFragment();
+                case PLAYLISTS:
+                    return new PlayListsFragment();
             }
         } else if (navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
             ArtistProvider artistProvider = (ArtistProvider) activityInterface.getCurrentFragment();
@@ -61,6 +63,9 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     break;
                 case ALBUMS:
                     tab.setText(R.string.albums);
+                    break;
+                case PLAYLISTS:
+                    tab.setText(R.string.play_lists);
                     break;
             }
         } else if(navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {

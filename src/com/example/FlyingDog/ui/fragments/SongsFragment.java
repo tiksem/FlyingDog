@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public class SongsFragment extends AbstractPlayListFragment<Audio> {
+public class SongsFragment extends AbstractAudioDataFragment<Audio> {
     private static NavigationList<Audio> currentPlayList;
 
     private List<String> urls;
