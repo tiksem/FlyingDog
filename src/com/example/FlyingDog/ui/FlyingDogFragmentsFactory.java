@@ -1,5 +1,8 @@
 package com.example.FlyingDog.ui;
 
+import android.support.design.widget.TabLayout;
+import android.view.View;
+import android.widget.TextView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.fragments.*;
 import com.tiksem.media.data.Artist;
@@ -15,10 +18,10 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
     private static final int ARTIST_SONGS_TAB = 0;
     private static final int ARTIST_ALBUMS_TAB = 1;
 
-    private NavigationActivityInterface activityInterface;
+    private PlayListsActivity activity;
 
-    public FlyingDogFragmentsFactory(NavigationActivityInterface activityInterface) {
-        this.activityInterface = activityInterface;
+    public FlyingDogFragmentsFactory(PlayListsActivity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     return new PlayListsFragment();
             }
         } else if (navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
-            ArtistProvider artistProvider = (ArtistProvider) activityInterface.getCurrentFragment();
+            ArtistProvider artistProvider = (ArtistProvider) activity.getCurrentFragment();
             Artist artist = artistProvider.getArtist();
 
             if (tabIndex == ARTIST_SONGS_TAB) {
@@ -53,19 +56,24 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
     @Override
     public void initTab(int currentSelectedItem, int tabIndex, int navigationLevel, TabsAdapter.Tab tab) {
         if (navigationLevel == 0) {
+            TabLayout.Tab tabView = (TabLayout.Tab) tab.getTabHandler();
+            View view = View.inflate(activity, R.layout.tab, null);
+            TextView title = (TextView) view.findViewById(R.id.title);
+            tabView.setCustomView(view);
+
             PlayListMode mode = PlayListMode.values()[tabIndex];
             switch (mode) {
                 case ALL_SONGS:
-                    tab.setText(R.string.all_songs);
+                    title.setText(R.string.all_songs);
                     break;
                 case ARTISTS:
-                    tab.setText(R.string.artists);
+                    title.setText(R.string.artists);
                     break;
                 case ALBUMS:
-                    tab.setText(R.string.albums);
+                    title.setText(R.string.albums);
                     break;
                 case PLAYLISTS:
-                    tab.setText(R.string.play_lists);
+                    title.setText(R.string.play_lists);
                     break;
             }
         } else if(navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
