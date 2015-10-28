@@ -28,7 +28,7 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
             PlayListMode mode = PlayListMode.values()[tabIndex];
             switch (mode) {
                 case ALL_SONGS:
-                    return new SongsFragment();
+                    return new AllSongsFragment();
                 case ARTISTS:
                     return new ArtistsFragment();
                 case ALBUMS:

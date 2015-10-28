@@ -1,6 +1,7 @@
 package com.example.FlyingDog.ui.fragments;
 
 import com.example.FlyingDog.network.RequestManager;
+import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.PlayListsAdapter;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.PlayList;
@@ -29,6 +30,6 @@ public class PlayListsFragment extends AbstractAudioDataFragment<PlayList> {
 
     @Override
     protected void onListItemClicked(PlayList item, int position) {
-
+        getPlayListsActivity().replaceFragment(PlayListSongsFragment.create(item), Level.PLAYLIST_SONGS);
     }
 }

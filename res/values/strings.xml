@@ -25,4 +25,6 @@
     <string name="report_wrong_url_dialog">Enter some message, what is wrong with this song. It will help to fix the
         problem.
     </string>
+    <string name="playing_now_title">Playing Now</string>
+    <string name="play_lists">Playlists</string>
 </resources>

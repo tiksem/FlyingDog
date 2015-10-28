@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * Created by stykhonenko on 19.10.15.
  */
-public class SongsFragment extends AbstractAudioDataFragment<Audio> {
+public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     private static NavigationList<Audio> currentPlayList;
 
     private List<String> urls;
@@ -124,9 +124,7 @@ public class SongsFragment extends AbstractAudioDataFragment<Audio> {
         return songs;
     }
 
-    protected List<Audio> getLocalSongs() {
-        return audioDataBase.getSongs();
-    }
+    protected abstract List<Audio> getLocalSongs();
 
     @Override
     protected void onListItemClicked(Audio item, final int position) {
@@ -171,9 +169,7 @@ public class SongsFragment extends AbstractAudioDataFragment<Audio> {
         return audios;
     }
 
-    protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return requestManager.searchSongs(filter);
-    }
+    protected abstract NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager);
 
     @Override
     protected int getSortMenuId() {

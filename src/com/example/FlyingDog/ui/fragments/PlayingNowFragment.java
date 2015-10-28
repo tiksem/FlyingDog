@@ -10,6 +10,8 @@ import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
 
+import java.util.List;
+
 /**
  * Created by stykhonenko on 27.10.15.
  */
@@ -38,5 +40,15 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
     @Override
     protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
         updateListViewCheckedItem(playBackService);
+    }
+
+    @Override
+    protected List<Audio> getLocalSongs() {
+        throw new RuntimeException("WTF?");
+    }
+
+    @Override
+    protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
+        throw new RuntimeException("WTF?");
     }
 }
