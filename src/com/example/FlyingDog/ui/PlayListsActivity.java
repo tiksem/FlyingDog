@@ -51,7 +51,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
-        AudioPlayerService.bind(this, new Services.OnBind<AudioPlayerService.Binder>() {
+        AudioPlayerService.bindAndStart(this, new Services.OnBind<AudioPlayerService.Binder>() {
             @Override
             public void onBind(Services.Connection<AudioPlayerService.Binder> connection) {
                 onPlayBackServiceConnected(connection);

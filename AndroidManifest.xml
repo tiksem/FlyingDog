@@ -26,5 +26,10 @@
                 android:name="com.tiksem.media.playback.AudioPlayerService"
                 >
         </service>
+
+        <service
+                android:name="com.example.FlyingDog.network.SongsYouMayLikeService"
+                >
+        </service>
     </application>
 </manifest>

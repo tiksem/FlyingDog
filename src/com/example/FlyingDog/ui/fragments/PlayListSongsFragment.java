@@ -34,6 +34,6 @@ public class PlayListSongsFragment extends SongsOfFragment {
 
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        throw new UnsupportedOperationException("Will be implemented");
+        throw new UnsupportedOperationException();
     }
 }
