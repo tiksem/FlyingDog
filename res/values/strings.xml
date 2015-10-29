@@ -27,4 +27,5 @@
     </string>
     <string name="playing_now_title">Playing Now</string>
     <string name="play_lists">Playlists</string>
+    <string name="add_playlist_message">Enter PlayList Name</string>
 </resources>
