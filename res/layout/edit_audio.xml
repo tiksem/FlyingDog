@@ -27,34 +27,31 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
-        <TextView
-                android:text="Album name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        <com.utilsframework.android.view.EditTextWithSuggestions
-                android:id="@+id/album_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
+        <!--<TextView-->
+                <!--android:text="Album name"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"/>-->
+        <!--<com.utilsframework.android.view.EditTextWithSuggestions-->
+                <!--android:id="@+id/album_name"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:inputType="text"/>-->
     </LinearLayout>
 
     <LinearLayout android:layout_width="match_parent"
-                  android:layout_height="wrap_content"
-                  android:orientation="horizontal"
+                  android:padding="10dp"
                   android:layout_gravity="bottom"
-                  android:layout_margin="15dp"
-            >
-        <Button
+                  android:layout_height="wrap_content">
+        <Button android:layout_width="0dp"
                 android:id="@+id/cancel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:text="@string/cancel"
                 android:layout_weight="1"
-                android:text="@string/cancel_button"/>
-        <Button
+                android:paddingRight="10dp"
+                android:layout_height="50dp"/>
+        <Button android:layout_width="0dp"
                 android:id="@+id/ok"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/ok"
-                android:layout_weight="1"/>
+                android:layout_height="50dp"/>
     </LinearLayout>
 </FrameLayout>

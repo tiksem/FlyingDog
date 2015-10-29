@@ -31,4 +31,6 @@
     <string name="add_to_playlist">Add To PlayList</string>
     <string name="add_to_playlists_title">Select playlists where to add the song</string>
     <string name="select_playlist">Select playlists</string>
+    <string name="enter_audio_name">Enter audio name</string>
+    <string name="enter_artist_name">Enter artist name</string>
 </resources>

@@ -208,8 +208,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         }
     }
 
-    private void reportWrongUrl(int position, String message) {
-        Audio audio = getAdapter().getElementByViewPosition(position);
+    private void reportWrongUrl(Audio audio, int position, String message) {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         InternetSearchEngine.VkUrlsProvider urlsProvider =
                 (InternetSearchEngine.VkUrlsProvider) playBackService.getUrlsProviders().get(position);
@@ -227,14 +226,14 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         getRequestManager().reportWrongUrl(report);
     }
 
-    private void showReportWrongUrlAlert(final int position) {
+    private void showReportWrongUrlAlert(final Audio audio, final int position) {
         Alerts.InputAlertSettings settings = new Alerts.InputAlertSettings();
         settings.message = R.string.report_wrong_url_dialog;
         settings.cancel = 0;
         settings.onInputOk = new Alerts.OnInputOk() {
             @Override
             public void onOk(String message) {
-                reportWrongUrl(position, message);
+                reportWrongUrl(audio, position, message);
             }
         };
         Alerts.showAlertWithInput(getActivity(), settings);
@@ -243,14 +242,18 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int position = info.position;
+        Audio audio = getAdapter().getElement(position);
+
         switch (item.getItemId()) {
             case R.id.edit:
+                getPlayListsActivity().replaceFragment(EditAudioFragment.create(audio), Level.EDIT_AUDIO);
                 return true;
             case R.id.report:
-                showReportWrongUrlAlert(info.position);
+                showReportWrongUrlAlert(audio, position);
                 return true;
             case R.id.add_to_playlist:
-                showAddToPlayListDialog(getAdapter().getElement(info.position));
+                showAddToPlayListDialog(audio);
                 return true;
             default:
                 return super.onContextItemSelected(item);

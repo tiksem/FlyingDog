@@ -5,6 +5,7 @@ import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.local.AndroidAudioDataBase;
 import com.tiksem.media.local.AudioDataBase;
+import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utilsframework.android.Services;
 
@@ -15,7 +16,7 @@ import com.utilsframework.android.Services;
  */
 public class FlyingDog extends Application {
     private static FlyingDog instance;
-    private AudioDataBase audioDataBase;
+    private FlyingDogAudioDatabase audioDataBase;
 
     @Override
     public void onCreate() {
@@ -23,14 +24,14 @@ public class FlyingDog extends Application {
         instance = this;
 
         ImageLoader.getInstance().init(ImageLoaderConfigFactory.getCommonImageLoaderConfig(this));
-        audioDataBase = new AndroidAudioDataBase(getContentResolver());
+        audioDataBase = new FlyingDogAudioDatabase(this);
     }
 
     public static FlyingDog getInstance() {
         return instance;
     }
 
-    public AudioDataBase getAudioDataBase() {
+    public FlyingDogAudioDatabase getAudioDataBase() {
         return audioDataBase;
     }
 }
