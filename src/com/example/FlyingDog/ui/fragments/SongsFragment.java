@@ -191,8 +191,10 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Audio audio = getAdapter().getElementOfView(info.targetView);
         boolean isLocal = audio.isLocal();
+
         menu.findItem(R.id.edit).setVisible(isLocal);
-        menu.findItem(R.id.add_to_playlist).setVisible(isLocal);
+        MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
+        addToPlayList.setVisible(isLocal);
 
         MenuItem report = menu.findItem(R.id.report);
         if (!isLocal) {
@@ -201,7 +203,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 report.setVisible(false);
             } else {
                 Status status = playBackService.getStatus();
-                report.setVisible(status == Status.PAUSED || status == Status.PLAYING);
+                boolean activeStatus = status == Status.PAUSED || status == Status.PLAYING;
+                report.setVisible(activeStatus);
+                addToPlayList.setVisible(activeStatus);
             }
         } else {
             report.setVisible(false);
@@ -261,6 +265,11 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     private void showAddToPlayListDialog(Audio audio) {
+        if (!audio.isLocal()) {
+            String url = getPlayBackService().getCurrentUrl();
+            audio.setUrl(url);
+        }
+
         getPlayListsActivity().replaceFragment(AddToPlayListsFragment.create(audio), Level.ADD_TO_PLAYLIST);
     }
 
