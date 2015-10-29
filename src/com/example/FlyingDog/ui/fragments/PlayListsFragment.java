@@ -23,7 +23,7 @@ import java.util.List;
 /**
  * Created by stykhonenko on 27.10.15.
  */
-public class PlayListsFragment extends AbstractAudioDataFragment<PlayList> {
+public class PlayListsFragment extends AbstractPlayListsFragment {
     private void createPlayList(final String playListName) {
         getRequestManager().execute(new ThrowingRunnable<IOException>() {
             @Override
@@ -64,16 +64,6 @@ public class PlayListsFragment extends AbstractAudioDataFragment<PlayList> {
         List<PlayList> result = new ArrayList<>(PlayLists.getSpecialPlayLists());
         result.addAll(localPlayLists);
         return result;
-    }
-
-    @Override
-    protected ViewArrayAdapter<PlayList, ?> createAdapter(RequestManager requestManager) {
-        return new PlayListsAdapter(getActivity(), new PlayListsAdapter.AudiosProvider() {
-            @Override
-            public List<Audio> getAudiosOfPlayList(PlayList playList) {
-                return audioDataBase.getSongsOfPlayList(playList);
-            }
-        });
     }
 
     @Override

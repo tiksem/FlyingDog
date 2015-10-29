@@ -24,6 +24,7 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
 
     private Map<Integer, List<String>> cachedUrls = new HashMap<Integer, List<String>>();
     private AudiosProvider audiosProvider;
+    private int itemBackground = 0;
 
     public interface AudiosProvider {
         List<Audio> getAudiosOfPlayList(PlayList playList);
@@ -77,6 +78,10 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
     @Override
     protected void reuseView(PlayList playList, PlayListViewHolder holder,
                              int position, View view) {
+        if (itemBackground != 0) {
+            view.setBackgroundResource(itemBackground);
+        }
+
         List<ImageView> arts = holder.arts;
         List<String> artUrls = getArts(playList, arts.size());
 
@@ -88,8 +93,13 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
         holder.name.setText(playList.getName());
     }
 
-    public PlayListsAdapter(Context context, AudiosProvider audiosProvider) {
+    public PlayListsAdapter(Context context, int itemBackground, AudiosProvider audiosProvider) {
         super(context);
         this.audiosProvider = audiosProvider;
+        this.itemBackground = itemBackground;
+    }
+
+    public PlayListsAdapter(Context context, AudiosProvider audiosProvider) {
+        this(context, 0, audiosProvider);
     }
 }

@@ -12,6 +12,7 @@ import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.network.UrlReport;
 import com.example.FlyingDog.sort.SortMenuUtils;
+import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
 import com.tiksem.media.data.Audio;
@@ -191,6 +192,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         Audio audio = getAdapter().getElementOfView(info.targetView);
         boolean isLocal = audio.isLocal();
         menu.findItem(R.id.edit).setVisible(isLocal);
+        menu.findItem(R.id.add_to_playlist).setVisible(isLocal);
 
         MenuItem report = menu.findItem(R.id.report);
         if (!isLocal) {
@@ -247,9 +249,16 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             case R.id.report:
                 showReportWrongUrlAlert(info.position);
                 return true;
+            case R.id.add_to_playlist:
+                showAddToPlayListDialog();
+                return true;
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void showAddToPlayListDialog() {
+        getPlayListsActivity().replaceFragment(new AddToPlayListsFragment(), Level.ADD_TO_PLAYLIST);
     }
 
     @Override

@@ -8,4 +8,5 @@ public class Level {
     public static final int ALBUM_SONGS = 2;
     public static final int PLAYING_NOW = 3;
     public static final int PLAYLIST_SONGS = 4;
+    public static final int ADD_TO_PLAYLIST = 5;
 }
