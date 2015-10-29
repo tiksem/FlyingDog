@@ -250,15 +250,15 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 showReportWrongUrlAlert(info.position);
                 return true;
             case R.id.add_to_playlist:
-                showAddToPlayListDialog();
+                showAddToPlayListDialog(getAdapter().getElement(info.position));
                 return true;
             default:
                 return super.onContextItemSelected(item);
         }
     }
 
-    private void showAddToPlayListDialog() {
-        getPlayListsActivity().replaceFragment(new AddToPlayListsFragment(), Level.ADD_TO_PLAYLIST);
+    private void showAddToPlayListDialog(Audio audio) {
+        getPlayListsActivity().replaceFragment(AddToPlayListsFragment.create(audio), Level.ADD_TO_PLAYLIST);
     }
 
     @Override
