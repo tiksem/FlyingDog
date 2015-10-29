@@ -30,4 +30,5 @@
     <string name="add_playlist_message">Enter PlayList Name</string>
     <string name="add_to_playlist">Add To PlayList</string>
     <string name="add_to_playlists_title">Select playlists where to add the song</string>
+    <string name="select_playlist">Select playlists</string>
 </resources>
