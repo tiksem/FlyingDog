@@ -87,8 +87,8 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         if (urls == null || !CollectionUtils.contentEquals(playBackService.getPlayList(), urls)) {
             if (urlsProviders == null || playBackService.getUrlsProviders() != urlsProviders) {
                 getListView().clearChoices();
+                return;
             }
-            return;
         }
 
         updateListViewCheckedItem(playBackService);
