@@ -155,8 +155,10 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         super.onSortOrderChanged(newSortOrder);
 
         AudioPlayerService.Binder playBackService = getPlayBackService();
-        if (playBackService != null && playBackService.getPlayList() != null) {
-            playBackService.changePlayList(urls);
+        if (playBackService != null) {
+            if (getListView().getCheckedItemPosition() >= 0) {
+                playBackService.changePlayList(urls);
+            }
         }
     }
 
