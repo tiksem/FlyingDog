@@ -94,7 +94,7 @@ public class AddToPlayListsFragment extends AbstractPlayListsFragment {
 
     @Override
     protected List<PlayList> createList() {
-        return audioDataBase.getPlayLists();
+        return audioDataBase.getPlayListsWhereSongCanBeAdded(audio);
     }
 
     @Override
