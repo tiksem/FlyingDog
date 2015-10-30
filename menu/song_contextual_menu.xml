@@ -3,4 +3,5 @@
     <item android:id="@+id/edit" android:title="@string/edit"/>
     <item android:id="@+id/add_to_playlist" android:title="@string/add_to_playlist"/>
     <item android:id="@+id/report" android:title="@string/report"/>
+    <item android:id="@+id/update_album_art" android:title="@string/update_album_art"/>
 </menu>
