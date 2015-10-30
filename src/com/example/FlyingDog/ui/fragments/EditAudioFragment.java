@@ -55,8 +55,8 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        artistNameView = (EditTextWithSuggestions) view.findViewById(R.id.name);
-        nameView = (EditTextWithSuggestions) view.findViewById(R.id.artist_name);
+        artistNameView = (EditTextWithSuggestions) view.findViewById(R.id.artist_name);
+        nameView = (EditTextWithSuggestions) view.findViewById(R.id.name);
 
         artistNameView.setText(audio.getArtistName());
         nameView.setText(audio.getName());

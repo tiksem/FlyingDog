@@ -3,9 +3,11 @@ package com.example.FlyingDog.network;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
+import com.tiksem.media.search.updating.ArtUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
@@ -84,4 +86,9 @@ public class RequestManager extends AsyncRequestExecutorManager {
         });
     }
 
+    public void updateAudioArt(FlyingDogAudioDatabase audioDatabase,
+                               Audio audio, ArtUtils.OnUpdated onUpdated) {
+        execute(ArtUtils.crateUpdateAudioArtsTask(
+                internetSearchEngine, audioDatabase, audio, onUpdated));
+    }
 }

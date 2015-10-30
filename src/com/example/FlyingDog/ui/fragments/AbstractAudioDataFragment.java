@@ -12,6 +12,7 @@ import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.tiksem.media.local.AudioDataBase;
+import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.menu.SortListener;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public abstract class AbstractAudioDataFragment<T> extends NavigationListFragment<T, RequestManager>
         implements SortListener {
-    protected AudioDataBase audioDataBase;
+    protected FlyingDogAudioDatabase audioDataBase;
     private AudioPlayerService.Binder playBackService;
     private MenuItem sortMenuItem;
 

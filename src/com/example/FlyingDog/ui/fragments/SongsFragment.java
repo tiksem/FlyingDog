@@ -8,6 +8,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.network.UrlReport;
@@ -15,6 +16,8 @@ import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.PlayListsActivity;
 import com.example.FlyingDog.ui.adapters.SongsAdapter;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.tiksem.media.data.ArtSize;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.PositionChangedListener;
@@ -22,6 +25,7 @@ import com.tiksem.media.playback.Status;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.parsers.UrlQueryData;
+import com.tiksem.media.search.updating.ArtUtils;
 import com.utils.framework.CollectionUtils;
 import com.utils.framework.Transformer;
 import com.utils.framework.collections.NavigationList;
@@ -193,6 +197,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         boolean isLocal = audio.isLocal();
 
         menu.findItem(R.id.edit).setVisible(isLocal);
+        menu.findItem(R.id.update_album_art).setVisible(isLocal && audio.getArtUrl(ArtSize.SMALL) == null);
         MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
         addToPlayList.setVisible(isLocal);
 
@@ -243,6 +248,17 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         Alerts.showAlertWithInput(getActivity(), settings);
     }
 
+    private void updateAlbumArt(final View view, final Audio audio) {
+        getRequestManager().updateAudioArt(audioDataBase, audio, new ArtUtils.OnUpdated() {
+            @Override
+            public void onUpdated() {
+                ImageView art = (ImageView) view.findViewById(R.id.art);
+                String artUrl = audio.getArtUrl(ArtSize.SMALL);
+                ImageLoader.getInstance().displayImage(artUrl, art);
+            }
+        });
+    }
+
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -258,6 +274,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 return true;
             case R.id.add_to_playlist:
                 showAddToPlayListDialog(audio);
+                return true;
+            case R.id.update_album_art:
+                updateAlbumArt(info.targetView, audio);
                 return true;
             default:
                 return super.onContextItemSelected(item);
