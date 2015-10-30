@@ -1,11 +1,11 @@
-package com.example.FlyingDog.network;
+package com.example.FlyingDog.services;
 
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Binder;
 import android.os.IBinder;
 import com.example.FlyingDog.FlyingDog;
+import com.example.FlyingDog.network.FlyingDogRequestExecutor;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.SongsYouMayLikeNavigationList;
@@ -15,7 +15,6 @@ import com.utilsframework.android.network.*;
 import com.utilsframework.android.network.RequestManager;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

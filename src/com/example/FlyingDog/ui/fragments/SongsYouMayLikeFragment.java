@@ -2,7 +2,7 @@ package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
 import com.example.FlyingDog.network.RequestManager;
-import com.example.FlyingDog.network.SongsYouMayLikeService;
+import com.example.FlyingDog.services.SongsYouMayLikeService;
 import com.tiksem.media.data.Audio;
 import com.utils.framework.collections.InfiniteLoadingNavigationList;
 import com.utils.framework.collections.NavigationList;

@@ -1,6 +1,7 @@
 package com.example.FlyingDog;
 
 import android.app.Application;
+import com.example.FlyingDog.services.FlyingDogArtsUpdatingService;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.local.AndroidAudioDataBase;
@@ -25,6 +26,7 @@ public class FlyingDog extends Application {
 
         ImageLoader.getInstance().init(ImageLoaderConfigFactory.getCommonImageLoaderConfig(this));
         audioDataBase = new FlyingDogAudioDatabase(this);
+        FlyingDogArtsUpdatingService.updateAudioArts(this);
     }
 
     public static FlyingDog getInstance() {

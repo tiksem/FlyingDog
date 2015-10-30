@@ -28,7 +28,12 @@
         </service>
 
         <service
-                android:name="com.example.FlyingDog.network.SongsYouMayLikeService"
+                android:name=".services.SongsYouMayLikeService"
+                >
+        </service>
+
+        <service
+                android:name=".services.FlyingDogArtsUpdatingService"
                 >
         </service>
     </application>
