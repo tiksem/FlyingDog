@@ -203,7 +203,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         boolean isLocal = audio.isLocal();
 
         menu.findItem(R.id.edit).setVisible(isLocal);
-        menu.findItem(R.id.update_album_art).setVisible(isLocal && audio.getArtUrl(ArtSize.SMALL) == null);
+        boolean updateAlbumArtVisible = isLocal && audio.getArtUrl(ArtSize.SMALL) == null;
+        updateAlbumArtVisible = false; // Implement later
+        menu.findItem(R.id.update_album_art).setVisible(updateAlbumArtVisible);
         MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
         addToPlayList.setVisible(isLocal);
 
