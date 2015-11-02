@@ -31,12 +31,12 @@ public class ArtistAlbumsFragment extends AlbumsFragment implements ArtistProvid
     }
 
     @Override
-    protected List<Album> createList() {
+    protected List<Album> createLocalList() {
         return audioDataBase.getAlbumsOfArtist(artist);
     }
 
     @Override
-    protected NavigationList<Album> createNavigationList(String filter) {
+    protected NavigationList<Album> createInternetList(String filter) {
         return getRequestManager().getAlbumsOfArtist(artist);
     }
 

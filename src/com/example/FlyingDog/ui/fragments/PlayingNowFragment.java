@@ -38,11 +38,6 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
     }
 
     @Override
-    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
-        updateListViewCheckedItem(playBackService);
-    }
-
-    @Override
     protected List<Audio> getLocalSongs() {
         throw new RuntimeException("WTF?");
     }

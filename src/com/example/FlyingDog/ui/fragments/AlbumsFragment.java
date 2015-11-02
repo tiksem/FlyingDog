@@ -20,7 +20,7 @@ public class AlbumsFragment extends ArtCollectionFragment<Album> {
     }
 
     @Override
-    protected List<Album> createList() {
+    protected List<Album> createLocalList() {
         return audioDataBase.getAlbums();
     }
 
@@ -36,7 +36,7 @@ public class AlbumsFragment extends ArtCollectionFragment<Album> {
     }
 
     @Override
-    protected NavigationList<Album> createNavigationList(String filter) {
+    protected NavigationList<Album> createInternetList(String filter) {
         return getRequestManager().searchAlbums(filter);
     }
 }

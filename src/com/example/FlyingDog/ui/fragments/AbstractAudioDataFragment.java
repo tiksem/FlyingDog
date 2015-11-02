@@ -11,7 +11,6 @@ import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.PlayListsActivity;
-import com.tiksem.media.local.AudioDataBase;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
@@ -81,9 +80,9 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
         return R.id.no_connection;
     }
 
-    protected abstract List<T> createList();
+    protected abstract List<T> createLocalList();
 
-    protected NavigationList<T> createNavigationList(String filter) {
+    protected NavigationList<T> createInternetList(String filter) {
         throw new UnsupportedOperationException();
     }
 
@@ -96,9 +95,9 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
 
     protected NavigationList<T> getNavigationList(String filter) {
         if (!alwaysUseNavigationList() && filter == null) {
-            return NavigationList.decorate(createList());
+            return NavigationList.decorate(createLocalList());
         } else {
-            return createNavigationList(filter);
+            return createInternetList(filter);
         }
     }
 

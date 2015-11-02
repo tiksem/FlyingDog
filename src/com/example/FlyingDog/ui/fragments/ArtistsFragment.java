@@ -20,12 +20,12 @@ public class ArtistsFragment extends ArtCollectionFragment<Artist> {
     }
 
     @Override
-    protected List<Artist> createList() {
+    protected List<Artist> createLocalList() {
         return audioDataBase.getArtists();
     }
 
     @Override
-    protected NavigationList<Artist> createNavigationList(String filter) {
+    protected NavigationList<Artist> createInternetList(String filter) {
         return getRequestManager().searchArtists(filter);
     }
 

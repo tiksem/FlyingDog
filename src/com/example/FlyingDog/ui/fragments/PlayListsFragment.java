@@ -59,7 +59,7 @@ public class PlayListsFragment extends AbstractPlayListsFragment {
     }
 
     @Override
-    protected List<PlayList> createList() {
+    protected List<PlayList> createLocalList() {
         List<PlayList> localPlayLists = audioDataBase.getPlayLists();
         List<PlayList> result = new ArrayList<>(PlayLists.getSpecialPlayLists());
         result.addAll(localPlayLists);

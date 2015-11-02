@@ -25,7 +25,6 @@ import com.tiksem.media.playback.Status;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.parsers.UrlQueryData;
-import com.tiksem.media.search.updating.ArtUtils;
 import com.utils.framework.CollectionUtils;
 import com.utils.framework.Transformer;
 import com.utils.framework.collections.NavigationList;
@@ -40,9 +39,8 @@ import java.util.List;
 public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     private static NavigationList<Audio> currentPlayList;
 
-    private List<String> urls;
-    private List<UrlsProvider> urlsProviders;
     private View toPlayingNowButton;
+    private List<UrlsProvider> urlsProviders;
 
     @Override
     public void onAttach(Activity activity) {
@@ -88,18 +86,34 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         });
     }
 
-    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
-        if (urls == null || !CollectionUtils.contentEquals(playBackService.getPlayList(), urls)) {
-            if (urlsProviders == null || playBackService.getUrlsProviders() != urlsProviders) {
-                getListView().clearChoices();
+    private void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
+        if (currentPlayList == null) {
+            return;
+        }
+
+        NavigationList<Audio> elements = getElements();
+        if (elements == null) {
+            return;
+        }
+
+        if (elements != currentPlayList) {
+            if (elements.isDecorated()) {
+                return;
+            }
+
+            if (currentPlayList.isDecorated()) {
+                return;
+            }
+
+            if (!CollectionUtils.contentEquals(currentPlayList, elements)) {
                 return;
             }
         }
 
-        updateListViewCheckedItem(playBackService);
+        checkListViewItem(playBackService);
     }
 
-    protected final void updateListViewCheckedItem(AudioPlayerService.Binder playBackService) {
+    protected final void checkListViewItem(AudioPlayerService.Binder playBackService) {
         int position = playBackService.getPosition();
         getListView().setItemChecked(position, true);
     }
@@ -110,21 +124,13 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     @Override
-    protected final List<Audio> createList() {
+    protected final List<Audio> createLocalList() {
         List<Audio> songs = getLocalSongs();
-        urlsProviders = null;
 
         int sortOrder = getSortOrder();
         if (sortOrder != 0) {
             SortMenuUtils.sortAudios(songs, sortOrder);
         }
-
-        urls = CollectionUtils.transformNonCopy(songs, new Transformer<Audio, String>() {
-            @Override
-            public String get(Audio audio) {
-                return audio.getUrl();
-            }
-        });
 
         return songs;
     }
@@ -138,13 +144,8 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             @Override
             public void run() {
                 AudioPlayerService.Binder playBackService = activity.getPlayBackService();
-                if (urls != null) {
-                    playBackService.play(urls, position);
-                    currentPlayList = getElements();
-                } else {
-                    playBackService.playUrlsProviders(urlsProviders, position);
-                    currentPlayList = getElements();
-                }
+                playBackService.playUrlsProviders(urlsProviders, position);
+                currentPlayList = getElements();
                 toPlayingNowButton.setVisibility(View.GONE);
             }
         });
@@ -157,7 +158,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         if (playBackService != null) {
             if (getListView().getCheckedItemPosition() >= 0) {
-                playBackService.changePlayList(urls);
+                playBackService.changePlayListProviders(urlsProviders);
             }
         }
     }
@@ -168,12 +169,15 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     @Override
-    protected NavigationList<Audio> createNavigationList(String filter) {
-        urls = null;
-        RequestManager requestManager = getRequestManager();
-        NavigationList<Audio> audios = getAudiosFromInternet(filter, requestManager);
-        urlsProviders = requestManager.getUrlsData(audios);
-        return audios;
+    protected NavigationList<Audio> createInternetList(String filter) {
+        return getAudiosFromInternet(filter, getRequestManager());
+    }
+
+    @Override
+    protected NavigationList<Audio> getNavigationList(String filter) {
+        NavigationList<Audio> navigationList = super.getNavigationList(filter);
+        urlsProviders = getRequestManager().getUrlsData(navigationList);
+        return navigationList;
     }
 
     protected abstract NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager);
@@ -251,7 +255,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     private void updateAlbumArt(final View view, final Audio audio) {
-        getRequestManager().updateAudioArt(audioDataBase, audio, new ArtUtils.OnUpdated() {
+        getRequestManager().updateAudioArt(audioDataBase, audio, new RequestManager.OnUpdated() {
             @Override
             public void onUpdated() {
                 ImageView art = (ImageView) view.findViewById(R.id.art);

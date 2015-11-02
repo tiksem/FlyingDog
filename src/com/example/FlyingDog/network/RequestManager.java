@@ -7,7 +7,7 @@ import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
-import com.tiksem.media.search.updating.ArtUtils;
+import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
@@ -86,9 +86,17 @@ public class RequestManager extends AsyncRequestExecutorManager {
         });
     }
 
+    public interface OnUpdated {
+        void onUpdated();
+    }
+
     public void updateAudioArt(FlyingDogAudioDatabase audioDatabase,
-                               Audio audio, ArtUtils.OnUpdated onUpdated) {
-        execute(ArtUtils.crateUpdateAudioArtsTask(
-                internetSearchEngine, audioDatabase, audio, onUpdated));
+                               Audio audio, final OnUpdated onUpdated) {
+        execute(new UpdateAudioArtTask(internetSearchEngine, audioDatabase, audio) {
+            @Override
+            protected void onUpdated() {
+                onUpdated.onUpdated();
+            }
+        });
     }
 }
