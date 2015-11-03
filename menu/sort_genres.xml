@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:title="@string/sort"
+          android:id="@+id/sort"
+          android:icon="@drawable/sort"
+          app:showAsAction="always"
+            >
+        <menu>
+            <group android:id="@+id/action_sort"
+                   android:checkableBehavior="single">
+                <item
+                        android:id="@+id/sort_by_name"
+                        android:title="@string/sort_by_name"/>
+
+                <item android:checked="true"
+                      android:id="@+id/sort_by_popularity"
+                      android:title="@string/sort_by_popularity"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>
