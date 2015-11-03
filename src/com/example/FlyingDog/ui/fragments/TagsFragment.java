@@ -3,6 +3,7 @@ package com.example.FlyingDog.ui.fragments;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.TagsAdapter;
+import com.utils.framework.algorithms.Search;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 
@@ -17,7 +18,7 @@ public abstract class TagsFragment extends AbstractAudioDataFragment<String> {
         throw new RuntimeException("Should not be called");
     }
 
-    protected abstract List<String> getTags(String filter);
+    protected abstract List<String> getTags();
 
     @Override
     protected ViewArrayAdapter<String, ?> createAdapter(RequestManager requestManager) {
@@ -36,6 +37,11 @@ public abstract class TagsFragment extends AbstractAudioDataFragment<String> {
 
     @Override
     protected NavigationList<String> getNavigationList(String filter) {
-        return NavigationList.decorate(getTags(filter));
+        List<String> tags = getTags();
+        if (filter != null) {
+            tags = Search.filter(tags, filter);
+        }
+
+        return NavigationList.decorate(tags);
     }
 }

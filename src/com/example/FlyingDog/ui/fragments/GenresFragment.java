@@ -10,11 +10,7 @@ import java.util.List;
  */
 public class GenresFragment extends TagsFragment {
     @Override
-    protected List<String> getTags(String filter) {
-        if (filter == null) {
-            return Genres.getGenresList();
-        } else {
-            return Search.filter(Genres.getGenresList(), filter.toLowerCase());
-        }
+    protected List<String> getTags() {
+        return Genres.getGenresList();
     }
 }

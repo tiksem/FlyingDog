@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class MoodFragment extends TagsFragment {
     @Override
-    protected List<String> getTags(String filter) {
+    protected List<String> getTags() {
         return Mood.getMoods();
     }
 
