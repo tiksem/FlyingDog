@@ -308,14 +308,28 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             @Override
             public void run() {
                 onListViewStateUpdate(getPlayListsActivity().getPlayBackService());
+                if (toPlayingNowButton != null) {
+                    toPlayingNowButton.setVisibility(View.VISIBLE);
+                }
             }
         });
+
+        resetPlayerIPreparing();
     }
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         toPlayingNowButton.setVisibility(View.VISIBLE);
+
+        resetPlayerIPreparing();
+    }
+
+    private void resetPlayerIPreparing() {
+        AudioPlayerService.Binder playBackService = getPlayBackService();
+        if (playBackService != null && playBackService.getStatus() == Status.PREPARING) {
+            playBackService.reset();
+        }
     }
 
     protected static NavigationList<Audio> getCurrentPlayList() {
