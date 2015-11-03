@@ -10,7 +10,9 @@ import android.view.View;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
+import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.PlayListsActivity;
+import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
@@ -95,7 +97,8 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
 
     protected NavigationList<T> getNavigationList(String filter) {
         if (!alwaysUseNavigationList() && filter == null) {
-            return NavigationList.decorate(createLocalList());
+            List<T> localList = createLocalList();
+            return NavigationList.decorate(localList);
         } else {
             return createInternetList(filter);
         }
@@ -137,5 +140,10 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
         if (sortMenuItem != null) {
             sortMenuItem.setVisible(!expanded && getElements().isDecorated());
         }
+    }
+
+    @Override
+    protected int getSortMenuGroupId() {
+        return R.id.action_sort;
     }
 }

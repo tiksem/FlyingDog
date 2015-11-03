@@ -36,4 +36,5 @@
     <string name="update_album_art">Update album art</string>
     <string name="genres">Genres</string>
     <string name="mood">Mood</string>
+    <string name="sort_by_popularity">Sort by popularity</string>
 </resources>

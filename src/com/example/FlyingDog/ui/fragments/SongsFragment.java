@@ -111,14 +111,12 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     protected final List<Audio> createLocalList() {
-        List<Audio> songs = getLocalSongs();
+        return getLocalSongs();
+    }
 
-        int sortOrder = getSortOrder();
-        if (sortOrder != 0) {
-            SortMenuUtils.sortAudios(songs, sortOrder);
-        }
-
-        return songs;
+    @Override
+    protected void sort(List<Audio> songs, int sortingOrder) {
+        SortMenuUtils.sortAudios(songs, sortingOrder);
     }
 
     protected abstract List<Audio> getLocalSongs();
@@ -171,11 +169,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     @Override
     protected int getSortMenuId() {
         return R.menu.sort_songs;
-    }
-
-    @Override
-    protected int getSortMenuGroupId() {
-        return R.id.action_sort;
     }
 
     @Override

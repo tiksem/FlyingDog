@@ -18,4 +18,10 @@ public class SortMenuUtils {
             Collections.sort(audios, AudioComparators.audioByArtistName());
         }
     }
+
+    public static void sortGenres(List<String> genres, int menuItemId) {
+        if (menuItemId == R.id.sort_by_name) {
+            Collections.sort(genres);
+        }
+    }
 }
