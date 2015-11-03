@@ -1,8 +1,7 @@
 package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
-import com.example.FlyingDog.network.RequestManager;
-import com.tiksem.media.data.Audio;
+import com.tiksem.media.data.Artist;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.fragments.Fragments;
 
@@ -11,13 +10,13 @@ import java.util.List;
 /**
  * Created by stykhonenko on 03.11.15.
  */
-public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
+public class ArtistsOfTagFragment extends ArtistsFragment implements TagProvider {
     private static final String TAG = "TAG";
 
     private String tag;
 
-    public static SongsOfTagFragment create(String tag) {
-        return Fragments.createFragmentWith1Arg(new SongsOfTagFragment(), TAG, tag);
+    public static ArtistsOfTagFragment create(String tag) {
+        return Fragments.createFragmentWith1Arg(new ArtistsOfTagFragment(), TAG, tag);
     }
 
     @Override
@@ -27,18 +26,23 @@ public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
     }
 
     @Override
-    protected List<Audio> getLocalSongs() {
+    protected List<Artist> createLocalList() {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return requestManager.getSongsByTag(tag);
+    protected NavigationList<Artist> createInternetList(String filter) {
+        return getRequestManager().getArtistsByTag(tag);
     }
 
     @Override
     protected boolean alwaysUseNavigationList() {
         return true;
+    }
+
+    @Override
+    protected boolean hasSearchMenu() {
+        return false;
     }
 
     @Override

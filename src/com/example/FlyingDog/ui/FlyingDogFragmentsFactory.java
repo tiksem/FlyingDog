@@ -49,6 +49,15 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
             } else if(tabIndex == ARTIST_ALBUMS_TAB) {
                 return ArtistAlbumsFragment.create(artist);
             }
+        } else if(navigationLevel == Level.TAG_SONGS_AND_ARTISTS) {
+            TagProvider tagProvider = (TagProvider) activity.getCurrentFragment();
+            String tag = tagProvider.getTagName();
+
+            if (tabIndex == TAG_SONGS_TAB) {
+                return SongsOfTagFragment.create(tag);
+            } else if(tabIndex == TAG_ARTISTS_TAB) {
+                return ArtistsOfTagFragment.create(tag);
+            }
         }
 
         throw new RuntimeException("Invalid fragment request");
