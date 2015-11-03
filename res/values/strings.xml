@@ -37,4 +37,5 @@
     <string name="genres">Genres</string>
     <string name="mood">Mood</string>
     <string name="sort_by_popularity">Sort by popularity</string>
+    <string name="countries">Countries</string>
 </resources>
