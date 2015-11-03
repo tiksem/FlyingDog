@@ -17,7 +17,11 @@ public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
     private String tag;
 
     public static SongsOfTagFragment create(String tag) {
-        return Fragments.createFragmentWith1Arg(new SongsOfTagFragment(), TAG, tag);
+        return create(tag, new SongsOfTagFragment());
+    }
+
+    protected static <T extends SongsOfTagFragment> T create(String tag, T fragment) {
+        return Fragments.createFragmentWith1Arg(fragment, TAG, tag);
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.example.FlyingDog.network;
 import com.tiksem.media.data.Album;
 import com.tiksem.media.data.Artist;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.data.Mood;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
@@ -34,6 +35,16 @@ public class RequestManager extends AsyncRequestExecutorManager {
         initParams.requestManager = this;
 
         return initParams;
+    }
+
+    private <T> MultiTagNavigationList.Params getMultiTagNavigationListParams(String[] tags) {
+        MultiTagNavigationList.Params params = new MultiTagNavigationList.Params();
+        params.internetSearchEngine = internetSearchEngine;
+        params.requestManager = this;
+        params.elementsPerPage = 50;
+        params.tags = tags;
+
+        return params;
     }
 
     public RequestManager() {
@@ -106,5 +117,10 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public NavigationList<Artist> getArtistsByTag(String tag) {
         return new TagArtistsNavigationList(getPageNavigationListInitialParams(tag));
+    }
+
+    public NavigationList<Audio> getSongsByMood(String mode) {
+        String[] tags = Mood.getMoodTags(mode);
+        return new MultiTagsSongsNavigationList(getMultiTagNavigationListParams(tags));
     }
 }

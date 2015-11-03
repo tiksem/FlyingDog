@@ -39,6 +39,9 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     return new PlayListsFragment();
                 case GENRES:
                     return new GenresFragment();
+                case MOOD:
+                    return new MoodFragment();
+
             }
         } else if (navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
             ArtistProvider artistProvider = (ArtistProvider) activity.getCurrentFragment();
@@ -87,6 +90,9 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
                     break;
                 case GENRES:
                     tab.setText(R.string.genres);
+                    break;
+                case MOOD:
+                    tab.setText(R.string.mood);
                     break;
             }
         } else if(navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
