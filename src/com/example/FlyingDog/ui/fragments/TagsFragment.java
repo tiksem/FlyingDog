@@ -39,7 +39,7 @@ public abstract class TagsFragment extends AbstractAudioDataFragment<String> {
     protected NavigationList<String> getNavigationList(String filter) {
         List<String> tags = getTags();
         if (filter != null) {
-            tags = Search.filter(tags, filter);
+            tags = Search.filterIgnoreCase(tags, filter);
         }
 
         return NavigationList.decorate(tags);
