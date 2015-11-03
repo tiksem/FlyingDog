@@ -2,13 +2,17 @@ package com.example.FlyingDog.ui.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AbsListView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
+import com.utilsframework.android.view.listview.ListViews;
 
 import java.util.List;
 
@@ -45,5 +49,13 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
         throw new RuntimeException("WTF?");
+    }
+
+    @Override
+    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
+        super.onListViewStateUpdate(playBackService);
+
+        AbsListView listView = getListView();
+        ListViews.scrollListViewToPosition(listView, listView.getCheckedItemPosition());
     }
 }

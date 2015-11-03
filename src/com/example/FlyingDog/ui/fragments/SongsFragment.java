@@ -26,7 +26,6 @@ import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.parsers.UrlQueryData;
 import com.utils.framework.CollectionUtils;
-import com.utils.framework.Transformer;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.view.Alerts;
@@ -45,19 +44,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        final PlayListsActivity activity = getPlayListsActivity();
-        activity.executeWhenPlayBackServiceReady(new Runnable() {
-            @Override
-            public void run() {
-                onListViewStateUpdate(activity.getPlayBackService());
-            }
-        });
     }
 
     @Override
@@ -86,7 +72,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         });
     }
 
-    private void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
+    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
         if (currentPlayList == null) {
             return;
         }
@@ -314,7 +300,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             }
         });
 
-        resetPlayerIPreparing();
+        resetPlayerIfPreparing();
     }
 
     @Override
@@ -322,10 +308,10 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         super.onDestroyView();
         toPlayingNowButton.setVisibility(View.VISIBLE);
 
-        resetPlayerIPreparing();
+        resetPlayerIfPreparing();
     }
 
-    private void resetPlayerIPreparing() {
+    private void resetPlayerIfPreparing() {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         if (playBackService != null && playBackService.getStatus() == Status.PREPARING) {
             playBackService.reset();

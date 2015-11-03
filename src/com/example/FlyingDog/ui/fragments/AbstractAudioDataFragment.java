@@ -103,11 +103,10 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
 
     @Override
     protected final NavigationList<T> getNavigationList(RequestManager requestManager, String filter) {
-        NavigationList<T> navigationList = getNavigationList(filter);
-        onNavigationListChanged(navigationList);
-        return navigationList;
+        return getNavigationList(filter);
     }
 
+    @Override
     protected void onNavigationListChanged(NavigationList<T> navigationList) {
         setSortMenuItemVisibility(navigationList.isDecorated());
     }
