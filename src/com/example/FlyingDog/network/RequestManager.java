@@ -99,4 +99,8 @@ public class RequestManager extends AsyncRequestExecutorManager {
             }
         });
     }
+
+    public NavigationList<Audio> getSongsByTag(String tag) {
+        return new TagSongsNavigationList(getPageNavigationListInitialParams(tag));
+    }
 }

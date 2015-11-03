@@ -34,4 +34,5 @@
     <string name="enter_audio_name">Enter audio name</string>
     <string name="enter_artist_name">Enter artist name</string>
     <string name="update_album_art">Update album art</string>
+    <string name="genres">Genres</string>
 </resources>

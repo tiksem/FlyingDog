@@ -10,4 +10,5 @@ public class Level {
     public static final int PLAYLIST_SONGS = 4;
     public static final int ADD_TO_PLAYLIST = 5;
     public static final int EDIT_AUDIO = 6;
+    public static final int TAG_SONGS_AND_ARTISTS = 7;
 }
