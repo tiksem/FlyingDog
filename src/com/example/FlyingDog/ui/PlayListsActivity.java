@@ -15,8 +15,7 @@ import com.tiksem.media.playback.StateChangedListener;
 import com.tiksem.media.playback.Status;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
 import com.utilsframework.android.Services;
-import com.utilsframework.android.navdrawer.FragmentFactory;
-import com.utilsframework.android.navdrawer.NavigationActivityWithoutDrawerLayout;
+import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
 import com.utilsframework.android.view.GuiUtilities;
 
@@ -31,6 +30,9 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private Services.UnBinder audioPlayBackUnBinder;
     private AudioPlayerService.Binder playBackService;
     private Queue<Runnable> whenPlayBackServiceReadyQueue = new ArrayDeque<>();
+    private TabLayoutAdapter tabLayoutAdapter;
+    private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
+    private TabsAdapterSwitcher tabsAdapterSwitcher;
 
     private AbstractAudioDataFragment getPlayListFragment() {
         return (AbstractAudioDataFragment) getCurrentFragment();
@@ -150,5 +152,24 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     @Override
     protected int getRootLayoutId() {
         return R.layout.main;
+    }
+
+    @Override
+    protected TabsAdapter createTabsAdapter() {
+        tabsAdapterSwitcher = new TabsAdapterSwitcher(this, getTabsStub());
+        layoutRadioButtonGroupTabsAdapter = LayoutRadioButtonGroupTabsAdapter.fromLayoutId(this,
+                R.layout.main_tabs, R.id.playlistSwitcherContent);
+        tabLayoutAdapter = TabLayoutAdapter.fromLayoutId(this, getTabLayoutId());
+        return tabsAdapterSwitcher;
+    }
+
+    @Override
+    protected void onTabsInit(int tabsCount, int navigationLevel) {
+        super.onTabsInit(tabsCount, navigationLevel);
+        if (navigationLevel == 0) {
+            tabsAdapterSwitcher.setTabsAdapter(layoutRadioButtonGroupTabsAdapter);
+        } else {
+            tabsAdapterSwitcher.setTabsAdapter(tabLayoutAdapter);
+        }
     }
 }
