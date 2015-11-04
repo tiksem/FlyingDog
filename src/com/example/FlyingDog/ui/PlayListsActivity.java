@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.HorizontalScrollView;
 import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
@@ -18,6 +19,7 @@ import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
 import com.utilsframework.android.view.GuiUtilities;
+import com.utilsframework.android.view.LayoutRadioButtonGroup;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -26,6 +28,7 @@ import java.util.Queue;
  * Created by stykhonenko on 19.10.15.
  */
 public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
+    private static final int RIGHT_SCROLL_TAB_INDEX = 4;
     private AsyncTask artsUpdating;
     private Services.UnBinder audioPlayBackUnBinder;
     private AudioPlayerService.Binder playBackService;
@@ -160,6 +163,19 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         layoutRadioButtonGroupTabsAdapter = LayoutRadioButtonGroupTabsAdapter.fromLayoutId(this,
                 R.layout.main_tabs, R.id.playlistSwitcherContent);
         tabLayoutAdapter = TabLayoutAdapter.fromLayoutId(this, getTabLayoutId());
+
+        final HorizontalScrollView scrollView = (HorizontalScrollView) layoutRadioButtonGroupTabsAdapter.getView();
+        LayoutRadioButtonGroup radioButtonGroup = (LayoutRadioButtonGroup) scrollView.getChildAt(0);
+
+        radioButtonGroup.getItemByIndex(RIGHT_SCROLL_TAB_INDEX).setOnSelectedChangedListener(
+                new LayoutRadioButtonGroup.OnSelectedChanged() {
+            @Override
+            public void onSelectedChanged(boolean fromUser, LayoutRadioButtonGroup.LayoutRadioButton item,
+                                          LayoutRadioButtonGroup.LayoutRadioButton old) {
+                scrollView.fullScroll(View.FOCUS_RIGHT);
+            }
+        });
+
         return tabsAdapterSwitcher;
     }
 
