@@ -4,4 +4,6 @@
     <item android:id="@+id/add_to_playlist" android:title="@string/add_to_playlist"/>
     <item android:id="@+id/report" android:title="@string/report"/>
     <item android:id="@+id/update_album_art" android:title="@string/update_album_art"/>
+    <item android:id="@+id/remove_from_playlist" android:visible="false"
+          android:title="@string/remove_from_playlist"/>
 </menu>
