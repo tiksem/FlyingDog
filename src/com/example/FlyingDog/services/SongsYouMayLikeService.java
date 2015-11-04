@@ -7,8 +7,10 @@ import android.os.IBinder;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.network.FlyingDogRequestExecutor;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.SongsYouMayLikeNavigationList;
+import com.utils.framework.CollectionUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.Services;
 import com.utilsframework.android.network.*;
@@ -35,7 +37,9 @@ public class SongsYouMayLikeService extends Service {
                 params.internetSearchEngine = new InternetSearchEngine(new FlyingDogRequestExecutor());
                 params.maxCount = MAX_SONGS_YOU_MAY_LIKE_COUNT;
                 params.songsCountPerPage = SIMILAR_TRACKS_PER_PAGE_COUNT;
-                params.userPlaylist = FlyingDog.getInstance().getAudioDataBase().getSongs();
+                FlyingDogAudioDatabase audioDataBase = FlyingDog.getInstance().getAudioDataBase();
+                params.userPlaylist = CollectionUtils.concat(audioDataBase.getSongs(),
+                        audioDataBase.getInternetAudios());
 
                 if (executor == null) {
                     executor = Executors.newSingleThreadExecutor();
