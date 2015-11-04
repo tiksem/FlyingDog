@@ -83,11 +83,11 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         }
 
         if (elements != currentPlayList) {
-            if (elements.isDecorated()) {
+            if (!elements.isDecorated()) {
                 return;
             }
 
-            if (currentPlayList.isDecorated()) {
+            if (!currentPlayList.isDecorated()) {
                 return;
             }
 
