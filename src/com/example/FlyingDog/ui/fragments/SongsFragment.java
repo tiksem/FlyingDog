@@ -142,6 +142,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         if (playBackService != null) {
             if (getListView().getCheckedItemPosition() >= 0) {
+                currentPlayList = getElements();
                 playBackService.changePlayListProviders(urlsProviders);
             }
         }
