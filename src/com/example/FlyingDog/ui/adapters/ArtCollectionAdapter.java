@@ -35,4 +35,9 @@ public abstract class ArtCollectionAdapter<T extends ArtCollection> extends
         holder.name.setText(artCollection.getName());
         IMAGE_LOADER.displayImage(artCollection.getArtUrl(ArtSize.MEDIUM), holder.art);
     }
+
+    @Override
+    protected int getNullLayoutId() {
+        return R.layout.art_collection_loading;
+    }
 }
