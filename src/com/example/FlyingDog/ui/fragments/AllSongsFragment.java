@@ -13,13 +13,6 @@ import java.util.List;
  */
 public class AllSongsFragment extends SongsFragment {
     @Override
-    public void onStart() {
-        super.onStart();
-
-        Toasts.customView(getActivity(), R.layout.search_internet_help_toast);
-    }
-
-    @Override
     protected List<Audio> getLocalSongs() {
         return audioDataBase.getSongs();
     }

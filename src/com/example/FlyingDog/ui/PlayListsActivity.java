@@ -20,6 +20,7 @@ import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
 import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
+import com.utilsframework.android.view.Toasts;
 
 import java.util.ArrayDeque;
 import java.util.Queue;
@@ -62,6 +63,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 onPlayBackServiceConnected(connection);
             }
         });
+
+        Toasts.customView(this, R.layout.search_internet_help_toast);
     }
 
     private void onPlayBackServiceConnected(Services.Connection<AudioPlayerService.Binder> connection) {
