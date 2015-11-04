@@ -9,6 +9,7 @@
             android:id="@+id/playlistSwitcherContent"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
+            android:layout_marginBottom="3dp"
             android:layout_height="wrap_content">
         <view
                 class="com.utilsframework.android.view.LayoutRadioButtonGroup$LayoutRadioButton"
@@ -17,7 +18,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/allSongsPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -44,7 +44,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/artistsPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -71,7 +70,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/albumsPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -98,7 +96,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/playlistsPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -125,7 +122,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/genresPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -152,7 +148,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/countriesPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
@@ -179,7 +174,6 @@
                 android:clickable="true"
                 android:focusable="true"
                 android:layout_width="70dp"
-                android:layout_marginBottom="5dp"
                 android:id="@+id/moodPlayListButton"
                 android:background="@drawable/playing_mode_selector"
                 app:is_selected="false">
