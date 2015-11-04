@@ -12,6 +12,7 @@ import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -69,8 +70,12 @@ public class RequestManager extends AsyncRequestExecutorManager {
         };
     }
 
-    public List<UrlsProvider> getUrlsData(List<Audio> audios) {
-        return internetSearchEngine.getUrlsProviders(audios);
+    public List<UrlsProvider> getUrlsData(NavigationList<Audio> audios) {
+        if (audios.isDecorated()) {
+            return new ArrayList<>(internetSearchEngine.getUrlsProviders(audios.getElements()));
+        } else {
+            return internetSearchEngine.getUrlsProviders(audios);
+        }
     }
 
     public NavigationList<Album> searchAlbums(String query) {

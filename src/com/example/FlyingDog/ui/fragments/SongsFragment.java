@@ -174,13 +174,17 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+    public final void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         MenuInflater inflater = getActivity().getMenuInflater();
         inflater.inflate(R.menu.song_contextual_menu, menu);
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         Audio audio = getAdapter().getElementOfView(info.targetView);
+        onCreateContextMenu(menu, audio, info.position);
+    }
+
+    protected void onCreateContextMenu(ContextMenu menu, Audio audio, int position) {
         boolean isLocal = audio.isLocal();
 
         menu.findItem(R.id.edit).setVisible(isLocal);
@@ -249,11 +253,17 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     @Override
-    public boolean onContextItemSelected(MenuItem item) {
+    public final boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int position = info.position;
         Audio audio = getAdapter().getElement(position);
 
+        return onContextItemSelected(item, info.targetView, position, audio);
+    }
+
+    protected boolean onContextItemSelected(MenuItem item,
+                                          View targetView,
+                                          int position, Audio audio) {
         switch (item.getItemId()) {
             case R.id.edit:
                 getPlayListsActivity().replaceFragment(EditAudioFragment.create(audio), Level.EDIT_AUDIO);
@@ -265,7 +275,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 showAddToPlayListDialog(audio);
                 return true;
             case R.id.update_album_art:
-                updateAlbumArt(info.targetView, audio);
+                updateAlbumArt(targetView, audio);
                 return true;
             default:
                 return super.onContextItemSelected(item);

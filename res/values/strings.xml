@@ -41,4 +41,5 @@
     <string name="search_internet_help_toast1">Tap on</string>
     <string name="search_internet_help_toast2">to search songs on the Internet</string>
     <string name="shuffle">Shuffle</string>
+    <string name="remove_from_playlist">Remove from playlist</string>
 </resources>
