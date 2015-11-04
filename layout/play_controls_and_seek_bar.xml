@@ -13,7 +13,7 @@
                       android:layout_gravity="left"
                       android:orientation="horizontal">
             <Button android:id="@+id/prev"
-                    android:background="@drawable/ic_prev"
+                    android:background="@drawable/prev_button"
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
             <ToggleButton android:id="@+id/play"
@@ -23,7 +23,7 @@
                           android:layout_width="50dp"
                           android:layout_height="50dp"/>
             <Button android:id="@+id/next"
-                    android:background="@drawable/ic_next"
+                    android:background="@drawable/next_button"
                     android:layout_width="50dp"
                     android:layout_height="50dp"/>
         </LinearLayout>
