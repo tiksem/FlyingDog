@@ -16,6 +16,8 @@ public class SortMenuUtils {
             Collections.sort(audios, AudioComparators.audioByName());
         } else if(menuItemId == R.id.sort_artist_name) {
             Collections.sort(audios, AudioComparators.audioByArtistName());
+        } else if(menuItemId == R.id.shuffle) {
+            Collections.shuffle(audios);
         }
     }
 

@@ -20,6 +20,9 @@
                 <item
                         android:id="@+id/sort_artist_name"
                         android:title="@string/sort_by_artist_name"/>
+                <item
+                        android:id="@+id/shuffle"
+                        android:title="@string/shuffle"/>
             </group>
         </menu>
     </item>
