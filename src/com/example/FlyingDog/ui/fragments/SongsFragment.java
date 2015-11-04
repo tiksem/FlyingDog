@@ -144,6 +144,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             if (getListView().getCheckedItemPosition() >= 0) {
                 currentPlayList = getElements();
                 playBackService.changePlayListProviders(urlsProviders);
+                toPlayingNowButton.setVisibility(View.GONE);
             }
         }
     }
@@ -281,7 +282,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     @Override
-    protected void onNavigationListChanged(NavigationList<Audio> navigationList) {
+    protected void onNavigationListChanged(final NavigationList<Audio> navigationList) {
         super.onNavigationListChanged(navigationList);
 
         getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
@@ -289,7 +290,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             public void run() {
                 onListViewStateUpdate(getPlayListsActivity().getPlayBackService());
                 if (toPlayingNowButton != null) {
-                    toPlayingNowButton.setVisibility(View.VISIBLE);
+                    if (currentPlayList != navigationList) {
+                        toPlayingNowButton.setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
