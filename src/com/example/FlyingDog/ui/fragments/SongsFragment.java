@@ -191,19 +191,20 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         boolean updateAlbumArtVisible = isLocal && audio.getArtUrl(ArtSize.SMALL) == null;
         updateAlbumArtVisible = false; // Implement later
         menu.findItem(R.id.update_album_art).setVisible(updateAlbumArtVisible);
+
         MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
-        addToPlayList.setVisible(isLocal);
+        addToPlayList.setVisible(true);
 
         MenuItem report = menu.findItem(R.id.report);
         if (!isLocal) {
             AudioPlayerService.Binder playBackService = getPlayBackService();
-            if (playBackService == null) {
+            if (playBackService == null || playBackService.getPosition() != position ||
+                    getElements() != getCurrentPlayList()) {
                 report.setVisible(false);
             } else {
                 Status status = playBackService.getStatus();
                 boolean activeStatus = status == Status.PAUSED || status == Status.PLAYING;
                 report.setVisible(activeStatus);
-                addToPlayList.setVisible(activeStatus);
             }
         } else {
             report.setVisible(false);
