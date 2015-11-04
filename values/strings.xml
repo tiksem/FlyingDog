@@ -40,4 +40,5 @@
     <string name="countries">Countries</string>
     <string name="search_internet_help_toast1">Tap on</string>
     <string name="search_internet_help_toast2">to search songs on the Internet</string>
+    <string name="shuffle">Shuffle</string>
 </resources>
