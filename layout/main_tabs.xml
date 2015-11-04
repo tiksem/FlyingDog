@@ -9,8 +9,7 @@
             android:id="@+id/playlistSwitcherContent"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:selected_index="0">
+            android:layout_height="wrap_content">
         <view
                 class="com.utilsframework.android.view.LayoutRadioButtonGroup$LayoutRadioButton"
                 android:orientation="vertical"
