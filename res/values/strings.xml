@@ -38,4 +38,6 @@
     <string name="mood">Mood</string>
     <string name="sort_by_popularity">Sort by popularity</string>
     <string name="countries">Countries</string>
+    <string name="search_internet_help_toast1">Tap on</string>
+    <string name="search_internet_help_toast2">to search songs on the Internet</string>
 </resources>

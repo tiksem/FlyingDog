@@ -1,8 +1,10 @@
 package com.example.FlyingDog.ui.fragments;
 
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.tiksem.media.data.Audio;
 import com.utils.framework.collections.NavigationList;
+import com.utilsframework.android.view.Toasts;
 
 import java.util.List;
 
@@ -10,6 +12,13 @@ import java.util.List;
  * Created by stykhonenko on 28.10.15.
  */
 public class AllSongsFragment extends SongsFragment {
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Toasts.customView(getActivity(), R.layout.search_internet_help_toast);
+    }
+
     @Override
     protected List<Audio> getLocalSongs() {
         return audioDataBase.getSongs();
@@ -19,5 +28,4 @@ public class AllSongsFragment extends SongsFragment {
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
         return requestManager.searchSongs(filter);
     }
-
 }
