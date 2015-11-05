@@ -9,7 +9,7 @@ import com.example.FlyingDog.network.FlyingDogRequestExecutor;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.search.InternetSearchEngine;
-import com.tiksem.media.search.navigation.SongsYouMayLikeNavigationList;
+import com.tiksem.media.search.navigation.songs.SongsYouMayLikeNavigationList;
 import com.utils.framework.CollectionUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.Services;

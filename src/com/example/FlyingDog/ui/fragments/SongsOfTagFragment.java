@@ -37,7 +37,7 @@ public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
 
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return requestManager.getSongsByTag(tag);
+        return requestManager.getSongsByTag(tag, filter);
     }
 
     @Override
@@ -48,5 +48,10 @@ public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
     @Override
     public String getTagName() {
         return tag;
+    }
+
+    @Override
+    protected boolean hasSearchMenu() {
+        return true;
     }
 }

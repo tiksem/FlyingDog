@@ -5,6 +5,12 @@ import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
+import com.tiksem.media.search.navigation.albums.AlbumsNavigationList;
+import com.tiksem.media.search.navigation.artists.ArtistAlbumsNavigationList;
+import com.tiksem.media.search.navigation.artists.ArtistsFilterTagNavigationList;
+import com.tiksem.media.search.navigation.artists.ArtistsNavigationList;
+import com.tiksem.media.search.navigation.artists.TagArtistsNavigationList;
+import com.tiksem.media.search.navigation.songs.*;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
@@ -113,8 +119,12 @@ public class RequestManager extends AsyncRequestExecutorManager {
         });
     }
 
-    public NavigationList<Audio> getSongsByTag(String tag) {
-        return new TagSongsNavigationList(getPageNavigationListInitialParams(tag));
+    public NavigationList<Audio> getSongsByTag(String tag, String filter) {
+        if (filter == null) {
+            return new TagSongsNavigationList(getPageNavigationListInitialParams(tag));
+        } else {
+            return new SongsFilterTagNavigationList(getPageNavigationListInitialParams(filter), tag);
+        }
     }
 
     public NavigationList<Artist> getArtistsByTag(String tag) {
