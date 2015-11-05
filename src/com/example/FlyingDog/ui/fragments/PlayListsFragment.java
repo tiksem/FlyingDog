@@ -68,6 +68,7 @@ public class PlayListsFragment extends AbstractPlayListsFragment {
 
     @Override
     protected void onListItemClicked(PlayList item, int position) {
+        super.onListItemClicked(item, position);
         PlayListsActivity activity = getPlayListsActivity();
         if (item.isLocal()) {
             activity.replaceFragment(PlayListSongsFragment.create(item), Level.PLAYLIST_SONGS);

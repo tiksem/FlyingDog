@@ -16,6 +16,7 @@ public class MoodFragment extends TagsFragment {
 
     @Override
     protected void onListItemClicked(String tag, int position) {
+        super.onListItemClicked(tag, position);
         getPlayListsActivity().replaceFragment(MoodSongsFragment.create(tag), Level.MOOD_SONGS);
     }
 }

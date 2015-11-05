@@ -148,4 +148,9 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     protected int getSortMenuGroupId() {
         return R.id.action_sort;
     }
+
+    @Override
+    protected void onListItemClicked(T item, int position) {
+        getPlayListsActivity().dismissHelpToast();
+    }
 }

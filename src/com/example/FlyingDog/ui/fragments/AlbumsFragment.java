@@ -26,6 +26,7 @@ public class AlbumsFragment extends ArtCollectionFragment<Album> {
 
     @Override
     protected void onListItemClicked(Album item, int position) {
+        super.onListItemClicked(item, position);
         AlbumSongsFragment fragment = AlbumSongsFragment.create(item);
         getPlayListsActivity().replaceFragment(fragment, Level.ALBUM_SONGS);
     }

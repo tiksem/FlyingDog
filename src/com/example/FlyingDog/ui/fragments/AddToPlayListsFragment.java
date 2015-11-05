@@ -99,7 +99,7 @@ public class AddToPlayListsFragment extends AbstractPlayListsFragment {
 
     @Override
     protected void onListItemClicked(PlayList item, int position) {
-
+        super.onListItemClicked(item, position);
     }
 
     @Override

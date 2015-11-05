@@ -123,6 +123,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     protected void onListItemClicked(Audio item, final int position) {
+        super.onListItemClicked(item, position);
         final PlayListsActivity activity = getPlayListsActivity();
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
