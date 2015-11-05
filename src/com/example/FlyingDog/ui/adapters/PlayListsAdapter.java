@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.ui.ImageLoaderUtils;
 import com.example.FlyingDog.ui.adapters.holders.PlayListViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.AudioDataManager;
@@ -20,8 +21,6 @@ import java.util.*;
  * Created by CM on 8/29/2014.
  */
 public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHolder>{
-    private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
-
     private Map<Integer, List<String>> cachedUrls = new HashMap<Integer, List<String>>();
     private AudiosProvider audiosProvider;
     private int itemBackground = 0;
@@ -87,7 +86,7 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
 
         int index = 0;
         for (ImageView art : arts) {
-            IMAGE_LOADER.displayImage(artUrls.get(index++), art);
+            ImageLoaderUtils.loadImageIfNeed(art, artUrls.get(index++));
         }
 
         holder.name.setText(playList.getName());

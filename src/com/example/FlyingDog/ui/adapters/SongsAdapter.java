@@ -7,6 +7,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.ui.ImageLoaderUtils;
 import com.example.FlyingDog.ui.adapters.holders.SongViewHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.data.ArtSize;
@@ -19,8 +20,6 @@ import com.utilsframework.android.adapters.ViewArrayAdapter;
  * Time: 20:14
  */
 public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
-    private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
-
     public SongsAdapter(Context context) {
         super(context);
     }
@@ -44,7 +43,7 @@ public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
     protected void reuseView(final Audio audio, SongViewHolder songViewHolder, int position, final View view) {
         songViewHolder.songName.setText(audio.getName());
         songViewHolder.artistName.setText(audio.getArtistName());
-        IMAGE_LOADER.displayImage(audio.getArtUrl(ArtSize.SMALL), songViewHolder.art);
+        ImageLoaderUtils.loadImageIfNeed(songViewHolder.art, audio.getArtUrl(ArtSize.SMALL));
 
         songViewHolder.options.setOnClickListener(new View.OnClickListener() {
             @Override

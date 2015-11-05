@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.ui.ImageLoaderUtils;
 import com.example.FlyingDog.ui.adapters.holders.ArtCollectionHolder;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.data.ArtCollection;
@@ -16,7 +17,6 @@ import com.utilsframework.android.adapters.ViewArrayAdapter;
  */
 public abstract class ArtCollectionAdapter<T extends ArtCollection> extends
         FlyingDogAdapter<T, ArtCollectionHolder>{
-    private static final ImageLoader IMAGE_LOADER = ImageLoader.getInstance();
 
     public ArtCollectionAdapter(Context context) {
         super(context);
@@ -33,7 +33,7 @@ public abstract class ArtCollectionAdapter<T extends ArtCollection> extends
     @Override
     protected void reuseView(ArtCollection artCollection, ArtCollectionHolder holder, int position, View view) {
         holder.name.setText(artCollection.getName());
-        IMAGE_LOADER.displayImage(artCollection.getArtUrl(ArtSize.MEDIUM), holder.art);
+        ImageLoaderUtils.loadImageIfNeed(holder.art, artCollection.getArtUrl(ArtSize.MEDIUM));
     }
 
     @Override
