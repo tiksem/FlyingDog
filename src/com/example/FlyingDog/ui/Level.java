@@ -12,5 +12,5 @@ public class Level {
     public static final int EDIT_AUDIO = 6;
     public static final int TAG_SONGS_AND_ARTISTS = 7;
     public static final int MOOD_SONGS = 8;
-    public static final int COUNTRY_SONGS = 9;
+    public static final int COUNTRY_SONGS_AND_ARTISTS = 9;
 }

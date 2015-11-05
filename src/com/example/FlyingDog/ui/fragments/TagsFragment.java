@@ -26,8 +26,7 @@ public abstract class TagsFragment extends AbstractAudioDataFragment<String> {
     }
 
     @Override
-    protected void onListItemClicked(String tag, int position) {
-        super.onListItemClicked(tag, position);
+    protected void onItemSelected(String tag, int position) {
         getPlayListsActivity().replaceFragment(SongsOfTagFragment.create(tag), Level.TAG_SONGS_AND_ARTISTS);
     }
 

@@ -15,8 +15,7 @@ public class CountriesFragment extends TagsFragment {
     }
 
     @Override
-    protected void onListItemClicked(String tag, int position) {
-        super.onListItemClicked(tag, position);
-        getPlayListsActivity().replaceFragment(CountrySongsFragment.create(tag), Level.COUNTRY_SONGS);
+    protected void onItemSelected(String tag, int position) {
+        getPlayListsActivity().replaceFragment(CountrySongsFragment.create(tag), Level.COUNTRY_SONGS_AND_ARTISTS);
     }
 }

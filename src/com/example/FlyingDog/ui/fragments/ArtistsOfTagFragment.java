@@ -15,8 +15,12 @@ public class ArtistsOfTagFragment extends ArtistsFragment implements TagProvider
 
     private String tag;
 
+    protected static <T extends ArtistsOfTagFragment> T create(String tag, T fragment) {
+        return Fragments.createFragmentWith1Arg(fragment, TAG, tag);
+    }
+
     public static ArtistsOfTagFragment create(String tag) {
-        return Fragments.createFragmentWith1Arg(new ArtistsOfTagFragment(), TAG, tag);
+        return create(tag, new ArtistsOfTagFragment());
     }
 
     @Override

@@ -10,9 +10,7 @@ import android.view.View;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
-import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.PlayListsActivity;
-import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
@@ -150,7 +148,12 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     }
 
     @Override
-    protected void onListItemClicked(T item, int position) {
+    protected final void onListItemClicked(T item, int position) {
         getPlayListsActivity().dismissHelpToast();
+        onItemSelected(item, position);
+    }
+
+    protected void onItemSelected(T item, int position) {
+
     }
 }

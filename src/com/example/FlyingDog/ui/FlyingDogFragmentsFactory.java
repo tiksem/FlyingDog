@@ -62,6 +62,15 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
             } else if(tabIndex == TAG_ARTISTS_TAB) {
                 return ArtistsOfTagFragment.create(tag);
             }
+        } else if(navigationLevel == Level.COUNTRY_SONGS_AND_ARTISTS) {
+            TagProvider tagProvider = (TagProvider) activity.getCurrentFragment();
+            String country = tagProvider.getTagName();
+
+            if (tabIndex == TAG_SONGS_TAB) {
+                return CountrySongsFragment.create(country);
+            } else if(tabIndex == TAG_ARTISTS_TAB) {
+                return CountryArtistsFragment.create(country);
+            }
         }
 
         throw new RuntimeException("Invalid fragment request");
@@ -77,7 +86,8 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
             } else if(tabIndex == ARTIST_ALBUMS_TAB) {
                 tab.setText(R.string.albums);
             }
-        } else if(navigationLevel == Level.TAG_SONGS_AND_ARTISTS) {
+        } else if(navigationLevel == Level.TAG_SONGS_AND_ARTISTS ||
+                navigationLevel == Level.COUNTRY_SONGS_AND_ARTISTS) {
             if (tabIndex == TAG_SONGS_TAB) {
                 tab.setText(R.string.songs);
             } else if(tabIndex == TAG_ARTISTS_TAB) {
@@ -92,7 +102,8 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
             return PlayListMode.values().length;
         } else if(navigationLevel == Level.ARTIST_SONGS_AND_ALBUMS) {
             return ARTIST_TABS_COUNT;
-        } else if(navigationLevel == Level.TAG_SONGS_AND_ARTISTS) {
+        } else if(navigationLevel == Level.TAG_SONGS_AND_ARTISTS ||
+                navigationLevel == Level.COUNTRY_SONGS_AND_ARTISTS) {
             return TAG_TABS_COUNT;
         }
 

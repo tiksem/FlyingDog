@@ -6,9 +6,10 @@ import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
 import com.tiksem.media.search.navigation.albums.AlbumsNavigationList;
-import com.tiksem.media.search.navigation.artists.ArtistAlbumsNavigationList;
+import com.tiksem.media.search.navigation.albums.ArtistAlbumsNavigationList;
 import com.tiksem.media.search.navigation.artists.ArtistsFilterTagNavigationList;
 import com.tiksem.media.search.navigation.artists.ArtistsNavigationList;
+import com.tiksem.media.search.navigation.artists.MultiTagsArtistNavigationList;
 import com.tiksem.media.search.navigation.artists.TagArtistsNavigationList;
 import com.tiksem.media.search.navigation.songs.*;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
@@ -147,5 +148,10 @@ public class RequestManager extends AsyncRequestExecutorManager {
         } else {
             return new ArtistsFilterTagNavigationList(getPageNavigationListInitialParams(filter), tag);
         }
+    }
+
+    public NavigationList<Artist> getArtistsByCountry(String country) {
+        String[] tags = Countries.getCountryTags(country);
+        return new MultiTagsArtistNavigationList(getMultiTagNavigationListParams(tags));
     }
 }
