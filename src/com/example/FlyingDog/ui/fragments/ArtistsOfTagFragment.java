@@ -32,7 +32,7 @@ public class ArtistsOfTagFragment extends ArtistsFragment implements TagProvider
 
     @Override
     protected NavigationList<Artist> createInternetList(String filter) {
-        return getRequestManager().getArtistsByTag(tag);
+        return getRequestManager().getArtistsByTag(tag, filter);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class ArtistsOfTagFragment extends ArtistsFragment implements TagProvider
 
     @Override
     protected boolean hasSearchMenu() {
-        return false;
+        return true;
     }
 
     @Override

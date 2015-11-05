@@ -40,7 +40,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private TabLayoutAdapter tabLayoutAdapter;
     private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
     private TabsAdapterSwitcher tabsAdapterSwitcher;
-    private Toasts.Controller helpToast;
+    private Toast helpToast;
 
     private AbstractAudioDataFragment getPlayListFragment() {
         return (AbstractAudioDataFragment) getCurrentFragment();
@@ -68,7 +68,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
-        helpToast = Toasts.infiniteCustomViewAtCenter(this, R.layout.search_internet_help_toast);
+        helpToast = Toasts.customViewAtCenter(this, R.layout.search_internet_help_toast, Toast.LENGTH_LONG);
     }
 
     private void onPlayBackServiceConnected(Services.Connection<AudioPlayerService.Binder> connection) {
@@ -200,24 +200,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
 
     public void dismissHelpToast() {
         if (helpToast != null) {
-            helpToast.dismiss();
+            helpToast.cancel();
             helpToast = null;
-        }
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (helpToast != null) {
-            helpToast.resumeShowing();
-        }
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        if (helpToast != null) {
-            helpToast.pauseShowing();
         }
     }
 }

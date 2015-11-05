@@ -26,8 +26,8 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     private InternetSearchEngine internetSearchEngine;
 
-    private <T> PageNavigationList.InitParams getPageNavigationListInitialParams(String query) {
-        PageNavigationList.InitParams initParams = new PageNavigationList.InitParams();
+    private <T> PageNavListParams getPageNavigationListInitialParams(String query) {
+        PageNavListParams initParams = new PageNavListParams();
         initParams.query = query;
         initParams.internetSearchEngine = internetSearchEngine;
         initParams.requestManager = this;
@@ -129,5 +129,13 @@ public class RequestManager extends AsyncRequestExecutorManager {
     public NavigationList<Audio> getSongsByCountry(String country) {
         String[] tags = Countries.getCountryTags(country);
         return new MultiTagsSongsNavigationList(getMultiTagNavigationListParams(tags));
+    }
+
+    public NavigationList<Artist> getArtistsByTag(String tag, String filter) {
+        if (filter == null) {
+            return getArtistsByTag(tag);
+        } else {
+            return new ArtistsFilterTagNavigationList(getPageNavigationListInitialParams(filter), tag);
+        }
     }
 }
