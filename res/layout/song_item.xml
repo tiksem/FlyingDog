@@ -47,9 +47,9 @@
             android:background="@null"
             android:layout_centerVertical="true"
             android:src="@drawable/ic_context_menu"
-            android:layout_width="28dp"
+            android:layout_width="38dp"
             android:scaleType="fitXY"
-            android:layout_marginRight="5dp"
-            android:layout_height="28dp"
+            android:padding="5dp"
+            android:layout_height="38dp"
             android:layout_alignParentRight="true"/>
 </RelativeLayout>

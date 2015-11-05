@@ -36,7 +36,7 @@ public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
         songViewHolder.art = (ImageView) view.findViewById(R.id.art);
         songViewHolder.artistName = (TextView) view.findViewById(R.id.artist_name);
         songViewHolder.songName = (TextView) view.findViewById(R.id.song_name);
-        songViewHolder.options = (ImageButton) view.findViewById(R.id.options);
+        songViewHolder.options = view.findViewById(R.id.options);
         return songViewHolder;
     }
 

@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.adapters.holders;
 
+import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -13,5 +14,5 @@ public final class SongViewHolder {
     public TextView artistName;
     public TextView songName;
     public ImageView art;
-    public ImageButton options;
+    public View options;
 }
