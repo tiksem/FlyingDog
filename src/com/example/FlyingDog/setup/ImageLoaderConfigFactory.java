@@ -22,7 +22,7 @@ public class ImageLoaderConfigFactory {
         config.diskCacheSize(1024 * 1024 * 50);
         config.denyCacheImageMultipleSizesInMemory();
         config.memoryCacheSize(1024*1024*2);
-        config.tasksProcessingOrder(QueueProcessingType.LIFO/*stack*/);
+        config.tasksProcessingOrder(QueueProcessingType.FIFO);
         config.diskCacheFileNameGenerator(new Md5FileNameGenerator());
         config.threadPoolSize(1);
 
