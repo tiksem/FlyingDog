@@ -85,7 +85,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     }
 
     private void setupPlayingControls() {
-        AudioPlaybackSeekBar seekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
+        final AudioPlaybackSeekBar seekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
         seekBar.setPlayerBinder(playBackService);
 
         final ViewGroup playControls = (ViewGroup) findViewById(R.id.play_controls);
@@ -120,9 +120,9 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 if (status == Status.PLAYING || status == Status.PAUSED) {
                     playControls.setVisibility(View.VISIBLE);
                     playButton.setChecked(status == Status.PLAYING);
-                    GuiUtilities.setEnabledForChildren(playControls, true);
+                    playButton.setEnabled(true);
                 } else {
-                    GuiUtilities.setEnabledForChildren(playControls, false);
+                    playButton.setEnabled(false);
                 }
             }
         };
