@@ -159,13 +159,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         return getAudiosFromInternet(filter, getRequestManager());
     }
 
-    @Override
-    protected NavigationList<Audio> getNavigationList(String filter) {
-        NavigationList<Audio> navigationList = super.getNavigationList(filter);
-        urlsProviders = getRequestManager().getUrlsData(navigationList);
-        return navigationList;
-    }
-
     protected abstract NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager);
 
     @Override
@@ -296,6 +289,8 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     protected void onNavigationListChanged(final NavigationList<Audio> navigationList) {
         super.onNavigationListChanged(navigationList);
 
+        urlsProviders = getRequestManager().getUrlsData(navigationList);
+
         getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
@@ -307,8 +302,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 }
             }
         });
-
-        resetPlayerIfPreparing();
     }
 
     @Override
