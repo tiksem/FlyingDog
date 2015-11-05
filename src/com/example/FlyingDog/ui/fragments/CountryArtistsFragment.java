@@ -17,6 +17,6 @@ public class CountryArtistsFragment extends ArtistsOfTagFragment {
 
     @Override
     protected NavigationList<Artist> createInternetList(String filter) {
-        return getRequestManager().getArtistsByCountry(getTagName());
+        return getRequestManager().getArtistsByCountry(getTagName(), filter);
     }
 }

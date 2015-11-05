@@ -7,14 +7,12 @@ import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
 import com.tiksem.media.search.navigation.albums.AlbumsNavigationList;
 import com.tiksem.media.search.navigation.albums.ArtistAlbumsNavigationList;
-import com.tiksem.media.search.navigation.artists.ArtistsFilterTagNavigationList;
-import com.tiksem.media.search.navigation.artists.ArtistsNavigationList;
-import com.tiksem.media.search.navigation.artists.MultiTagsArtistNavigationList;
-import com.tiksem.media.search.navigation.artists.TagArtistsNavigationList;
+import com.tiksem.media.search.navigation.artists.*;
 import com.tiksem.media.search.navigation.songs.*;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
+import com.utils.framework.strings.Strings;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
 
@@ -137,9 +135,13 @@ public class RequestManager extends AsyncRequestExecutorManager {
         return new MultiTagsSongsNavigationList(getMultiTagNavigationListParams(tags));
     }
 
-    public NavigationList<Audio> getSongsByCountry(String country) {
+    public NavigationList<Audio> getSongsByCountry(String country, String filter) {
         String[] tags = Countries.getCountryTags(country);
-        return new MultiTagsSongsNavigationList(getMultiTagNavigationListParams(tags));
+        if (filter == null) {
+            return new MultiTagsSongsNavigationList(getMultiTagNavigationListParams(tags));
+        } else {
+            return new SongsFilterMultiTagNavigationList(getPageNavigationListInitialParams(filter), tags);
+        }
     }
 
     public NavigationList<Artist> getArtistsByTag(String tag, String filter) {
@@ -150,8 +152,12 @@ public class RequestManager extends AsyncRequestExecutorManager {
         }
     }
 
-    public NavigationList<Artist> getArtistsByCountry(String country) {
+    public NavigationList<Artist> getArtistsByCountry(String country, String filter) {
         String[] tags = Countries.getCountryTags(country);
-        return new MultiTagsArtistNavigationList(getMultiTagNavigationListParams(tags));
+        if (filter == null) {
+            return new MultiTagsArtistNavigationList(getMultiTagNavigationListParams(tags));
+        } else {
+            return new ArtistsFilterMultiTagsNavigationList(getPageNavigationListInitialParams(filter), tags);
+        }
     }
 }

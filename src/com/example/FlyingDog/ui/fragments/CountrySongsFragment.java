@@ -14,6 +14,6 @@ public class CountrySongsFragment extends SongsOfTagFragment {
 
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return requestManager.getSongsByCountry(getTagName());
+        return requestManager.getSongsByCountry(getTagName(), filter);
     }
 }
