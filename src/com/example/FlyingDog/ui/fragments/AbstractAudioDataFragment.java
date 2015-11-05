@@ -140,6 +140,8 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
         if (sortMenuItem != null) {
             sortMenuItem.setVisible(!expanded && getElements().isDecorated());
         }
+
+        getPlayListsActivity().dismissHelpToast();
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
@@ -15,6 +16,7 @@ import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.StateChangedListener;
 import com.tiksem.media.playback.Status;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
+import com.utils.framework.Cancelable;
 import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
@@ -37,6 +39,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private TabLayoutAdapter tabLayoutAdapter;
     private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
     private TabsAdapterSwitcher tabsAdapterSwitcher;
+    private Toasts.Controller helpToast;
 
     private AbstractAudioDataFragment getPlayListFragment() {
         return (AbstractAudioDataFragment) getCurrentFragment();
@@ -64,7 +67,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
-        Toasts.customView(this, R.layout.search_internet_help_toast);
+        helpToast = Toasts.infiniteCustomViewAtCenter(this, R.layout.search_internet_help_toast);
     }
 
     private void onPlayBackServiceConnected(Services.Connection<AudioPlayerService.Binder> connection) {
@@ -144,6 +147,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         if (audioPlayBackUnBinder != null) {
             audioPlayBackUnBinder.unbind();
         }
+
+        dismissHelpToast();
     }
 
     @Override
@@ -189,6 +194,29 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             tabsAdapterSwitcher.setTabsAdapter(layoutRadioButtonGroupTabsAdapter);
         } else {
             tabsAdapterSwitcher.setTabsAdapter(tabLayoutAdapter);
+        }
+    }
+
+    public void dismissHelpToast() {
+        if (helpToast != null) {
+            helpToast.dismiss();
+            helpToast = null;
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (helpToast != null) {
+            helpToast.resumeShowing();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        if (helpToast != null) {
+            helpToast.pauseShowing();
         }
     }
 }
