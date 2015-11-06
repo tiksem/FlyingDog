@@ -4,12 +4,12 @@
           xmlns:android="http://schemas.android.com/apk/res/android">
     <item app:is_selected="true">
         <shape>
-            <solid android:color="#929292" />
+            <solid android:color="@color/greyLight" />
         </shape>
     </item>
     <item app:is_selected="false">
         <shape>
-            <solid android:color="#000000" />
+            <solid android:color="@color/colorPrimaryDark" />
         </shape>
     </item>
 </selector>

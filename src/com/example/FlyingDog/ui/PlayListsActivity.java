@@ -204,4 +204,9 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             helpToast = null;
         }
     }
+
+    @Override
+    protected int getToolbarLayoutId() {
+        return R.layout.toolbar;
+    }
 }

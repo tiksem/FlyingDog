@@ -17,6 +17,7 @@ import com.utilsframework.android.fragments.Fragments;
 import com.utilsframework.android.fragments.RequestManagerFragment;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
 import com.utilsframework.android.threading.OnFinish;
+import com.utilsframework.android.threading.Threading;
 import com.utilsframework.android.threading.ThrowingRunnable;
 import com.utilsframework.android.view.Alerts;
 import com.utilsframework.android.view.EditTextWithSuggestions;
@@ -102,15 +103,16 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
         }
 
         final ProgressDialog progressDialog = Alerts.showCircleProgressDialog(activity, R.string.please_wait);
-        getRequestManager().execute(new ThrowingRunnable<IOException>() {
+        getRequestManager().execute(new Threading.Task<IOException, Object>() {
             @Override
-            public void run() throws IOException {
+            public Object runOnBackground() throws IOException {
                 audioDataBase.setArtistName(audio, artistName);
                 audioDataBase.setAudioName(audio, name);
+                return null;
             }
-        }, new OnFinish<IOException>() {
+
             @Override
-            public void onFinish(IOException e) {
+            public void onAfterCompleteOrCancelled() {
                 progressDialog.dismiss();
                 onCancel();
             }

@@ -2,6 +2,7 @@
 <merge xmlns:tools="http://schemas.android.com/tools" xmlns:android="http://schemas.android.com/apk/res/android"
        tools:showIn="@layout/play_list_fragment">
     <FrameLayout
+            android:background="@color/colorPrimary"
             android:id="@+id/play_controls"
             android:visibility="gone"
             android:layout_width="match_parent"
@@ -33,13 +34,14 @@
                       android:layout_height="wrap_content">
             <Button android:id="@+id/to_playing_now"
                     android:layout_marginRight="10dp"
-                    android:background="@drawable/ic_playing_now"
+                    android:background="@drawable/ic_playing_now_white"
                     android:layout_width="40dp"
                     android:layout_height="40dp"/>
         </LinearLayout>
     </FrameLayout>
 
     <FrameLayout android:layout_weight="0"
+                 android:background="@color/colorPrimary"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content">
         <com.tiksem.media.ui.AudioPlaybackSeekBar
