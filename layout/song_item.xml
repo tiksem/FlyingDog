@@ -23,7 +23,7 @@
                 android:layout_weight="1"
                 android:id="@+id/song_name"
                 android:orientation="vertical"
-                android:textColor="#ffffff"
+                android:textColor="@color/header_black"
                 android:layout_margin="3dp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
@@ -36,7 +36,6 @@
                 android:orientation="vertical"
                 android:gravity="bottom"
                 android:layout_margin="3dp"
-                android:textColor="@android:color/darker_gray"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

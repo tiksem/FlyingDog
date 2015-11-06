@@ -9,11 +9,18 @@
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>
 
+    <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/greyLight"
+            >
         <ViewStub android:id="@+id/tabsStub"
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content"/>
+    </FrameLayout>
 
-        <!-- Real content goes here -->
+
+    <!-- Real content goes here -->
         <FrameLayout
                 android:id="@+id/content"
                 android:clickable="true"
