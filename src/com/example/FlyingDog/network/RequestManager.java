@@ -7,6 +7,7 @@ import com.tiksem.media.playback.UrlsProvider;
 import com.tiksem.media.search.InternetSearchEngine;
 import com.tiksem.media.search.navigation.*;
 import com.tiksem.media.search.navigation.albums.AlbumsNavigationList;
+import com.tiksem.media.search.navigation.albums.ArtistAlbumsFilterNavigationList;
 import com.tiksem.media.search.navigation.albums.ArtistAlbumsNavigationList;
 import com.tiksem.media.search.navigation.artists.*;
 import com.tiksem.media.search.navigation.songs.*;
@@ -95,8 +96,13 @@ public class RequestManager extends AsyncRequestExecutorManager {
         return new AlbumsNavigationList(getPageNavigationListInitialParams(query));
     }
 
-    public NavigationList<Album> getAlbumsOfArtist(Artist artist) {
-        return new ArtistAlbumsNavigationList(getPageNavigationListInitialParams(artist.getName()));
+    public NavigationList<Album> getAlbumsOfArtist(Artist artist, String filter) {
+        String artistName = artist.getName();
+        if (filter == null) {
+            return new ArtistAlbumsNavigationList(getPageNavigationListInitialParams(artistName));
+        } else {
+            return new ArtistAlbumsFilterNavigationList(getPageNavigationListInitialParams(filter), artistName);
+        }
     }
 
     public void reportWrongUrl(final UrlReport report) {

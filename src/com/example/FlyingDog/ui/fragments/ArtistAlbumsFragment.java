@@ -37,7 +37,7 @@ public class ArtistAlbumsFragment extends AlbumsFragment implements ArtistProvid
 
     @Override
     protected NavigationList<Album> createInternetList(String filter) {
-        return getRequestManager().getAlbumsOfArtist(artist);
+        return getRequestManager().getAlbumsOfArtist(artist, filter);
     }
 
     @Override
