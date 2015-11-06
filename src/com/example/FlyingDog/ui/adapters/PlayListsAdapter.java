@@ -12,6 +12,7 @@ import com.tiksem.media.AudioDataManager;
 import com.tiksem.media.data.ArtSize;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.PlayList;
+import com.utils.framework.strings.Strings;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.view.GuiUtilities;
 
@@ -89,7 +90,7 @@ public class PlayListsAdapter extends ViewArrayAdapter<PlayList, PlayListViewHol
             ImageLoaderUtils.loadImageIfNeed(art, artUrls.get(index++));
         }
 
-        holder.name.setText(playList.getName());
+        holder.name.setText(Strings.capitalizeCharSequence(playList.getName()));
     }
 
     public PlayListsAdapter(Context context, int itemBackground, AudiosProvider audiosProvider) {
