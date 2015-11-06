@@ -8,4 +8,8 @@
     <style name="ActionBarTheme" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorControlActivated">#fff</item>
     </style>
+
+    <style name="AppBaseTheme.UrlLoadingSpinner" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorAccent">@color/greyLight</item>
+    </style>
 </resources>
