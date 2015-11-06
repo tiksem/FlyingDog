@@ -277,11 +277,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     private void showAddToPlayListDialog(Audio audio) {
-        if (!audio.isLocal()) {
-            String url = getPlayBackService().getCurrentUrl();
-            audio.setUrl(url);
-        }
-
         getPlayListsActivity().replaceFragment(AddToPlayListsFragment.create(audio), Level.ADD_TO_PLAYLIST);
     }
 
