@@ -65,8 +65,13 @@ public class RequestManager extends AsyncRequestExecutorManager {
         return new ArtistsNavigationList(getPageNavigationListInitialParams(query));
     }
 
-    public NavigationList<Audio> getAudiosOfArtist(Artist artist) {
-        return new ArtistSongsNavigationList(getPageNavigationListInitialParams(artist.getName()));
+    public NavigationList<Audio> getAudiosOfArtist(Artist artist, String filter) {
+        String artistName = artist.getName();
+        if (filter == null) {
+            return new ArtistSongsNavigationList(getPageNavigationListInitialParams(artistName));
+        } else {
+            return new ArtistSongsFilterNavigationList(getPageNavigationListInitialParams(filter), artistName);
+        }
     }
 
     public NavigationList<Audio> getAudiosOfAlbum(final Album album) {

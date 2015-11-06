@@ -33,7 +33,7 @@ public class ArtistSongsFragment extends SongsOfFragment implements ArtistProvid
 
     @Override
     protected NavigationList<Audio> getAudiosFromInternet(String filter, RequestManager requestManager) {
-        return requestManager.getAudiosOfArtist(artist);
+        return requestManager.getAudiosOfArtist(artist, filter);
     }
 
     @Override
@@ -44,5 +44,10 @@ public class ArtistSongsFragment extends SongsOfFragment implements ArtistProvid
     @Override
     protected boolean alwaysUseNavigationList() {
         return !artist.isLocal();
+    }
+
+    @Override
+    protected boolean hasSearchMenu() {
+        return true;
     }
 }
