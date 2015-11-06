@@ -43,4 +43,5 @@
     <string name="shuffle">Shuffle</string>
     <string name="remove_from_playlist">Remove from playlist</string>
     <string name="name">Name</string>
+    <string name="url_loading_text">Retrieving audio url...</string>
 </resources>

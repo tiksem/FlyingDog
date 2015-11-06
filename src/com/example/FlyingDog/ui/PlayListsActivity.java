@@ -1,11 +1,14 @@
 package com.example.FlyingDog.ui;
 
+import android.graphics.LightingColorFilter;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
@@ -118,6 +121,12 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
+        final View urlLoading = findViewById(R.id.url_loading);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            ProgressBar loading = (ProgressBar) urlLoading.findViewById(R.id.loading);
+            loading.getIndeterminateDrawable().setColorFilter(new LightingColorFilter(0xFF000000, 0xFFFFFF));
+        }
+
         StateChangedListener stateChangedListener = new StateChangedListener() {
             @Override
             public void onStateChanged(Status status) {
@@ -128,6 +137,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 } else {
                     playButton.setEnabled(false);
                 }
+
+                urlLoading.setVisibility(status == Status.PREPARING ? View.VISIBLE : View.GONE);
             }
         };
         playBackService.addStateChangedListener(stateChangedListener);
