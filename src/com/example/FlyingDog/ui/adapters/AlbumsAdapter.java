@@ -11,9 +11,4 @@ public class AlbumsAdapter extends ArtCollectionAdapter<Album> {
     public AlbumsAdapter(Context context) {
         super(context);
     }
-
-    @Override
-    protected int getRootLayoutId(int viewType) {
-        return R.layout.album_item;
-    }
 }

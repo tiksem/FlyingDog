@@ -40,4 +40,9 @@ public abstract class ArtCollectionAdapter<T extends ArtCollection> extends
     protected int getNullLayoutId() {
         return R.layout.art_collection_loading;
     }
+
+    @Override
+    protected int getRootLayoutId(int viewType) {
+        return R.layout.art_collection_item;
+    }
 }

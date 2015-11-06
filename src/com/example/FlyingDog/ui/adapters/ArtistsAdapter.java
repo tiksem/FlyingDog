@@ -11,9 +11,4 @@ public class ArtistsAdapter extends ArtCollectionAdapter<Artist> {
     public ArtistsAdapter(Context context) {
         super(context);
     }
-
-    @Override
-    protected int getRootLayoutId(int viewType) {
-        return R.layout.artist_item;
-    }
 }

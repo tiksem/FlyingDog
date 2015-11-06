@@ -11,12 +11,15 @@
             android:layout_height="fill_parent"
             android:id="@+id/art"
             android:adjustViewBounds="true"
-            android:scaleType="fitXY"/>
+            android:scaleType="centerCrop"/>
     <TextView
             android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:background="@drawable/artist_name_border_bg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:text="Name"
-            android:gravity="center_horizontal|center_vertical"/>
+            android:padding="5dp"
+            android:textColor="@color/white"
+            android:layout_marginBottom="10dp"
+            android:text="@string/name"/>
 </com.utilsframework.android.view.SquareLayout>
