@@ -38,4 +38,19 @@ public class UrlReport {
         args.put("url", url);
         return args;
     }
+
+    @Override
+    public String toString() {
+        return "UrlReport{" +
+                "queryName='" + queryName + '\'' +
+                ", queryArtistName='" + queryArtistName + '\'' +
+                ", queryDuration=" + queryDuration +
+                ", vkName='" + vkName + '\'' +
+                ", vkArtistName='" + vkArtistName + '\'' +
+                ", vkDuration=" + vkDuration +
+                ", url='" + url + '\'' +
+                ", message='" + message + '\'' +
+                ", time=" + time +
+                '}';
+    }
 }

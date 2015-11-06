@@ -1,5 +1,6 @@
 package com.example.FlyingDog.network;
 
+import android.util.Log;
 import com.tiksem.media.data.*;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.UrlsProvider;
@@ -15,6 +16,8 @@ import com.utils.framework.network.RequestExecutor;
 import com.utils.framework.strings.Strings;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
+import com.utilsframework.android.threading.OnFinish;
+import com.utilsframework.android.threading.ThrowingRunnable;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -92,12 +95,18 @@ public class RequestManager extends AsyncRequestExecutorManager {
     }
 
     public void reportWrongUrl(final UrlReport report) {
-        execute(new Runnable() {
+        execute(new ThrowingRunnable<IOException>() {
             @Override
-            public void run() {
-                try {
-                    networkRequestExecutor.executeRequest(REPORT_URL, report.toQueryArgs());
-                } catch (IOException e) {
+            public void run() throws IOException {
+                networkRequestExecutor.executeRequest(REPORT_URL, report.toQueryArgs());
+            }
+        }, new OnFinish<IOException>() {
+            @Override
+            public void onFinish(IOException e) {
+                if (e == null) {
+                    Log.i(TAG, "reportWrongUrl success = " + report);
+                } else {
+                    Log.e(TAG, "reportWrongUrl failed");
                     e.printStackTrace();
                 }
             }
