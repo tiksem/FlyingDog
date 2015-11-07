@@ -4,14 +4,10 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import com.example.FlyingDog.R;
-import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.PlayListsActivity;
-import com.example.FlyingDog.ui.adapters.PlayListsAdapter;
-import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.PlayList;
 import com.tiksem.media.data.PlayLists;
-import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.threading.OnFinish;
 import com.utilsframework.android.threading.ThrowingRunnable;
 import com.utilsframework.android.view.Alerts;
@@ -39,12 +35,16 @@ public class PlayListsFragment extends AbstractPlayListsFragment {
     }
 
     private void showAddPlayListDialog() {
-        Alerts.showAlertWithInput(getActivity(), R.string.add_playlist_message, new Alerts.OnInputOk() {
+        Alerts.InputAlertSettings settings = new Alerts.InputAlertSettings();
+        settings.title = R.string.create_new_playlist;
+        settings.hint = R.string.create_play_list_hint;
+        settings.onInputOk = new Alerts.OnInputOk() {
             @Override
             public void onOk(String playListName) {
                 createPlayList(playListName);
             }
-        });
+        };
+        Alerts.showAlertWithInput(getActivity(), settings);
     }
 
     @Override
