@@ -27,7 +27,7 @@
     </string>
     <string name="playing_now_title">Playing Now</string>
     <string name="play_lists">Playlists</string>
-    <string name="add_playlist_message">Enter PlayList Name</string>
+    <string name="create_play_list_hint">Enter PlayList Name</string>
     <string name="add_to_playlist">Add To PlayList</string>
     <string name="add_to_playlists_title">Select playlists where to add the song</string>
     <string name="select_playlist">Select playlists</string>
@@ -44,4 +44,5 @@
     <string name="remove_from_playlist">Remove from playlist</string>
     <string name="name">Name</string>
     <string name="url_loading_text">Retrieving audio url...</string>
+    <string name="create_new_playlist">Create new playlist</string>
 </resources>
