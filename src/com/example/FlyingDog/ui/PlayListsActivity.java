@@ -25,6 +25,7 @@ import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
 import com.utilsframework.android.view.GuiUtilities;
+import com.utilsframework.android.view.KeyboardIsShownListener;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 import com.utilsframework.android.view.Toasts;
 
@@ -43,6 +44,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
     private TabsAdapterSwitcher tabsAdapterSwitcher;
     private Toast helpToast;
+    private View bottomBar;
+    private KeyboardIsShownListener keyboardIsShownListener;
 
     private AbstractAudioDataFragment getPlayListFragment() {
         return (AbstractAudioDataFragment) getCurrentFragment();
@@ -71,6 +74,15 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         });
 
         helpToast = Toasts.customViewAtCenter(this, R.layout.search_internet_help_toast, Toast.LENGTH_LONG);
+
+        bottomBar = findViewById(R.id.bottom_bar);
+
+        keyboardIsShownListener = new KeyboardIsShownListener(this) {
+            @Override
+            protected void onKeyboardStateChanged(boolean isShown) {
+                bottomBar.setVisibility(isShown ? View.GONE : View.VISIBLE);
+            }
+        };
     }
 
     private void onPlayBackServiceConnected(Services.Connection<AudioPlayerService.Binder> connection) {
@@ -158,6 +170,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         if (audioPlayBackUnBinder != null) {
             audioPlayBackUnBinder.unbind();
         }
+
+        keyboardIsShownListener.destroy();
 
         dismissHelpToast();
     }
