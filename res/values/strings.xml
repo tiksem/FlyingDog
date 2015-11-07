@@ -11,7 +11,7 @@
     <string name="ok">OK</string>
     <string name="play_list">playlist</string>
     <string name="artist">artist</string>
-    <string name="please_wait">Please wait...</string>
+    <string name="please_wait">Please wait…</string>
     <string name="all_songs">All Songs</string>
     <string name="artists">Artists</string>
     <string name="songs">Songs</string>
@@ -21,14 +21,14 @@
     <string name="sort_by_adding_date">Sort by adding date</string>
     <string name="sort_by_artist_name">Sort by artist name</string>
     <string name="edit">Edit</string>
-    <string name="report">Report Wrong Url</string>
+    <string name="report">Report wrong url</string>
     <string name="report_wrong_url_dialog">Enter some message, what is wrong with this song. It will help to fix the
         problem.
     </string>
     <string name="playing_now_title">Playing Now</string>
     <string name="play_lists">Playlists</string>
-    <string name="create_play_list_hint">Enter PlayList Name</string>
-    <string name="add_to_playlist">Add To PlayList</string>
+    <string name="create_play_list_hint">Enter playList name</string>
+    <string name="add_to_playlist">Add to playlist</string>
     <string name="add_to_playlists_title">Select playlists where to add the song</string>
     <string name="select_playlist">Select playlists</string>
     <string name="enter_audio_name">Enter audio name</string>
