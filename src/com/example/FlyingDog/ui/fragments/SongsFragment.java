@@ -30,16 +30,18 @@ import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.view.Alerts;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by stykhonenko on 19.10.15.
  */
 public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
-    private static NavigationList<Audio> currentPlayList;
+    private static CurrentPlayListInfo currentPlayListInfo = new CurrentPlayListInfo();
 
     private View toPlayingNowButton;
     private List<UrlsProvider> urlsProviders;
+    private List<Audio> originalOrderedList;
 
     @Override
     public void onAttach(Activity activity) {
@@ -81,6 +83,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     protected void onUpdateSelectedItem(AudioPlayerService.Binder playBackService) {
         NavigationList<Audio> elements = getElements();
 
+        NavigationList<Audio> currentPlayList = getCurrentPlayList();
         if (currentPlayList == null) {
             return;
         } else if(toPlayingNowButton != null) {
@@ -128,6 +131,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     protected void sort(List<Audio> songs, int sortingOrder) {
+        originalOrderedList = new ArrayList<>(songs);
         SortMenuUtils.sortAudios(songs, sortingOrder);
     }
 
@@ -139,7 +143,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                currentPlayList = getElements();
+                updateCurrentPlayListInfo(getSortOrder());
                 AudioPlayerService.Binder playBackService = activity.getPlayBackService();
                 playBackService.playUrlsProviders(urlsProviders, position);
             }
@@ -153,9 +157,17 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         if (playBackService != null) {
             if (getListView().getCheckedItemPosition() >= 0) {
-                currentPlayList = getElements();
+                updateCurrentPlayListInfo(newSortOrder);
                 playBackService.changePlayListProviders(urlsProviders);
             }
+        }
+    }
+
+    protected void updateCurrentPlayListInfo(int sortingOrder) {
+        currentPlayListInfo.setCurrentPlayList(getElements());
+        currentPlayListInfo.setOriginalOrderedList(originalOrderedList);
+        if (sortingOrder != 0) {
+            currentPlayListInfo.setSortOrder(sortingOrder);
         }
     }
 
@@ -166,6 +178,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     protected NavigationList<Audio> createInternetList(String filter) {
+        originalOrderedList = null;
         return getAudiosFromInternet(filter, getRequestManager());
     }
 
@@ -320,7 +333,11 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     }
 
     public static NavigationList<Audio> getCurrentPlayList() {
-        return currentPlayList;
+        return currentPlayListInfo.getCurrentPlayList();
+    }
+
+    protected static CurrentPlayListInfo getCurrentPlayListInfo() {
+        return currentPlayListInfo;
     }
 
     protected final View getToPlayingNowButton() {

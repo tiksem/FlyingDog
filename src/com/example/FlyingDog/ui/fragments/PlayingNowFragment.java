@@ -12,6 +12,7 @@ import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
 import com.utilsframework.android.view.listview.ListViews;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -19,6 +20,7 @@ import java.util.List;
  */
 public class PlayingNowFragment extends SongsFragment implements ActionBarTitleProvider {
     private boolean firstListViewUpdate = true;
+    private int initialSortOrder;
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
@@ -61,5 +63,25 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
         } else {
             firstListViewUpdate = false;
         }
+    }
+
+    @Override
+    protected int getInitialSortOrder() {
+        initialSortOrder = getCurrentPlayListInfo().getSortOrder();
+        return initialSortOrder;
+    }
+
+    @Override
+    protected void sort(List<Audio> songs, int sortingOrder) {
+        if (sortingOrder != initialSortOrder) {
+            Collections.copy(songs, getCurrentPlayListInfo().getOriginalOrderedList());
+            super.sort(songs, sortingOrder);
+            initialSortOrder = 0;
+        }
+    }
+
+    @Override
+    protected void updateCurrentPlayListInfo(int sortingOrder) {
+
     }
 }
