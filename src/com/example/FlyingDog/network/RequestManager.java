@@ -85,11 +85,7 @@ public class RequestManager extends AsyncRequestExecutorManager {
     }
 
     public List<UrlsProvider> getUrlsData(NavigationList<Audio> audios) {
-        if (audios.isDecorated()) {
-            return new ArrayList<>(internetSearchEngine.getUrlsProviders(audios.getElements()));
-        } else {
-            return internetSearchEngine.getUrlsProviders(audios);
-        }
+        return internetSearchEngine.getUrlsProviders(audios);
     }
 
     public NavigationList<Album> searchAlbums(String query) {
