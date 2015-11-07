@@ -13,6 +13,7 @@
             />
     <application android:name=".FlyingDog" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
         <activity android:name=".ui.PlayListsActivity"
+                  android:launchMode= "singleInstance"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme"
                   android:label="@string/app_name">
@@ -29,7 +30,7 @@
         </activity>
 
         <service
-                android:name="com.tiksem.media.playback.AudioPlayerService"
+                android:name=".services.FlyingDogPlaybackService"
                 >
         </service>
 

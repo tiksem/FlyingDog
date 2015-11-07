@@ -127,9 +127,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
+                currentPlayList = getElements();
                 AudioPlayerService.Binder playBackService = activity.getPlayBackService();
                 playBackService.playUrlsProviders(urlsProviders, position);
-                currentPlayList = getElements();
                 toPlayingNowButton.setVisibility(View.GONE);
             }
         });
@@ -314,7 +314,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         }
     }
 
-    protected static NavigationList<Audio> getCurrentPlayList() {
+    public static NavigationList<Audio> getCurrentPlayList() {
         return currentPlayList;
     }
 

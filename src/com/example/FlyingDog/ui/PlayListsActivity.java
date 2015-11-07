@@ -4,7 +4,6 @@ import android.graphics.LightingColorFilter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
@@ -13,6 +12,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
+import com.example.FlyingDog.services.FlyingDogPlaybackService;
 import com.example.FlyingDog.ui.fragments.AbstractAudioDataFragment;
 import com.example.FlyingDog.ui.fragments.PlayingNowFragment;
 import com.tiksem.media.local.AudioDataBase;
@@ -20,11 +20,9 @@ import com.tiksem.media.playback.AudioPlayerService;
 import com.tiksem.media.playback.StateChangedListener;
 import com.tiksem.media.playback.Status;
 import com.tiksem.media.ui.AudioPlaybackSeekBar;
-import com.utils.framework.Cancelable;
 import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.threading.Tasks;
-import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.KeyboardIsShownListener;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 import com.utilsframework.android.view.Toasts;
@@ -66,7 +64,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
 
-        AudioPlayerService.bindAndStart(this, new Services.OnBind<AudioPlayerService.Binder>() {
+        FlyingDogPlaybackService.bindAndStart(this, new Services.OnBind<AudioPlayerService.Binder>() {
             @Override
             public void onBind(Services.Connection<AudioPlayerService.Binder> connection) {
                 onPlayBackServiceConnected(connection);
@@ -140,7 +138,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
 
         StateChangedListener stateChangedListener = new StateChangedListener() {
             @Override
-            public void onStateChanged(Status status) {
+            public void onStateChanged(Status status, Status lastStatus) {
                 if (status == Status.PLAYING || status == Status.PAUSED) {
                     playControls.setVisibility(View.VISIBLE);
                     playButton.setChecked(status == Status.PLAYING);
@@ -153,7 +151,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         };
         playBackService.addStateChangedListener(stateChangedListener);
-        stateChangedListener.onStateChanged(playBackService.getStatus());
+        stateChangedListener.onStateChanged(playBackService.getStatus(), null);
 
         findViewById(R.id.to_playing_now).setOnClickListener(new View.OnClickListener() {
             @Override
