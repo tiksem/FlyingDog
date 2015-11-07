@@ -52,6 +52,13 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
         toPlayingNowButton = getActivity().findViewById(R.id.to_playing_now);
 
+        registerForContextMenu(getListView());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
         final PlayListsActivity activity = getPlayListsActivity();
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
@@ -59,25 +66,27 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 onPlayBackServiceReady(activity.getPlayBackService());
             }
         });
-
-        registerForContextMenu(getListView());
     }
 
     private void onPlayBackServiceReady(final AudioPlayerService.Binder playBackService) {
         playBackService.addPositionChangedListener(new PositionChangedListener() {
             @Override
             public void onPositionChanged() {
-                onListViewStateUpdate(playBackService);
+                onUpdateSelectedItem(playBackService);
             }
         });
+        onUpdateSelectedItem(playBackService);
     }
 
-    protected void onListViewStateUpdate(AudioPlayerService.Binder playBackService) {
+    protected void onUpdateSelectedItem(AudioPlayerService.Binder playBackService) {
+        NavigationList<Audio> elements = getElements();
+
         if (currentPlayList == null) {
             return;
+        } else if(toPlayingNowButton != null) {
+            toPlayingNowButton.setVisibility(View.VISIBLE);
         }
 
-        NavigationList<Audio> elements = getElements();
         if (elements == null) {
             return;
         }
@@ -97,6 +106,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         }
 
         checkListViewItem(playBackService);
+        if (toPlayingNowButton != null) {
+            toPlayingNowButton.setVisibility(View.GONE);
+        }
     }
 
     protected final void checkListViewItem(AudioPlayerService.Binder playBackService) {
@@ -130,7 +142,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 currentPlayList = getElements();
                 AudioPlayerService.Binder playBackService = activity.getPlayBackService();
                 playBackService.playUrlsProviders(urlsProviders, position);
-                toPlayingNowButton.setVisibility(View.GONE);
             }
         });
     }
@@ -144,7 +155,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             if (getListView().getCheckedItemPosition() >= 0) {
                 currentPlayList = getElements();
                 playBackService.changePlayListProviders(urlsProviders);
-                toPlayingNowButton.setVisibility(View.GONE);
             }
         }
     }
@@ -289,12 +299,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                onListViewStateUpdate(getPlayListsActivity().getPlayBackService());
-                if (toPlayingNowButton != null) {
-                    if (currentPlayList != navigationList) {
-                        toPlayingNowButton.setVisibility(View.VISIBLE);
-                    }
-                }
+                onUpdateSelectedItem(getPlayListsActivity().getPlayBackService());
             }
         });
     }
