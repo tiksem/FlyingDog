@@ -35,7 +35,6 @@ import java.util.Queue;
  * Created by stykhonenko on 19.10.15.
  */
 public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
-    private static final int RIGHT_SCROLL_TAB_INDEX = 4;
     private AsyncTask artsUpdating;
     private Services.UnBinder audioPlayBackUnBinder;
     private AudioPlayerService.Binder playBackService;
@@ -187,16 +186,39 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         final HorizontalScrollView scrollView = (HorizontalScrollView) layoutRadioButtonGroupTabsAdapter.getView();
         LayoutRadioButtonGroup radioButtonGroup = (LayoutRadioButtonGroup) scrollView.getChildAt(0);
 
-        radioButtonGroup.getItemByIndex(RIGHT_SCROLL_TAB_INDEX).setOnSelectedChangedListener(
-                new LayoutRadioButtonGroup.OnSelectedChanged() {
+        setupMainTabsScrolling(scrollView, radioButtonGroup);
+
+        return tabsAdapterSwitcher;
+    }
+
+    private void setupMainTabsScrolling(final HorizontalScrollView scrollView,
+                                        LayoutRadioButtonGroup radioButtonGroup) {
+
+        LayoutRadioButtonGroup.OnSelectedChanged leftScrollListener = new LayoutRadioButtonGroup.OnSelectedChanged() {
+            @Override
+            public void onSelectedChanged(boolean fromUser, LayoutRadioButtonGroup.LayoutRadioButton item,
+                                          LayoutRadioButtonGroup.LayoutRadioButton old) {
+                scrollView.fullScroll(View.FOCUS_LEFT);
+            }
+        };
+
+        int genres = PlayListMode.GENRES.ordinal();
+        for (int i = 0; i < genres; i++) {
+            radioButtonGroup.getItemByIndex(i).setOnSelectedChangedListener(leftScrollListener);
+        }
+
+        LayoutRadioButtonGroup.OnSelectedChanged rightScrollListener = new LayoutRadioButtonGroup.OnSelectedChanged() {
             @Override
             public void onSelectedChanged(boolean fromUser, LayoutRadioButtonGroup.LayoutRadioButton item,
                                           LayoutRadioButtonGroup.LayoutRadioButton old) {
                 scrollView.fullScroll(View.FOCUS_RIGHT);
             }
-        });
+        };
 
-        return tabsAdapterSwitcher;
+        int childCount = radioButtonGroup.getChildCount();
+        for (int i = genres; i < childCount; i++) {
+            radioButtonGroup.getItemByIndex(i).setOnSelectedChangedListener(rightScrollListener);
+        }
     }
 
     @Override
