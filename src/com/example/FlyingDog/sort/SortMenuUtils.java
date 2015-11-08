@@ -1,6 +1,7 @@
 package com.example.FlyingDog.sort;
 
 import com.example.FlyingDog.R;
+import com.tiksem.media.data.ArtCollection;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.AudioComparators;
 
@@ -24,6 +25,12 @@ public class SortMenuUtils {
     public static void sortGenres(List<String> genres, int menuItemId) {
         if (menuItemId == R.id.sort_by_name) {
             Collections.sort(genres);
+        }
+    }
+
+    public static void sortArtCollections(List<? extends ArtCollection> artCollections, int menuItemId) {
+        if (menuItemId == R.id.sort_by_name) {
+            Collections.sort(artCollections, AudioComparators.namedData());
         }
     }
 }
