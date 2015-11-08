@@ -154,6 +154,10 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     public void onSortOrderChanged(int newSortOrder) {
         super.onSortOrderChanged(newSortOrder);
 
+        changePlayListIfPlayingCurrent(newSortOrder);
+    }
+
+    protected void changePlayListIfPlayingCurrent(int newSortOrder) {
         AudioPlayerService.Binder playBackService = getPlayBackService();
         if (playBackService != null) {
             if (getListView().getCheckedItemPosition() >= 0) {

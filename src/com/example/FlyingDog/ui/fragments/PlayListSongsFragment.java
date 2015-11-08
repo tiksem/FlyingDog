@@ -87,15 +87,8 @@ public class PlayListSongsFragment extends SongsOfFragment {
 
             @Override
             public void onComplete(Object o, IOException error) {
-                AudioPlayerService.Binder playBackService = getPlayBackService();
-                if (playBackService != null) {
-                    List<UrlsProvider> providers = playBackService.getUrlsProviders();
-                    if (playBackService.getStatus() != Status.IDLE) {
-                        providers.remove(position);
-                    }
-                }
-
                 updateNavigationListWithLastFilter();
+                changePlayListIfPlayingCurrent(0);
             }
 
             @Override
