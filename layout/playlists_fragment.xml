@@ -15,6 +15,7 @@
 
     <include android:id="@+id/no_connection" layout="@layout/no_internet_connection" />
     <include android:id="@+id/loading" layout="@layout/page_loading" />
+    <include android:id="@+id/empty_list" layout="@layout/empty_list" />
 
     <com.utilsframework.android.fab.FloatingActionButton
             android:id="@+id/fab"
