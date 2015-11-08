@@ -44,7 +44,11 @@ public class SongsYouMayLikeService extends Service {
                 if (executor == null) {
                     executor = Executors.newSingleThreadExecutor();
                 }
-                requestManager = params.requestManager = new AsyncRequestExecutorManager(executor);
+                if (requestManager == null) {
+                    requestManager = params.requestManager = new AsyncRequestExecutorManager(executor);
+                } else {
+                    requestManager.cancelAll();
+                }
 
                 navigationList = new SongsYouMayLikeNavigationList(params);
             }
@@ -68,6 +72,11 @@ public class SongsYouMayLikeService extends Service {
                     }
                 }
             });
+        }
+
+        public NavigationList<Audio> reload() {
+            navigationList = null;
+            return getSongsYouMayLike();
         }
     }
 
