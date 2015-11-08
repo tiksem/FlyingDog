@@ -40,7 +40,7 @@ public class ArtistsOfTagFragment extends ArtistsFragment implements TagProvider
     }
 
     @Override
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return true;
     }
 

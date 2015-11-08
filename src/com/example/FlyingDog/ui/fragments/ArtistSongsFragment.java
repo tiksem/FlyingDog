@@ -42,7 +42,7 @@ public class ArtistSongsFragment extends SongsOfFragment implements ArtistProvid
     }
 
     @Override
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return !artist.isLocal();
     }
 

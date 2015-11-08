@@ -37,7 +37,7 @@ public class AlbumSongsFragment extends SongsOfFragment {
     }
 
     @Override
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return !album.isLocal();
     }
 }

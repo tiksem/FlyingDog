@@ -41,7 +41,7 @@ public class SongsOfTagFragment extends SongsOfFragment implements TagProvider {
     }
 
     @Override
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return true;
     }
 

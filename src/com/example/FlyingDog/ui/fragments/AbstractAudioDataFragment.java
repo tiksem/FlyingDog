@@ -95,7 +95,7 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     }
 
     protected NavigationList<T> getNavigationList(String filter) {
-        if (!alwaysUseNavigationList() && filter == null) {
+        if (!alwaysGetListFromInternet() && filter == null) {
             List<T> localList = createLocalList();
             return NavigationList.decorate(localList);
         } else {
@@ -129,7 +129,7 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
         return R.id.list;
     }
 
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return false;
     }
 

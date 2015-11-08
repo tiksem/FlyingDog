@@ -34,7 +34,9 @@ public class SongsYouMayLikeFragment extends SongsOfFragment {
     @Override
     public void onDetach() {
         super.onDetach();
-        unBinder.unbind();
+        if (unBinder != null) {
+            unBinder.unbind();
+        }
     }
 
     @Override
@@ -55,7 +57,7 @@ public class SongsYouMayLikeFragment extends SongsOfFragment {
     }
 
     @Override
-    protected boolean alwaysUseNavigationList() {
+    protected boolean alwaysGetListFromInternet() {
         return true;
     }
 }
