@@ -321,8 +321,6 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     public void onDestroyView() {
         super.onDestroyView();
         toPlayingNowButton.setVisibility(View.VISIBLE);
-
-        resetPlayerIfPreparing();
     }
 
     private void resetPlayerIfPreparing() {
