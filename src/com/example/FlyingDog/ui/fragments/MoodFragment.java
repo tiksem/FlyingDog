@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.ui.Level;
 import com.tiksem.media.data.Mood;
 
@@ -17,5 +18,10 @@ public class MoodFragment extends TagsFragment {
     @Override
     protected void onItemSelected(String tag, int position) {
         getPlayListsActivity().replaceFragment(MoodSongsFragment.create(tag), Level.MOOD_SONGS);
+    }
+
+    @Override
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_mood_found);
     }
 }

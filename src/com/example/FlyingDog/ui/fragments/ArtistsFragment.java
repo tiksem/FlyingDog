@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.ArtistsAdapter;
@@ -38,5 +39,10 @@ public class ArtistsFragment extends ArtCollectionFragment<Artist> {
     @Override
     protected boolean hasSearchMenu() {
         return true;
+    }
+
+    @Override
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_artists_found);
     }
 }

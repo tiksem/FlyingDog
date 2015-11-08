@@ -341,4 +341,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     protected final View getToPlayingNowButton() {
         return toPlayingNowButton;
     }
+
+    @Override
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_songs_found);
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.FlyingDog.ui.fragments;
 
+import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.adapters.AlbumsAdapter;
@@ -38,5 +39,10 @@ public class AlbumsFragment extends ArtCollectionFragment<Album> {
     @Override
     protected NavigationList<Album> createInternetList(String filter) {
         return getRequestManager().searchAlbums(filter);
+    }
+
+    @Override
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_albums_found);
     }
 }

@@ -3,10 +3,8 @@ package com.example.FlyingDog.ui.fragments;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
+import android.widget.TextView;
 import com.example.FlyingDog.FlyingDog;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
@@ -27,6 +25,7 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     protected FlyingDogAudioDatabase audioDataBase;
     private AudioPlayerService.Binder playBackService;
     private MenuItem sortMenuItem;
+    private TextView emptyViewText;
 
     protected final PlayListsActivity getPlayListsActivity() {
         return (PlayListsActivity) getActivity();
@@ -55,6 +54,8 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
                 onViewCreatedAndPlayBackServiceReady(view, activity.getPlayBackService());
             }
         });
+
+        emptyViewText = (TextView) ((ViewGroup) getEmptyView()).getChildAt(0);
     }
 
     private void onViewCreatedAndPlayBackServiceReady(View view, final AudioPlayerService.Binder playBackService) {
@@ -155,5 +156,19 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
 
     protected void onItemSelected(T item, int position) {
 
+    }
+
+    @Override
+    protected void onEmptyViewIsShown() {
+        emptyViewText.setText(getEmptyListText());
+    }
+
+    @Override
+    protected int getEmptyListResourceId() {
+        return R.id.empty_list;
+    }
+
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_music_found);
     }
 }

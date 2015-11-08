@@ -25,4 +25,9 @@ public class GenresFragment extends TagsFragment {
     protected void sort(List<String> items, int sortingOrder) {
         SortMenuUtils.sortGenres(items, sortingOrder);
     }
+
+    @Override
+    protected CharSequence getEmptyListText() {
+        return getString(R.string.no_genres_found);
+    }
 }
