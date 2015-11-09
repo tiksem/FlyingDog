@@ -54,8 +54,12 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
                 onViewCreatedAndPlayBackServiceReady(view, activity.getPlayBackService());
             }
         });
+    }
 
-        emptyViewText = (TextView) ((ViewGroup) getEmptyView()).getChildAt(0);
+    private void initEmptyTextViewIfNeed() {
+        if (emptyViewText == null) {
+            emptyViewText = (TextView) ((ViewGroup) getEmptyView()).getChildAt(0);
+        }
     }
 
     private void onViewCreatedAndPlayBackServiceReady(View view, final AudioPlayerService.Binder playBackService) {
@@ -160,6 +164,7 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
 
     @Override
     protected void onEmptyViewIsShown() {
+        initEmptyTextViewIfNeed();
         emptyViewText.setText(getEmptyListText());
     }
 
