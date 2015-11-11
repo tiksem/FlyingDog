@@ -1,6 +1,8 @@
 package com.example.FlyingDog;
 
 import android.app.Application;
+import android.net.Uri;
+import android.provider.Settings;
 import com.example.FlyingDog.services.FlyingDogArtsUpdatingService;
 import com.example.FlyingDog.setup.ImageLoaderConfigFactory;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -23,6 +25,7 @@ public class FlyingDog extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        Uri smsDefaultApplication = Settings.Secure.getUriFor("sms_default_application");
 
         ImageLoader.getInstance().init(ImageLoaderConfigFactory.getCommonImageLoaderConfig(this));
         audioDataBase = new FlyingDogAudioDatabase(this);

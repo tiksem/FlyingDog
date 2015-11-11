@@ -11,17 +11,16 @@ import com.tiksem.media.search.navigation.albums.ArtistAlbumsFilterNavigationLis
 import com.tiksem.media.search.navigation.albums.ArtistAlbumsNavigationList;
 import com.tiksem.media.search.navigation.artists.*;
 import com.tiksem.media.search.navigation.songs.*;
+import com.tiksem.media.search.network.UrlReport;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
-import com.utils.framework.strings.Strings;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
 import com.utilsframework.android.threading.OnFinish;
 import com.utilsframework.android.threading.ThrowingRunnable;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -56,6 +55,7 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public RequestManager() {
         internetSearchEngine = new InternetSearchEngine(networkRequestExecutor);
+        internetSearchEngine.setLoggingTag(TAG);
     }
 
     public NavigationList<Audio> searchSongs(String query) {

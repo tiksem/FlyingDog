@@ -11,7 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.example.FlyingDog.R;
 import com.example.FlyingDog.network.RequestManager;
-import com.example.FlyingDog.network.UrlReport;
+import com.tiksem.media.search.network.UrlReport;
 import com.example.FlyingDog.sort.SortMenuUtils;
 import com.example.FlyingDog.ui.Level;
 import com.example.FlyingDog.ui.PlayListsActivity;
@@ -240,15 +240,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                 (InternetSearchEngine.VkUrlsProvider) playBackService.getUrlsProviders().get(position);
         UrlQueryData data = urlsProvider.getQueryDataList().get(playBackService.getProviderUrlPosition());
 
-        UrlReport report = new UrlReport();
-        report.message = message;
-        report.queryArtistName = audio.getArtistName();
-        report.queryDuration = audio.getDuration();
-        report.queryName = audio.getName();
-        report.url = data.getUrl();
-        report.vkArtistName = data.getArtistName();
-        report.vkName = data.getName();
-        report.vkDuration = data.getDuration();
+        UrlReport report = new UrlReport(audio, data, message);
         getRequestManager().reportWrongUrl(report);
     }
 
