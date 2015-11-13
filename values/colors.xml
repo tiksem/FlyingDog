@@ -3,9 +3,10 @@
     <color name="grey">#BDBDBD</color>
     <color name="greyLight">#ffe2e2e2</color>
     <color name="greyDark">#929292</color>
-    <color name="colorPrimaryDark">#ff4597a2</color>
-    <color name="colorPrimary">#4DB1BC</color>
-    <color name="colorAccent">#009688</color>
+    <color name="colorPrimaryDark">#ff4176b9</color>
+    <color name="colorMainTabs">#ffb9497d</color>
+    <color name="colorPrimary">#ff4e8dde</color>
+    <color name="colorAccent">#ff59a3ff</color>
     <color name="colorSelection">#fff26f7d</color>
     <color name="contrastColor">#ffff4d44</color>
     <color name="contrastColorDark">#ffad2436</color>

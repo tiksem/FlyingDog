@@ -9,7 +9,7 @@
     </item>
     <item app:is_selected="false">
         <shape>
-            <solid android:color="@color/colorPrimaryDark" />
+            <solid android:color="@color/colorMainTabs" />
         </shape>
     </item>
 </selector>
