@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<selector xmlns:app="http://schemas.android.com/apk/res/com.example.FlyingDog"
+<selector xmlns:app="http://schemas.android.com/apk/res/com.tiksem.FlyingDog"
           xmlns:android="http://schemas.android.com/apk/res/android">
     <item app:is_selected="true">
         <shape>
