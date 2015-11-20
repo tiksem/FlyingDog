@@ -2,7 +2,7 @@
 <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res/com.tiksem.FlyingDog"
+        xmlns:app="http://schemas.android.com/apk/res/com.tiksem.songs_you_may_like"
         android:layout_width="match_parent"
         android:background="?attr/colorPrimary"
         app:theme="@style/ActionBarTheme"
