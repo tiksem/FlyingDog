@@ -2,7 +2,7 @@ package com.example.FlyingDog.ui.fragments;
 
 import android.app.Activity;
 import com.example.FlyingDog.network.RequestManager;
-import com.example.FlyingDog.services.SongsYouMayLikeService;
+import com.example.FlyingDog.services.FlyingDogSongsYouMayLikeService;
 import com.tiksem.media.data.Audio;
 import com.utils.framework.collections.InfiniteLoadingNavigationList;
 import com.utils.framework.collections.NavigationList;
@@ -15,14 +15,14 @@ import java.util.List;
  */
 public class SongsYouMayLikeFragment extends SongsOfFragment {
     private static final int DISTANCE_TO_LOAD_NEXT_PAGE = 50;
-    private SongsYouMayLikeService.Binder binder;
+    private FlyingDogSongsYouMayLikeService.Binder binder;
     private Services.UnBinder unBinder;
 
     @Override
     public void onAttach(Activity activity) {
-        SongsYouMayLikeService.bindAndStart(activity, new Services.OnBind<SongsYouMayLikeService.Binder>() {
+        FlyingDogSongsYouMayLikeService.bindAndStart(activity, new Services.OnBind<FlyingDogSongsYouMayLikeService.Binder>() {
             @Override
-            public void onBind(Services.Connection<SongsYouMayLikeService.Binder> connection) {
+            public void onBind(Services.Connection<FlyingDogSongsYouMayLikeService.Binder> connection) {
                 unBinder = connection;
                 binder = connection.getBinder();
                 updateNavigationListWithLastFilter();
