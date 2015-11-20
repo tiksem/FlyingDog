@@ -93,7 +93,11 @@ public class SongsYouMayLikeService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        requestManager.cancelAll();
-        executor.shutdown();
+        if (requestManager != null) {
+            requestManager.cancelAll();
+        }
+        if (executor != null) {
+            executor.shutdown();
+        }
     }
 }
