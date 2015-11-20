@@ -15,23 +15,6 @@ import com.utilsframework.android.adapters.ViewArrayAdapter;
 public class EditAudioStringSuggestionsAdapter extends SuggestionsAdapter<String, SuggestionHolder> {
     public EditAudioStringSuggestionsAdapter(Context context, SuggestionsProvider<String> suggestionsProvider) {
         setSuggestionsProvider(suggestionsProvider);
-        setViewArrayAdapter(new ViewArrayAdapter<String, SuggestionHolder>(context) {
-            @Override
-            protected int getRootLayoutId(int viewType) {
-                return R.layout.suggestion;
-            }
-
-            @Override
-            protected SuggestionHolder createViewHolder(View view) {
-                SuggestionHolder suggestionHolder = new SuggestionHolder();
-                suggestionHolder.text = (TextView) view.findViewById(R.id.suggestion);
-                return suggestionHolder;
-            }
-
-            @Override
-            protected void reuseView(String suggestion, SuggestionHolder suggestionHolder, int position, View view) {
-                suggestionHolder.text.setText(suggestion);
-            }
-        });
+        setViewArrayAdapter(new SuggestionsViewArrayAdapter(context));
     }
 }

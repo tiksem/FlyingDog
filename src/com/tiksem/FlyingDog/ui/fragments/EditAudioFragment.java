@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,9 +15,11 @@ import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.ui.PlayListsActivity;
 import com.tiksem.FlyingDog.ui.adapters.ArtistsSuggestionsAdapter;
+import com.tiksem.FlyingDog.ui.adapters.AudiosSuggestionsAdapter;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.search.suggestions.ArtistSuggestionsProvider;
+import com.tiksem.media.search.suggestions.AudioSuggestionsProvider;
 import com.utilsframework.android.fragments.Fragments;
 import com.utilsframework.android.fragments.RequestManagerFragment;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
@@ -39,6 +42,7 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     private EditTextWithSuggestions nameView;
     private Audio audio;
     private ArtistSuggestionsProvider artistsSuggestionsProvider;
+    private AudioSuggestionsProvider audioSuggestionsProvider;
 
     public static EditAudioFragment create(Audio audio) {
         return Fragments.createFragmentWith1Arg(new EditAudioFragment(), AUDIO, audio);
@@ -59,10 +63,13 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        FragmentActivity activity = getActivity();
+
         artistNameView = (EditTextWithSuggestions) view.findViewById(R.id.artist_name);
         nameView = (EditTextWithSuggestions) view.findViewById(R.id.name);
 
-        artistNameView.setText(audio.getArtistName());
+        String artistName = audio.getArtistName();
+        artistNameView.setText(artistName);
         String audioName = audio.getName();
         nameView.setText(audioName);
 
@@ -74,7 +81,7 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
         });
 
         artistsSuggestionsProvider = getRequestManager().getArtistsSuggestionsProvider();
-        artistNameView.setAdapter(new ArtistsSuggestionsAdapter(getActivity(), artistsSuggestionsProvider));
+        artistNameView.setAdapter(new ArtistsSuggestionsAdapter(activity, artistsSuggestionsProvider));
         artistNameView.setDropDownVerticalOffset(0);
         artistsSuggestionsProvider.setTrackName(audioName);
 
@@ -87,6 +94,28 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 artistsSuggestionsProvider.setTrackName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        audioSuggestionsProvider = getRequestManager().getAudioSuggestionsProvider();
+        nameView.setAdapter(new AudiosSuggestionsAdapter(activity, audioSuggestionsProvider));
+        nameView.setDropDownVerticalOffset(0);
+        audioSuggestionsProvider.setArtistName(artistName);
+
+        artistNameView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                audioSuggestionsProvider.setArtistName(s.toString());
             }
 
             @Override

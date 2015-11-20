@@ -13,6 +13,7 @@ import com.tiksem.media.search.navigation.artists.*;
 import com.tiksem.media.search.navigation.songs.*;
 import com.tiksem.media.search.network.UrlReport;
 import com.tiksem.media.search.suggestions.ArtistSuggestionsProvider;
+import com.tiksem.media.search.suggestions.AudioSuggestionsProvider;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
@@ -34,6 +35,8 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     private static final RequestExecutor networkRequestExecutor = new FlyingDogRequestExecutor();
     private static final int ARTIST_MAX_SUGGESTIONS_COUNT = 3;
+    private static final int AUDIO_SUGGESTIONS_MIN_COUNT = 2;
+    private static final int AUDIO_SUGGESTIONS_MAX_COUNT = 4;
 
     private InternetSearchEngine internetSearchEngine;
 
@@ -182,5 +185,10 @@ public class RequestManager extends AsyncRequestExecutorManager {
 
     public ArtistSuggestionsProvider getArtistsSuggestionsProvider() {
         return new ArtistSuggestionsProvider(internetSearchEngine, ARTIST_MAX_SUGGESTIONS_COUNT, null);
+    }
+
+    public AudioSuggestionsProvider getAudioSuggestionsProvider() {
+        return new AudioSuggestionsProvider(internetSearchEngine, AUDIO_SUGGESTIONS_MIN_COUNT,
+                AUDIO_SUGGESTIONS_MAX_COUNT);
     }
 }
