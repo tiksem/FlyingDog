@@ -54,4 +54,6 @@
     <string name="no_songs_found">No songs found…</string>
     <string name="update">Update</string>
     <string name="retry">Retry</string>
+    <string name="suggested">Suggested</string>
+    <string name="your_songs">Your songs</string>
 </resources>
