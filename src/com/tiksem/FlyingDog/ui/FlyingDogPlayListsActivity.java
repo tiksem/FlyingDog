@@ -1,35 +1,14 @@
 package com.tiksem.FlyingDog.ui;
 
-import android.graphics.LightingColorFilter;
-import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
-import android.widget.ProgressBar;
 import android.widget.Toast;
-import android.widget.ToggleButton;
-import com.tiksem.FlyingDog.FlyingDog;
 import com.tiksem.FlyingDog.R;
-import com.tiksem.FlyingDog.services.FlyingDogPlaybackService;
-import com.tiksem.FlyingDog.songs_you_may_like_app.SongsYouMayLikeFragmentsFactory;
 import com.tiksem.FlyingDog.ui.fragments.AbstractAudioDataFragment;
-import com.tiksem.FlyingDog.ui.fragments.PlayingNowFragment;
-import com.tiksem.media.local.AudioDataBase;
-import com.tiksem.media.playback.AudioPlayerService;
-import com.tiksem.media.playback.StateChangedListener;
-import com.tiksem.media.playback.Status;
-import com.tiksem.media.ui.AudioPlaybackSeekBar;
-import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.*;
-import com.utilsframework.android.threading.Tasks;
-import com.utilsframework.android.view.KeyboardIsShownListener;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;
 import com.utilsframework.android.view.Toasts;
-
-import java.util.ArrayDeque;
-import java.util.Queue;
 
 /**
  * Created by stykhonenko on 19.10.15.
