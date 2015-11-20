@@ -12,9 +12,11 @@ import com.tiksem.media.search.navigation.albums.ArtistAlbumsNavigationList;
 import com.tiksem.media.search.navigation.artists.*;
 import com.tiksem.media.search.navigation.songs.*;
 import com.tiksem.media.search.network.UrlReport;
+import com.tiksem.media.search.suggestions.ArtistSuggestionsProvider;
 import com.tiksem.media.search.updating.UpdateAudioArtTask;
 import com.utils.framework.collections.NavigationList;
 import com.utils.framework.network.RequestExecutor;
+import com.utils.framework.suggestions.SuggestionsProvider;
 import com.utilsframework.android.network.AsyncRequestExecutorManager;
 import com.utilsframework.android.network.OnePageNavigationList;
 import com.utilsframework.android.threading.OnFinish;
@@ -31,6 +33,7 @@ public class RequestManager extends AsyncRequestExecutorManager {
     private static final String REPORT_URL = "http://azazai.com/api/reportWrongUrl";
 
     private static final RequestExecutor networkRequestExecutor = new FlyingDogRequestExecutor();
+    private static final int ARTIST_MAX_SUGGESTIONS_COUNT = 3;
 
     private InternetSearchEngine internetSearchEngine;
 
@@ -175,5 +178,9 @@ public class RequestManager extends AsyncRequestExecutorManager {
         } else {
             return new ArtistsFilterMultiTagsNavigationList(getPageNavigationListInitialParams(filter), tags);
         }
+    }
+
+    public ArtistSuggestionsProvider getArtistsSuggestionsProvider() {
+        return new ArtistSuggestionsProvider(internetSearchEngine, ARTIST_MAX_SUGGESTIONS_COUNT, null);
     }
 }

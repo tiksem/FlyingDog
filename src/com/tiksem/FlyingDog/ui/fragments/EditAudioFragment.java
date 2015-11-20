@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,8 +13,10 @@ import com.tiksem.FlyingDog.FlyingDog;
 import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.ui.PlayListsActivity;
+import com.tiksem.FlyingDog.ui.adapters.ArtistsSuggestionsAdapter;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
+import com.tiksem.media.search.suggestions.ArtistSuggestionsProvider;
 import com.utilsframework.android.fragments.Fragments;
 import com.utilsframework.android.fragments.RequestManagerFragment;
 import com.utilsframework.android.navdrawer.ActionBarTitleProvider;
@@ -34,6 +38,7 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     private EditTextWithSuggestions artistNameView;
     private EditTextWithSuggestions nameView;
     private Audio audio;
+    private ArtistSuggestionsProvider artistsSuggestionsProvider;
 
     public static EditAudioFragment create(Audio audio) {
         return Fragments.createFragmentWith1Arg(new EditAudioFragment(), AUDIO, audio);
@@ -58,12 +63,35 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
         nameView = (EditTextWithSuggestions) view.findViewById(R.id.name);
 
         artistNameView.setText(audio.getArtistName());
-        nameView.setText(audio.getName());
+        String audioName = audio.getName();
+        nameView.setText(audioName);
 
         view.findViewById(R.id.ok).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onOk();
+            }
+        });
+
+        artistsSuggestionsProvider = getRequestManager().getArtistsSuggestionsProvider();
+        artistNameView.setAdapter(new ArtistsSuggestionsAdapter(getActivity(), artistsSuggestionsProvider));
+        artistNameView.setDropDownVerticalOffset(0);
+        artistsSuggestionsProvider.setTrackName(audioName);
+
+        nameView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                artistsSuggestionsProvider.setTrackName(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
 
