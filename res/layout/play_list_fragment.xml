@@ -12,7 +12,7 @@
                  layout="@layout/songs_list"/>
     </LinearLayout>
 
-    <include android:id="@+id/no_connection" layout="@layout/no_internet_connection" />
+    <include android:id="@+id/no_connection" layout="@layout/no_connection_layout" />
     <include android:id="@+id/loading" layout="@layout/page_loading" />
     <include android:id="@+id/empty_list" layout="@layout/empty_list" />
 </FrameLayout>

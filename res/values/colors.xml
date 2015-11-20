@@ -9,7 +9,7 @@
     <color name="colorAccent">#009688</color>
     <color name="colorSelection">#ffffac2e</color>
     <color name="contrastColor">#ffff4d44</color>
-    <color name="contrastColorDark">#ffad2436</color>
+    <color name="contrastColorDark">#ffca3e35</color>
     <color name="black">#000000</color>
     <color name="header_black">#ff353535</color>
     <color name="white">#fff</color>

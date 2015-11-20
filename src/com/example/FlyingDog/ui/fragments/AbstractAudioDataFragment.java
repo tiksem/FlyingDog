@@ -176,4 +176,9 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     protected CharSequence getEmptyListText() {
         return getString(R.string.no_music_found);
     }
+
+    @Override
+    protected int getRetryLoadingButtonId() {
+        return R.id.retry;
+    }
 }
