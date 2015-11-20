@@ -12,4 +12,9 @@
     <style name="AppBaseTheme.UrlLoadingSpinner" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="colorAccent">@color/greyLight</item>
     </style>
+
+    <style name="contrastButton">
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/contrast_button</item>
+    </style>
 </resources>

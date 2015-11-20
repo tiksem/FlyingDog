@@ -53,4 +53,5 @@
     <string name="no_genres_found">No genres found…</string>
     <string name="no_songs_found">No songs found…</string>
     <string name="update">Update</string>
+    <string name="retry">Retry</string>
 </resources>
