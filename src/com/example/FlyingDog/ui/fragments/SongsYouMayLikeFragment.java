@@ -20,7 +20,8 @@ public class SongsYouMayLikeFragment extends SongsOfFragment {
 
     @Override
     public void onAttach(Activity activity) {
-        FlyingDogSongsYouMayLikeService.bindAndStart(activity, new Services.OnBind<FlyingDogSongsYouMayLikeService.Binder>() {
+        FlyingDogSongsYouMayLikeService.bindAndStart(activity,
+                new Services.OnBind<FlyingDogSongsYouMayLikeService.Binder>() {
             @Override
             public void onBind(Services.Connection<FlyingDogSongsYouMayLikeService.Binder> connection) {
                 unBinder = connection;
