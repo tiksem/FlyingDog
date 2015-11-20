@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import com.tiksem.FlyingDog.R;
-import com.tiksem.FlyingDog.ui.PlayListsActivity;
+import com.tiksem.FlyingDog.ui.FlyingDogPlayListsActivity;
 import com.tiksem.FlyingDog.ui.fragments.SongsFragment;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.playback.AudioPlayerService;
@@ -44,7 +44,7 @@ public class FlyingDogPlaybackService extends AudioPlayerService {
         builder.setContentTitle(currentAudio.getName());
         builder.setContentText(currentAudio.getArtistName());
 
-        Intent intent = new Intent(this, PlayListsActivity.class);
+        Intent intent = new Intent(this, FlyingDogPlayListsActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this, 0, intent, 0));
 
         startForeground(R.id.player_service_notification, builder.getNotification());

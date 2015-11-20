@@ -11,10 +11,10 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.network.RequestManager;
+import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.search.network.UrlReport;
 import com.tiksem.FlyingDog.sort.SortMenuUtils;
 import com.tiksem.FlyingDog.ui.Level;
-import com.tiksem.FlyingDog.ui.PlayListsActivity;
 import com.tiksem.FlyingDog.ui.adapters.SongsAdapter;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.tiksem.media.data.ArtSize;
@@ -61,7 +61,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     public void onStart() {
         super.onStart();
 
-        final PlayListsActivity activity = getPlayListsActivity();
+        final AbstractPlayListsActivity activity = getPlayListsActivity();
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
@@ -142,7 +142,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     protected void onItemSelected(Audio item, final int position) {
-        final PlayListsActivity activity = getPlayListsActivity();
+        final AbstractPlayListsActivity activity = getPlayListsActivity();
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {

@@ -13,6 +13,7 @@ import android.widget.ToggleButton;
 import com.tiksem.FlyingDog.FlyingDog;
 import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.services.FlyingDogPlaybackService;
+import com.tiksem.FlyingDog.songs_you_may_like_app.SongsYouMayLikeFragmentsFactory;
 import com.tiksem.FlyingDog.ui.fragments.AbstractAudioDataFragment;
 import com.tiksem.FlyingDog.ui.fragments.PlayingNowFragment;
 import com.tiksem.media.local.AudioDataBase;
@@ -31,17 +32,14 @@ import java.util.ArrayDeque;
 import java.util.Queue;
 
 /**
- * Created by stykhonenko on 19.10.15.
+ * Created by stykhonenko on 20.11.15.
  */
-public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
+public abstract class AbstractPlayListsActivity extends NavigationActivityWithoutDrawerLayout {
     private AsyncTask artsUpdating;
     private Services.UnBinder audioPlayBackUnBinder;
     private AudioPlayerService.Binder playBackService;
     private Queue<Runnable> whenPlayBackServiceReadyQueue = new ArrayDeque<>();
-    private TabLayoutAdapter tabLayoutAdapter;
     private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
-    private TabsAdapterSwitcher tabsAdapterSwitcher;
-    private Toast helpToast;
     private View bottomBar;
     private KeyboardIsShownListener keyboardIsShownListener;
 
@@ -55,14 +53,14 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
 
         artsUpdating = FlyingDog.getInstance().getAudioDataBase().startAlbumArtsUpdating(
                 new AudioDataBase.OnArtsUpdatingFinished() {
-            @Override
-            public void onFinished() {
-                AbstractAudioDataFragment fragment = getPlayListFragment();
-                if (fragment != null) {
-                    fragment.notifyDataSetChanged();
-                }
-            }
-        });
+                    @Override
+                    public void onFinished() {
+                        AbstractAudioDataFragment fragment = getPlayListFragment();
+                        if (fragment != null) {
+                            fragment.notifyDataSetChanged();
+                        }
+                    }
+                });
 
         FlyingDogPlaybackService.bindAndStart(this, new Services.OnBind<AudioPlayerService.Binder>() {
             @Override
@@ -70,8 +68,6 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
                 onPlayBackServiceConnected(connection);
             }
         });
-
-        helpToast = Toasts.customViewAtCenter(this, R.layout.search_internet_help_toast, Toast.LENGTH_LONG);
 
         bottomBar = findViewById(R.id.bottom_bar);
 
@@ -160,7 +156,7 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
             }
         });
     }
-    
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
@@ -174,11 +170,6 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         dismissHelpToast();
     }
 
-    @Override
-    protected FragmentFactory createFragmentFactory() {
-        return new FlyingDogFragmentsFactory(this);
-    }
-
     public AudioPlayerService.Binder getPlayBackService() {
         return playBackService;
     }
@@ -188,66 +179,8 @@ public class PlayListsActivity extends NavigationActivityWithoutDrawerLayout {
         return R.layout.main;
     }
 
-    @Override
-    protected TabsAdapter createTabsAdapter() {
-        tabsAdapterSwitcher = new TabsAdapterSwitcher(this, getTabsStub());
-        layoutRadioButtonGroupTabsAdapter = LayoutRadioButtonGroupTabsAdapter.fromLayoutId(this,
-                R.layout.main_tabs, R.id.playlistSwitcherContent);
-        tabLayoutAdapter = TabLayoutAdapter.fromLayoutId(this, getTabLayoutId());
-
-        final HorizontalScrollView scrollView = (HorizontalScrollView) layoutRadioButtonGroupTabsAdapter.getView();
-        LayoutRadioButtonGroup radioButtonGroup = (LayoutRadioButtonGroup) scrollView.getChildAt(0);
-
-        setupMainTabsScrolling(scrollView, radioButtonGroup);
-
-        return tabsAdapterSwitcher;
-    }
-
-    private void setupMainTabsScrolling(final HorizontalScrollView scrollView,
-                                        LayoutRadioButtonGroup radioButtonGroup) {
-
-        LayoutRadioButtonGroup.OnSelectedChanged leftScrollListener = new LayoutRadioButtonGroup.OnSelectedChanged() {
-            @Override
-            public void onSelectedChanged(boolean fromUser, LayoutRadioButtonGroup.LayoutRadioButton item,
-                                          LayoutRadioButtonGroup.LayoutRadioButton old) {
-                scrollView.fullScroll(View.FOCUS_LEFT);
-            }
-        };
-
-        int genres = PlayListMode.GENRES.ordinal();
-        for (int i = 0; i < genres; i++) {
-            radioButtonGroup.getItemByIndex(i).setOnSelectedChangedListener(leftScrollListener);
-        }
-
-        LayoutRadioButtonGroup.OnSelectedChanged rightScrollListener = new LayoutRadioButtonGroup.OnSelectedChanged() {
-            @Override
-            public void onSelectedChanged(boolean fromUser, LayoutRadioButtonGroup.LayoutRadioButton item,
-                                          LayoutRadioButtonGroup.LayoutRadioButton old) {
-                scrollView.fullScroll(View.FOCUS_RIGHT);
-            }
-        };
-
-        int childCount = radioButtonGroup.getChildCount();
-        for (int i = genres; i < childCount; i++) {
-            radioButtonGroup.getItemByIndex(i).setOnSelectedChangedListener(rightScrollListener);
-        }
-    }
-
-    @Override
-    protected void onTabsInit(int tabsCount, int navigationLevel) {
-        super.onTabsInit(tabsCount, navigationLevel);
-        if (navigationLevel == 0) {
-            tabsAdapterSwitcher.setTabsAdapter(layoutRadioButtonGroupTabsAdapter);
-        } else {
-            tabsAdapterSwitcher.setTabsAdapter(tabLayoutAdapter);
-        }
-    }
-
     public void dismissHelpToast() {
-        if (helpToast != null) {
-            helpToast.cancel();
-            helpToast = null;
-        }
+
     }
 
     @Override

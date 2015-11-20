@@ -17,9 +17,9 @@ public class FlyingDogFragmentsFactory implements FragmentFactory {
     private static final int TAG_SONGS_TAB = 0;
     private static final int TAG_ARTISTS_TAB = 1;
 
-    private PlayListsActivity activity;
+    private FlyingDogPlayListsActivity activity;
 
-    public FlyingDogFragmentsFactory(PlayListsActivity activity) {
+    public FlyingDogFragmentsFactory(FlyingDogPlayListsActivity activity) {
         this.activity = activity;
     }
 

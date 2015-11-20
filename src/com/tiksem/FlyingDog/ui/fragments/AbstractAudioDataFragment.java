@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.tiksem.FlyingDog.FlyingDog;
 import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.network.RequestManager;
-import com.tiksem.FlyingDog.ui.PlayListsActivity;
+import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
@@ -27,8 +27,8 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     private MenuItem sortMenuItem;
     private TextView emptyViewText;
 
-    protected final PlayListsActivity getPlayListsActivity() {
-        return (PlayListsActivity) getActivity();
+    protected final AbstractPlayListsActivity getPlayListsActivity() {
+        return (AbstractPlayListsActivity) getActivity();
     }
 
     @Override
@@ -47,7 +47,7 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        final PlayListsActivity activity = getPlayListsActivity();
+        final AbstractPlayListsActivity activity = getPlayListsActivity();
         activity.executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {

@@ -4,8 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import com.tiksem.FlyingDog.R;
+import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.FlyingDog.ui.Level;
-import com.tiksem.FlyingDog.ui.PlayListsActivity;
 import com.tiksem.media.data.PlayList;
 import com.tiksem.media.data.PlayLists;
 import com.utilsframework.android.threading.OnFinish;
@@ -68,7 +68,7 @@ public class PlayListsFragment extends AbstractPlayListsFragment {
 
     @Override
     protected void onItemSelected(PlayList item, int position) {
-        PlayListsActivity activity = getPlayListsActivity();
+        AbstractPlayListsActivity activity = getPlayListsActivity();
         if (item.isLocal()) {
             activity.replaceFragment(PlayListSongsFragment.create(item), Level.PLAYLIST_SONGS);
         } else {

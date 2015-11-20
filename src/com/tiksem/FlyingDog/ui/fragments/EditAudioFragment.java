@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import com.tiksem.FlyingDog.FlyingDog;
 import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.network.RequestManager;
-import com.tiksem.FlyingDog.ui.PlayListsActivity;
+import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.FlyingDog.ui.adapters.ArtistsSuggestionsAdapter;
 import com.tiksem.FlyingDog.ui.adapters.AudiosSuggestionsAdapter;
 import com.tiksem.media.data.Audio;
@@ -36,7 +36,7 @@ import java.io.IOException;
 public class EditAudioFragment extends RequestManagerFragment<RequestManager> implements ActionBarTitleProvider {
     private static final String AUDIO = "AUDIO";
 
-    private PlayListsActivity activity;
+    private AbstractPlayListsActivity activity;
     private FlyingDogAudioDatabase audioDataBase;
     private EditTextWithSuggestions artistNameView;
     private EditTextWithSuggestions nameView;
@@ -135,7 +135,7 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
-        this.activity = (PlayListsActivity) activity;
+        this.activity = (AbstractPlayListsActivity) activity;
         audioDataBase = FlyingDog.getInstance().getAudioDataBase();
         audio = getArguments().getParcelable(AUDIO);
     }
