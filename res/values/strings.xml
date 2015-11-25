@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">FlyingDog</string>
+    <string name="app_name">Songs You May Like</string>
     <string name="create_button">Create</string>
     <string name="play_list_name_empty">Enter playlist name</string>
     <string name="play_list_exists">Playlist %s already exists</string>
