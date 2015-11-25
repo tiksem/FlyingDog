@@ -7,6 +7,7 @@ import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.tiksem.FlyingDog.R;
@@ -29,6 +30,7 @@ import com.utils.framework.CollectionUtils;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 import com.utilsframework.android.view.Alerts;
+import com.utilsframework.android.view.listview.ListViews;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -155,9 +157,18 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     public void onSortOrderChanged(int newSortOrder) {
-        super.onSortOrderChanged(newSortOrder);
-
-        changePlayListIfPlayingCurrent(newSortOrder);
+        if (getElements() == getCurrentPlayList()) {
+            super.onSortOrderChanged(newSortOrder);
+            updateCurrentPlayListInfo(newSortOrder);
+            AudioPlayerService.Binder playBackService = getPlayBackService();
+            playBackService.changePlayListProviders(urlsProviders);
+            int position = playBackService.getPosition();
+            AbsListView listView = getListView();
+            listView.setItemChecked(position, true);
+            ListViews.scrollListViewToPosition(listView, position);
+        } else {
+            super.onSortOrderChanged(newSortOrder);
+        }
     }
 
     protected void changePlayListIfPlayingCurrent(int newSortOrder) {
