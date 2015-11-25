@@ -1,7 +1,7 @@
 package com.tiksem.FlyingDog.ui;
 
 import android.widget.ImageView;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 /**

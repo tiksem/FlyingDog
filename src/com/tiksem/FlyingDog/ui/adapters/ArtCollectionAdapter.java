@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.ImageLoaderUtils;
 import com.tiksem.FlyingDog.ui.adapters.holders.ArtCollectionHolder;
 import com.tiksem.media.data.ArtCollection;

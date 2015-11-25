@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.*;
 import android.widget.TextView;
 import com.tiksem.FlyingDog.FlyingDog;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.local.FlyingDogAudioDatabase;

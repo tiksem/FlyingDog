@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import com.tiksem.FlyingDog.FlyingDog;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.FlyingDog.ui.adapters.ArtistsSuggestionsAdapter;

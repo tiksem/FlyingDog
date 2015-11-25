@@ -6,7 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.FlyingDogPlayListsActivity;
 import com.tiksem.FlyingDog.ui.fragments.SongsFragment;
 import com.tiksem.media.data.Audio;

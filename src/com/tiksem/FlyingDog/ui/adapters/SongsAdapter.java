@@ -5,9 +5,9 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.tiksem.FlyingDog.R;
 import com.tiksem.FlyingDog.ui.ImageLoaderUtils;
 import com.tiksem.FlyingDog.ui.adapters.holders.SongViewHolder;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.media.data.ArtSize;
 import com.tiksem.media.data.Audio;
 

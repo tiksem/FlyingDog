@@ -10,7 +10,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.search.network.UrlReport;

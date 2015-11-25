@@ -1,6 +1,6 @@
 package com.tiksem.FlyingDog.sort;
 
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.media.data.ArtCollection;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.AudioComparators;

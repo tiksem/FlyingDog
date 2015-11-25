@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.AbsListView;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.PlayList;
 import com.utilsframework.android.fragments.Fragments;

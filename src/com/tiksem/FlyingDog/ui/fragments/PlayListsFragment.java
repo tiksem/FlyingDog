@@ -3,7 +3,7 @@ package com.tiksem.FlyingDog.ui.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.FlyingDog.ui.Level;
 import com.tiksem.media.data.PlayList;

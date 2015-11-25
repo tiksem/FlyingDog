@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.HorizontalScrollView;
 import android.widget.Toast;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.fragments.AbstractAudioDataFragment;
 import com.utilsframework.android.navdrawer.*;
 import com.utilsframework.android.view.LayoutRadioButtonGroup;

@@ -1,6 +1,6 @@
 package com.tiksem.FlyingDog.ui.fragments;
 
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.media.data.Audio;
 import com.utils.framework.collections.NavigationList;

@@ -1,7 +1,7 @@
 package com.tiksem.FlyingDog.ui.adapters;
 
 import android.content.Context;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.media.data.Album;
 
 /**

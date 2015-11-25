@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 import com.tiksem.FlyingDog.FlyingDog;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.services.FlyingDogPlaybackService;
 import com.tiksem.FlyingDog.ui.fragments.AbstractAudioDataFragment;
 import com.tiksem.FlyingDog.ui.fragments.PlayingNowFragment;

@@ -1,6 +1,6 @@
 package com.tiksem.FlyingDog.ui;
 
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.fragments.*;
 import com.tiksem.media.data.Artist;
 import com.utilsframework.android.navdrawer.FragmentFactory;

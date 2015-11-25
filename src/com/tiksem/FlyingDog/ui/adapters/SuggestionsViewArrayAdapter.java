@@ -3,7 +3,7 @@ package com.tiksem.FlyingDog.ui.adapters;
 import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.adapters.holders.SuggestionHolder;
 import com.utilsframework.android.adapters.ViewArrayAdapter;
 

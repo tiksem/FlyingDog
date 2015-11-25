@@ -5,7 +5,7 @@ import android.app.ProgressDialog;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
-import com.tiksem.FlyingDog.R;
+import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.media.data.Audio;
 import com.tiksem.media.data.PlayList;
