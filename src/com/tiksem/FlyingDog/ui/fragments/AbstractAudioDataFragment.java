@@ -181,4 +181,9 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     protected int getRetryLoadingButtonId() {
         return R.id.retry;
     }
+
+    @Override
+    protected int getSearchMenuId() {
+        return R.menu.search;
+    }
 }
