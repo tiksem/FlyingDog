@@ -54,8 +54,8 @@ public class PlayingNowFragment extends SongsFragment implements ActionBarTitleP
     }
 
     @Override
-    protected void onUpdateSelectedItem(AudioPlayerService.Binder playBackService) {
-        super.onUpdateSelectedItem(playBackService);
+    protected void onUpdateSelectedItem() {
+        super.onUpdateSelectedItem();
 
         if (firstListViewUpdate) {
             AbsListView listView = getListView();

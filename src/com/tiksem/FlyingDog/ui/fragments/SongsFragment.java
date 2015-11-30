@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
+import com.tiksem.FlyingDog.services.FlyingDogPlaybackService;
 import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.search.network.UrlReport;
 import com.tiksem.FlyingDog.sort.SortMenuUtils;
@@ -44,6 +45,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     private View toPlayingNowButton;
     private List<UrlsProvider> urlsProviders;
     private List<Audio> originalOrderedList;
+    private PositionChangedListener positionChangedListener;
 
     @Override
     public void onAttach(Activity activity) {
@@ -57,32 +59,35 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         toPlayingNowButton = getActivity().findViewById(R.id.to_playing_now);
 
         registerForContextMenu(getListView());
+
+        getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
+            @Override
+            public void run() {
+                if (getView() != null) {
+                    positionChangedListener = new PositionChangedListener() {
+                        @Override
+                        public void onPositionChanged() {
+                            onUpdateSelectedItem();
+                        }
+                    };
+                    getPlayListsActivity().getPlayBackService().addPositionChangedListener(
+                            positionChangedListener);
+                }
+            }
+        });
     }
+
+
 
     @Override
     public void onStart() {
         super.onStart();
-
-        final AbstractPlayListsActivity activity = getPlayListsActivity();
-        activity.executeWhenPlayBackServiceReady(new Runnable() {
-            @Override
-            public void run() {
-                onPlayBackServiceReady(activity.getPlayBackService());
-            }
-        });
+        updateSelectedItem();
     }
 
-    private void onPlayBackServiceReady(final AudioPlayerService.Binder playBackService) {
-        playBackService.addPositionChangedListener(new PositionChangedListener() {
-            @Override
-            public void onPositionChanged() {
-                onUpdateSelectedItem(playBackService);
-            }
-        });
-        onUpdateSelectedItem(playBackService);
-    }
+    protected void onUpdateSelectedItem() {
+        FlyingDogPlaybackService.Binder playBackService = getPlayBackService();
 
-    protected void onUpdateSelectedItem(AudioPlayerService.Binder playBackService) {
         NavigationList<Audio> elements = getElements();
 
         NavigationList<Audio> currentPlayList = getCurrentPlayList();
@@ -157,17 +162,19 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
     @Override
     public void onSortOrderChanged(int newSortOrder) {
-        if (getElements() == getCurrentPlayList()) {
-            super.onSortOrderChanged(newSortOrder);
+        boolean isPlayingNow = getElements() == getCurrentPlayList();
+        super.onSortOrderChanged(newSortOrder);
+
+        if (isPlayingNow) {
             updateCurrentPlayListInfo(newSortOrder);
             AudioPlayerService.Binder playBackService = getPlayBackService();
-            playBackService.changePlayListProviders(urlsProviders);
-            int position = playBackService.getPosition();
-            AbsListView listView = getListView();
-            listView.setItemChecked(position, true);
-            ListViews.scrollListViewToPosition(listView, position);
-        } else {
-            super.onSortOrderChanged(newSortOrder);
+            if (playBackService != null) {
+                playBackService.changePlayListProviders(urlsProviders);
+                int position = playBackService.getPosition();
+                AbsListView listView = getListView();
+                listView.setItemChecked(position, true);
+                ListViews.scrollListViewToPosition(listView, position);
+            }
         }
     }
 
@@ -293,7 +300,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
                                           int position, Audio audio) {
         switch (item.getItemId()) {
             case R.id.edit:
-                getPlayListsActivity().replaceFragment(EditAudioFragment.create(audio), Level.EDIT_AUDIO);
+                getPlayListsActivity().replaceFragment(EditAudioFragment.create(audio.getId()), Level.EDIT_AUDIO);
                 return true;
             case R.id.report:
                 showReportWrongUrlAlert(audio, position);
@@ -319,10 +326,14 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
 
         urlsProviders = getRequestManager().getUrlsData(navigationList);
 
+        updateSelectedItem();
+    }
+
+    private void updateSelectedItem() {
         getPlayListsActivity().executeWhenPlayBackServiceReady(new Runnable() {
             @Override
             public void run() {
-                onUpdateSelectedItem(getPlayListsActivity().getPlayBackService());
+                onUpdateSelectedItem();
             }
         });
     }
@@ -331,6 +342,9 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
     public void onDestroyView() {
         super.onDestroyView();
         toPlayingNowButton.setVisibility(View.VISIBLE);
+        if (positionChangedListener != null) {
+            getPlayBackService().removePositionChangedListener(positionChangedListener);
+        }
     }
 
     private void resetPlayerIfPreparing() {

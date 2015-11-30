@@ -34,7 +34,7 @@ import java.io.IOException;
  * Created by stykhonenko on 29.10.15.
  */
 public class EditAudioFragment extends RequestManagerFragment<RequestManager> implements ActionBarTitleProvider {
-    private static final String AUDIO = "AUDIO";
+    private static final String AUDIO_ID = "AUDIO_ID";
 
     private AbstractPlayListsActivity activity;
     private FlyingDogAudioDatabase audioDataBase;
@@ -44,8 +44,8 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
     private ArtistSuggestionsProvider artistsSuggestionsProvider;
     private AudioSuggestionsProvider audioSuggestionsProvider;
 
-    public static EditAudioFragment create(Audio audio) {
-        return Fragments.createFragmentWith1Arg(new EditAudioFragment(), AUDIO, audio);
+    public static EditAudioFragment create(long audioId) {
+        return Fragments.createFragmentWith1Arg(new EditAudioFragment(), AUDIO_ID, audioId);
     }
 
     @Override
@@ -137,7 +137,8 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
         super.onAttach(activity);
         this.activity = (AbstractPlayListsActivity) activity;
         audioDataBase = FlyingDog.getInstance().getAudioDataBase();
-        audio = getArguments().getParcelable(AUDIO);
+        long audioId = getArguments().getLong(AUDIO_ID);
+        audio = audioDataBase.getSongById(audioId);
     }
 
     private void onCancel() {
@@ -161,8 +162,8 @@ public class EditAudioFragment extends RequestManagerFragment<RequestManager> im
         getRequestManager().execute(new Threading.Task<IOException, Object>() {
             @Override
             public Object runOnBackground() throws IOException {
-                audioDataBase.setArtistName(audio, artistName);
-                audioDataBase.setAudioName(audio, name);
+                audioDataBase.setArtistName(audio.getId(), artistName);
+                audioDataBase.setAudioName(audio.getId(), name);
                 return null;
             }
 
