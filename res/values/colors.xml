@@ -7,7 +7,7 @@
     <color name="colorPrimary">#EFEFEF</color>
     <color name="colorMainTabs">#ffff8200</color>
     <color name="colorAccent">#ffd20030</color>
-    <color name="colorSelection">#ffffac2e</color>
+    <color name="colorSelection">#ffff8500</color>
     <color name="contrastColor">#ffff4d44</color>
     <color name="contrastColorDark">#ffca3e35</color>
     <color name="black">#000000</color>

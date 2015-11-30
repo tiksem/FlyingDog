@@ -16,10 +16,12 @@ public class SongsYouMayLikeFragmentsFactory implements FragmentFactory {
 
     @Override
     public Fragment createFragmentBySelectedItem(int selectedItemId, int tabIndex, int navigationLevel) {
-        if (tabIndex == SUGGESTED_TAB) {
-            return new SongsYouMayLikeFragment();
-        } else if(tabIndex == LOCAL_SONGS_TAB) {
-            return new YourSongsFragment();
+        if (navigationLevel == 0) {
+            if (tabIndex == SUGGESTED_TAB) {
+                return new SongsYouMayLikeFragment();
+            } else if(tabIndex == LOCAL_SONGS_TAB) {
+                return new YourSongsFragment();
+            }
         }
 
         throw new RuntimeException("Invalid tab request");
@@ -27,17 +29,23 @@ public class SongsYouMayLikeFragmentsFactory implements FragmentFactory {
 
     @Override
     public void initTab(int currentSelectedItem, int tabIndex, int navigationLevel, TabsAdapter.Tab tab) {
-        if (tabIndex == SUGGESTED_TAB) {
-            tab.setText(R.string.suggested);
-        } else if(tabIndex == LOCAL_SONGS_TAB) {
-            tab.setText(R.string.your_songs);
-        } else {
-            throw new RuntimeException("Invalid tab request");
+        if (navigationLevel == 0) {
+            if (tabIndex == SUGGESTED_TAB) {
+                tab.setText(R.string.suggested);
+            } else if(tabIndex == LOCAL_SONGS_TAB) {
+                tab.setText(R.string.your_songs);
+            } else {
+                throw new RuntimeException("Invalid tab request");
+            }
         }
     }
 
     @Override
     public int getTabsCount(int selectedItemId, int navigationLevel) {
-        return TABS_COUNT;
+        if (navigationLevel == 0) {
+            return TABS_COUNT;
+        }
+
+        return 1;
     }
 }

@@ -101,6 +101,10 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             return;
         }
 
+        if (playBackService == null) {
+            return;
+        }
+
         if (elements != currentPlayList) {
             if (!elements.isDecorated()) {
                 getListView().clearChoices();
@@ -234,7 +238,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         menu.findItem(R.id.update_album_art).setVisible(updateAlbumArtVisible);
 
         MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
-        addToPlayList.setVisible(true);
+        addToPlayList.setVisible(false);
 
         MenuItem report = menu.findItem(R.id.report);
         if (!isLocal) {
