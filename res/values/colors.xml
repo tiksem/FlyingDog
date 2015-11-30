@@ -13,4 +13,6 @@
     <color name="black">#000000</color>
     <color name="header_black">#ff353535</color>
     <color name="white">#fff</color>
+    <color name="playControlsColor">#ff202020</color>
+    <color name="playControlsColorPressed">#ffd20030</color>
 </resources>

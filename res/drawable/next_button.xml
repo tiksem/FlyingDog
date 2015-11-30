@@ -2,8 +2,8 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item
             android:state_pressed="false"
-            android:drawable="@drawable/ic_next_white" />
+            android:drawable="@drawable/next" />
     <item
             android:state_pressed="true"
-            android:drawable="@drawable/ic_next_pressed" />
+            android:drawable="@drawable/next_pressed" />
 </selector>
