@@ -43,7 +43,7 @@
     <string name="shuffle">Shuffle</string>
     <string name="remove_from_playlist">Remove from playlist</string>
     <string name="name">Name</string>
-    <string name="url_loading_text">Retrieving audio url…</string>
+    <string name="url_loading_text">Retrieving preview url…</string>
     <string name="create_new_playlist">Create new playlist</string>
     <string name="no_music_found">No music found…</string>
     <string name="no_albums_found">No albums found…</string>
