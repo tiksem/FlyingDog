@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import com.tiksem.FlyingDog.songs_you_may_like.SongsYouMayLikeActivity;
 import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.ui.FlyingDogPlayListsActivity;
 import com.tiksem.FlyingDog.ui.fragments.SongsFragment;
@@ -28,7 +29,7 @@ public class FlyingDogPlaybackService extends AudioPlayerService {
     public void onCreate() {
         super.onCreate();
 
-        icon = BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon);
+        icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
     }
 
     @Override
@@ -44,7 +45,7 @@ public class FlyingDogPlaybackService extends AudioPlayerService {
         builder.setContentTitle(currentAudio.getName());
         builder.setContentText(currentAudio.getArtistName());
 
-        Intent intent = new Intent(this, FlyingDogPlayListsActivity.class);
+        Intent intent = new Intent(this, SongsYouMayLikeActivity.class);
         builder.setContentIntent(PendingIntent.getActivity(this, 0, intent, 0));
 
         startForeground(R.id.player_service_notification, builder.getNotification());
