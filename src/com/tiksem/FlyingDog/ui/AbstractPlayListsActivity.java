@@ -123,10 +123,6 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
         });
 
         final View urlLoading = findViewById(R.id.url_loading);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ProgressBar loading = (ProgressBar) urlLoading.findViewById(R.id.loading);
-            loading.getIndeterminateDrawable().setColorFilter(new LightingColorFilter(0xFF000000, 0xFFFFFF));
-        }
 
         StateChangedListener stateChangedListener = new StateChangedListener() {
             @Override
