@@ -1,7 +1,9 @@
 package com.tiksem.FlyingDog.ui.fragments;
 
 import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.view.*;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import com.tiksem.FlyingDog.ui.AbstractPlayListsActivity;
 import com.tiksem.media.local.FlyingDogAudioDatabase;
 import com.tiksem.media.playback.AudioPlayerService;
 import com.utils.framework.collections.NavigationList;
+import com.utilsframework.android.menu.MenuUtils;
 import com.utilsframework.android.menu.SortListener;
 import com.utilsframework.android.navigation.NavigationListFragment;
 
@@ -92,10 +95,20 @@ public abstract class AbstractAudioDataFragment<T> extends NavigationListFragmen
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         sortMenuItem = menu.findItem(R.id.sort);
         setSortMenuItemVisibility(getElements().isDecorated());
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            new Handler().post(new Runnable() {
+                @Override
+                public void run() {
+                    MenuUtils.setTintColorForAllItems(menu,
+                            getResources().getColor(R.color.colorAccent));
+                }
+            });
+        }
     }
 
     protected NavigationList<T> getNavigationList(String filter) {

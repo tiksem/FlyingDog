@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.ToggleButton;
 import com.tiksem.FlyingDog.FlyingDog;
@@ -22,6 +23,7 @@ import com.utilsframework.android.Services;
 import com.utilsframework.android.navdrawer.LayoutRadioButtonGroupTabsAdapter;
 import com.utilsframework.android.navdrawer.NavigationActivityWithoutDrawerLayout;
 import com.utilsframework.android.threading.Tasks;
+import com.utilsframework.android.view.GuiUtilities;
 import com.utilsframework.android.view.KeyboardIsShownListener;
 
 import java.util.ArrayDeque;
@@ -147,6 +149,10 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
                 replaceFragment(new PlayingNowFragment(), Level.PLAYING_NOW);
             }
         });
+
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            GuiUtilities.setSeekBarTintColor(seekBar, getResources().getColor(R.color.colorAccent));
+        }
     }
 
     @Override
