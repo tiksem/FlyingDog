@@ -12,6 +12,7 @@ import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.services.FlyingDogSongsYouMayLikeService;
 import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.media.data.Audio;
+import com.tiksem.media.search.syouml.SongsYouMayLikeService;
 import com.utils.framework.collections.InfiniteLoadingNavigationList;
 import com.utils.framework.collections.NavigationList;
 import com.utilsframework.android.Services;
@@ -60,7 +61,7 @@ public class SongsYouMayLikeFragment extends SongsOfFragment {
             // show loading, when binder is not ready
             return InfiniteLoadingNavigationList.get();
         } else {
-            NavigationList<Audio> songsYouMayLike = binder.getSongsYouMayLike();
+            NavigationList<Audio> songsYouMayLike = binder.getSuggestedSongs();
             songsYouMayLike.setDistanceToLoadNextPage(DISTANCE_TO_LOAD_NEXT_PAGE);
             return songsYouMayLike;
         }
@@ -124,5 +125,9 @@ public class SongsYouMayLikeFragment extends SongsOfFragment {
     protected void onEmptyViewIsShown() {
         super.onEmptyViewIsShown();
         refreshUpdateItemVisibility();
+    }
+
+    public FlyingDogSongsYouMayLikeService.Binder getBinder() {
+        return binder;
     }
 }

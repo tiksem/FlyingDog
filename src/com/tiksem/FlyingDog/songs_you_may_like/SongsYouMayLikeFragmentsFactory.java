@@ -18,7 +18,7 @@ public class SongsYouMayLikeFragmentsFactory implements FragmentFactory {
     public Fragment createFragmentBySelectedItem(int selectedItemId, int tabIndex, int navigationLevel) {
         if (navigationLevel == 0) {
             if (tabIndex == SUGGESTED_TAB) {
-                return new SongsYouMayLikeFragment();
+                return new SuggestedSongsFragment();
             } else if(tabIndex == LOCAL_SONGS_TAB) {
                 return new YourSongsFragment();
             }
