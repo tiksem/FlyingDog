@@ -24,4 +24,9 @@ public class FlyingDogArtsUpdatingService extends ArtUpdatingService {
     public static void updateAudioArts(Context context) {
         updateAudioArts(context, FlyingDogArtsUpdatingService.class);
     }
+
+    @Override
+    protected void updateArts() {
+        updateAudioArts();
+    }
 }
