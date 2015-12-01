@@ -48,10 +48,7 @@
     <FrameLayout android:background="@color/colorPrimary"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content">
-        <com.tiksem.media.ui.AudioPlaybackSeekBar
-                android:id="@+id/play_seek_bar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <include layout="@layout/seek_bar" />
     </FrameLayout>
 
     <RelativeLayout android:visibility="gone"
