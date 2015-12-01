@@ -1,9 +1,12 @@
 package com.tiksem.FlyingDog.ui;
 
+import android.content.res.ColorStateList;
 import android.graphics.LightingColorFilter;
+import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -40,6 +43,7 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
     private LayoutRadioButtonGroupTabsAdapter layoutRadioButtonGroupTabsAdapter;
     private View bottomBar;
     private KeyboardIsShownListener keyboardIsShownListener;
+    private AudioPlaybackSeekBar seekBar;
 
     private AbstractAudioDataFragment getPlayListFragment() {
         return (AbstractAudioDataFragment) getCurrentFragment();
@@ -95,7 +99,7 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
     }
 
     private void setupPlayingControls() {
-        final AudioPlaybackSeekBar seekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
+        seekBar = (AudioPlaybackSeekBar) findViewById(R.id.play_seek_bar);
         seekBar.setPlayerBinder(playBackService);
 
         final ViewGroup playControls = (ViewGroup) findViewById(R.id.play_controls);
@@ -150,8 +154,16 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
             }
         });
 
+        initColorForOldAndroid();
+    }
+
+    private void initColorForOldAndroid() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             GuiUtilities.setSeekBarTintColor(seekBar, getResources().getColor(R.color.colorAccent));
+
+            for (Button button : GuiUtilities.getAllChildrenRecursive(bottomBar, Button.class)) {
+               GuiUtilities.setButtonTintColors(button, R.color.bottom_bar_button);
+            }
         }
     }
 
