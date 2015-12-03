@@ -12,7 +12,7 @@
               android:targetSdkVersion="22"
             />
     <application android:name="com.tiksem.FlyingDog.FlyingDog" android:label="@string/app_name" android:icon="@drawable/ic_launcher">
-        <activity android:name="com.tiksem.FlyingDog.songs_you_may_like.SongsYouMayLikeActivity"
+        <activity android:name="com.tiksem.FlyingDog.ui.FlyingDogPlayListsActivity"
                   android:launchMode= "singleInstance"
                   android:screenOrientation="portrait"
                   android:theme="@style/AppBaseTheme"
