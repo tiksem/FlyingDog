@@ -42,16 +42,12 @@ public class SongsAdapter extends FlyingDogAdapter<Audio, SongViewHolder> {
         songViewHolder.artistName.setText(audio.getArtistName());
         ImageLoaderUtils.loadImageIfNeed(songViewHolder.art, audio.getArtUrl(ArtSize.SMALL));
 
-        if (!audio.isLocal()) {
-            songViewHolder.options.setVisibility(View.GONE);
-        } else {
-            songViewHolder.options.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    v.showContextMenu();
-                }
-            });
-        }
+        songViewHolder.options.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                v.showContextMenu();
+            }
+        });
     }
 
     @Override

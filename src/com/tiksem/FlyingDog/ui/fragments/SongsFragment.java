@@ -238,7 +238,7 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         menu.findItem(R.id.update_album_art).setVisible(updateAlbumArtVisible);
 
         MenuItem addToPlayList = menu.findItem(R.id.add_to_playlist);
-        addToPlayList.setVisible(false);
+        addToPlayList.setVisible(true);
 
         MenuItem report = menu.findItem(R.id.report);
         if (!isLocal) {
