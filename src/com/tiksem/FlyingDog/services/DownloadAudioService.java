@@ -52,8 +52,6 @@ public class DownloadAudioService extends DownloadFileService {
         builder.setSmallIcon(R.drawable.notification_icon);
 
         updateNotification(fileIndex);
-
-        updateDatabaseWhenDownloaded(audio, saveFileName);
     }
 
     private void updateDatabaseWhenDownloaded(final Audio internetAudio, final String saveFileName) {
@@ -100,8 +98,9 @@ public class DownloadAudioService extends DownloadFileService {
     }
 
     @Override
-    protected void onFileDownloaded(String fileName) {
-
+    protected void onFileDownloaded(String fileName, Intent intent) {
+        Audio audio = intent.getParcelableExtra(AUDIO);
+        updateDatabaseWhenDownloaded(audio, fileName);
     }
 
     @Override
