@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import com.tiksem.FlyingDog.services.DownloadAudioService;
 import com.tiksem.SongsYouMayLike.R;
 import com.tiksem.FlyingDog.network.RequestManager;
 import com.tiksem.FlyingDog.services.FlyingDogPlaybackService;
@@ -241,18 +242,22 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
         addToPlayList.setVisible(true);
 
         MenuItem report = menu.findItem(R.id.report);
+        MenuItem download = menu.findItem(R.id.download);
         if (!isLocal) {
             AudioPlayerService.Binder playBackService = getPlayBackService();
             if (playBackService == null || playBackService.getPosition() != position ||
                     getElements() != getCurrentPlayList()) {
                 report.setVisible(false);
+                download.setVisible(false);
             } else {
                 Status status = playBackService.getStatus();
                 boolean activeStatus = status == Status.PAUSED || status == Status.PLAYING;
                 report.setVisible(activeStatus);
+                download.setVisible(activeStatus);
             }
         } else {
             report.setVisible(false);
+            download.setVisible(false);
         }
     }
 
@@ -315,9 +320,15 @@ public abstract class SongsFragment extends AbstractAudioDataFragment<Audio> {
             case R.id.update_album_art:
                 updateAlbumArt(targetView, audio);
                 return true;
+            case R.id.download:
+                downloadCurrentAudio(audio);
             default:
                 return super.onContextItemSelected(item);
         }
+    }
+
+    private void downloadCurrentAudio(Audio audio) {
+        DownloadAudioService.downloadAudio(getActivity(), audio, getPlayBackService().getCurrentUrl());
     }
 
     private void showAddToPlayListDialog(Audio audio) {

@@ -56,4 +56,7 @@
     <string name="retry">Retry</string>
     <string name="suggested">Suggested</string>
     <string name="your_songs">Your songs</string>
+    <string name="download_failed">Download failed</string>
+    <string name="sdcard_error">Sdcard is not mounted</string>
+    <string name="download">Download</string>
 </resources>

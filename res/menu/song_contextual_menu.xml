@@ -6,4 +6,6 @@
     <item android:id="@+id/update_album_art" android:title="@string/update_album_art"/>
     <item android:id="@+id/remove_from_playlist" android:visible="false"
           android:title="@string/remove_from_playlist"/>
+    <item android:id="@+id/download" android:visible="false"
+          android:title="@string/download"/>
 </menu>

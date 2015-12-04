@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:background="@drawable/selected_item"
+                android:layout_height="50dp">
+    <ImageView
+            android:id="@+id/art"
+            android:layout_weight="0"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentLeft="true"/>
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:textColor="#ffffff"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/art"
+            >
+        <TextView
+                android:layout_weight="1"
+                android:id="@+id/song_name"
+                android:orientation="vertical"
+                android:textColor="@color/header_black"
+                android:layout_margin="3dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        <TextView
+                android:layout_weight="1"
+                android:id="@+id/artist_name"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:layout_margin="3dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                />
+        <ProgressBar android:id="@+id/progress"
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <ImageButton
+            android:id="@+id/close"
+            android:focusable="false"
+            android:background="@null"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_close"
+            android:layout_width="38dp"
+            android:scaleType="fitXY"
+            android:padding="5dp"
+            android:layout_height="38dp"
+            android:layout_alignParentRight="true"/>
+</RelativeLayout>

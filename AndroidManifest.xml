@@ -43,5 +43,10 @@
                 android:name="com.tiksem.FlyingDog.services.FlyingDogArtsUpdatingService"
                 >
         </service>
+
+        <service
+                android:name="com.tiksem.FlyingDog.services.DownloadAudioService"
+                >
+        </service>
     </application>
 </manifest>
