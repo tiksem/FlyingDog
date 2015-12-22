@@ -59,4 +59,6 @@
     <string name="download_failed">Download failed</string>
     <string name="sdcard_error">Sdcard is not mounted</string>
     <string name="download">Download</string>
+    <string name="exit">Exit</string>
+    <string name="search">Search</string>
 </resources>

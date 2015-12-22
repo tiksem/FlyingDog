@@ -7,6 +7,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.graphics.drawable.DrawableCompat;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -196,5 +198,19 @@ public abstract class AbstractPlayListsActivity extends NavigationActivityWithou
     @Override
     protected int getToolbarLayoutId() {
         return R.layout.toolbar;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.exit, menu);
+        menu.findItem(R.id.exit).setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                System.exit(0);
+                FlyingDogPlaybackService.stop();
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 }

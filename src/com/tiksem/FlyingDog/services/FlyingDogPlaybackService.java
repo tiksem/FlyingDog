@@ -20,6 +20,7 @@ import com.utilsframework.android.Services;
  */
 public class FlyingDogPlaybackService extends AudioPlayerService {
     private Bitmap icon;
+    private static FlyingDogPlaybackService instance;
 
     public static void bindAndStart(Context context, Services.OnBind<Binder> onBind) {
         bindAndStart(context, FlyingDogPlaybackService.class, onBind);
@@ -30,6 +31,13 @@ public class FlyingDogPlaybackService extends AudioPlayerService {
         super.onCreate();
 
         icon = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
+        instance = this;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        instance = null;
     }
 
     @Override
@@ -49,5 +57,11 @@ public class FlyingDogPlaybackService extends AudioPlayerService {
         builder.setContentIntent(PendingIntent.getActivity(this, 0, intent, 0));
 
         startForeground(R.id.player_service_notification, builder.getNotification());
+    }
+
+    public static void stop() {
+        if (instance != null) {
+            instance.stopForeground(true);
+        }
     }
 }
